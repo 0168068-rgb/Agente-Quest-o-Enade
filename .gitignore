@@ -1,0 +1,26 @@
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+my_venv/
+.venv/
+.env
+build/
+dist/
+*.spec
+
+# Browser and Automation User Data
+playwright_user_data/
+
+# Logs and large dumps
+*.log
+run.log
+inspection.txt
+_temp_*
+
+# Screenshots and generated media
+screenshots/
+*.png
+*.jpg
+*.jpeg
