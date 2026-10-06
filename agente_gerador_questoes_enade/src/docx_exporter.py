@@ -3,8 +3,8 @@
 Exportador de Questões ENADE para Microsoft Word (.docx).
 Converte o entregável bifurcado (Versão do Estudante e Versão do Professor) em arquivos .docx formatados.
 Suporta:
-- Diagramas em código monoespaçado (Consolas 9pt, alinhamento preservado)
-- Conversão automática de fórmulas LaTeX em símbolos Unicode limpos (n₁, n₂, θ_c, I²R, λ, µm, m²)
+- Diagramas em código monoespaçado (Consolas 8.5pt, alinhamento preservado)
+- Conversão automática completa de fórmulas LaTeX e matemática em símbolos Unicode limpos (n₁, n₂, θ₁, θ₂, θ_c, I²R, λ, µm, m², ·, sin, arcsin)
 - Formatador Markdown Inline: **negrito**, *itálico*, ***negrito itálico*** e `código` (remove asteriscos no Word)
 - Tabelas Markdown convertidas em tabelas nativas do Word com cabeçalho sombreado
 """
@@ -25,31 +25,40 @@ class ENADEDocxExporter:
 
     def _convert_math_to_unicode(self, text):
         """
-        Converte notações LaTeX comuns em símbolos Unicode limpos para o Word.
+        Converte notações LaTeX e matemáticas em símbolos Unicode limpos para o Word.
         """
         if not text:
             return text
         
-        # Correções de escapamento e barras
-        text = text.replace(r'\theta', 'θ').replace(r'\lambda', 'λ').replace(r'\mu', 'µ')
-        text = text.replace(r'\text{m}', 'm').replace(r'\text{ m}', ' m')
-        text = text.replace(r'\arcsin', 'arcsin')
+        # 1. Substituir \theta e escapamentos \t + heta
+        text = re.sub(r'\\t\s*heta|\t\s*heta|\\+theta', 'θ', text)
+        text = text.replace(r'\theta', 'θ').replace('\theta', 'θ')
         
-        # Substituição de expressões matemáticas entre $...$
-        replacements = [
-            (r'\$n_1\$', 'n₁'),
-            (r'\$n_2\$', 'n₂'),
-            (r'\$\theta_c\$', 'θ_c'),
-            (r'\$I\^2R\$', 'I²R'),
-            (r'\$\\lambda\$', 'λ'),
-            (r'\$60\.000\\text\{ m\}\^2\$', '60.000 m²'),
-            (r'\$120\.000\\text\{ m\}\^2\$', '120.000 m²'),
-            (r'\$\\arcsin\(n_2/n_1\)\$', 'arcsin(n₂/n₁)'),
-            (r'\$([a-zA-Z0-9_]+)\$', r'\1'),
-        ]
+        # 2. Substituir \cdot, \sin, \cos, \arcsin, \lambda, \mu, \pi
+        text = text.replace(r'\cdot', '·').replace('\\cdot', '·')
+        text = text.replace(r'\sin', 'sin').replace('\\sin', 'sin')
+        text = text.replace(r'\cos', 'cos').replace('\\cos', 'cos')
+        text = text.replace(r'\arcsin', 'arcsin').replace('\\arcsin', 'arcsin')
+        text = text.replace(r'\lambda', 'λ').replace('\\lambda', 'λ')
+        text = text.replace(r'\mu', 'µ').replace('\\mu', 'µ')
+        text = text.replace(r'\pi', 'π').replace('\\pi', 'π')
+        text = text.replace(r'\text{m}', 'm').replace(r'\text{ m}', ' m').replace(r'\text{m}^2', 'm²')
         
-        for pattern, replacement in replacements:
-            text = re.sub(pattern, replacement, text)
+        # 3. Subscritos (_0 a _9)
+        sub_map = {
+            '_0': '₀', '_1': '₁', '_2': '₂', '_3': '₃', '_4': '₄',
+            '_5': '₅', '_6': '₆', '_7': '₇', '_8': '₈', '_9': '₉'
+        }
+        for sub_str, uni in sub_map.items():
+            text = text.replace(sub_str, uni)
+            
+        # 4. Sobrescritos (^0 a ^9)
+        sup_map = {
+            '^0': '⁰', '^1': '¹', '^2': '²', '^3': '³', '^4': '⁴',
+            '^5': '⁵', '^6': '⁶', '^7': '⁷', '^8': '⁸', '^9': '⁹'
+        }
+        for sup_str, uni in sup_map.items():
+            text = text.replace(sup_str, uni)
             
         # Limpar cifrões remanescentes
         text = text.replace('$', '')
