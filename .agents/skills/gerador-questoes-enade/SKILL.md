@@ -40,10 +40,15 @@ Ao ativar o harness sem PDF, o agente conduz a interação pelos 4 passos:
 
 ## 4. Fluxo Alternativo: Geração a partir de Arquivo PDF (Unidade de Aprendizagem - UA)
 
-Se o usuário fornecer o caminho de um arquivo PDF (ex: `/home/hamilcar/OneDrive/.../*.pdf`):
+> [!CRITICAL]
+> **OBRIGATÓRIO CONSULTAR O USUÁRIO ANTES DA GERAÇÃO**: O agente **NUNCA** deve gerar o documento final automaticamente. É obrigatório apresentar os Objetivos de Aprendizagem extraídos e perguntar ao usuário:
+> 1. Quais Objetivos de Aprendizagem específicos priorizar.
+> 2. Quantas questões ele deseja no total ou por UA.
+> 3. Quais os tipos/modelos estruturais desejados.
+
 1. **Leitura e Extração de Objetivos**: Ler o PDF e extrair os **Objetivos de Aprendizagem** oficiais da abertura do capítulo.
-2. **Apresentação de Objetivos**: Exibir os objetivos extraídos e permitir que o usuário escolha mapeá-los para os tipos estruturais.
-3. **Geração Bifurcada em Word (.docx)**: Executar a geração garantindo a entrega da **Parte I (Estudante)** limpa e **Parte II (Professor)** completa com a Ficha de 23 campos e justificativas A a E, gerando o arquivo `.docx`.
+2. **Apresentação de Objetivos e Consulta de Parâmetros**: Exibir os objetivos extraídos e aguardar a escolha do usuário sobre a quantidade de questões e tipos estruturais.
+3. **Geração Bifurcada em Word (.docx)**: Executar a geração APÓS a confirmação do usuário, garantindo a entrega da **Parte I (Estudante)** limpa e **Parte II (Professor)** completa com a Ficha de 23 campos e justificativas A a E, gerando o arquivo `.docx`.
 
 ---
 
