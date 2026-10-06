@@ -1,0 +1,24 @@
+{
+  "padroes_erros_alunos": [
+    {
+      "tipo": "Erro de Escopo",
+      "descricao": "Solução viável que viola uma restrição explícita do texto-base (ex. limite de memória ou tempo)"
+    },
+    {
+      "tipo": "Confusão Conceitual",
+      "descricao": "Troca de conceitos próximos (ex. sincronismo vs assincronismo, acoplamento fraco vs herança)"
+    },
+    {
+      "tipo": "Inversão de Causa/Efeito",
+      "descricao": "Troca da causa pelo sintoma em questões de Asserção-Razão (PORQUE)"
+    },
+    {
+      "tipo": "Execução Parcial",
+      "descricao": "Interrupção do rastreamento de um algoritmo antes da condição de parada"
+    },
+    {
+      "tipo": "Erro de Sintaxe/Convenção",
+      "descricao": "Confusão entre operadores ou ordenação incorreta em índices compostos SQL"
+    }
+  ]
+}

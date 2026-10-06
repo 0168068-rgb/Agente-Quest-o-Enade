@@ -1,0 +1,23 @@
+{
+  "cursos_suportados": [
+    "ADS",
+    "GTI",
+    "REDES",
+    "CIENCIA_COMPUTACAO"
+  ],
+  "tipos_estruturais": [
+    "OBJETIVA_DIRETA_TIPO_1",
+    "ESCOLHA_COMBINADA_TIPO_2",
+    "ASSERCAO_RAZAO_TIPO_3",
+    "DISCURSIVA_TIPO_4"
+  ],
+  "niveis_bloom_permitidos": [
+    2,
+    3,
+    4
+  ],
+  "recursos_obrigatorios": [
+    "SITUACAO_PROBLEMA",
+    "ELEMENTO_TECNICO_SUPORTE"
+  ]
+}

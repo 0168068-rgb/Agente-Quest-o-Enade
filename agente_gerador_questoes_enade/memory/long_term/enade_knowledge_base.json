@@ -1,0 +1,38 @@
+{
+  "diretrizes_curriculares": {
+    "ADS": [
+      "Engenharia de Software",
+      "Desenvolvimento Web/Mobile",
+      "Banco de Dados",
+      "DevOps/Nuvem",
+      "Segurança da Informação"
+    ],
+    "GTI": [
+      "Governança de TI (ITIL/COBIT)",
+      "Gestão de Projetos",
+      "Gestão de Serviços",
+      "BPMN",
+      "Segurança e Conformidade"
+    ],
+    "REDES": [
+      "Protocolos TCP/IP",
+      "Roteamento e Comutação",
+      "Segurança de Redes",
+      "Sistemas Distribuídos",
+      "Redes sem Fio"
+    ],
+    "CIENCIA_COMPUTACAO": [
+      "Linguagens Formais e Autômatos",
+      "Compiladores",
+      "Algoritmos e Estruturas de Dados",
+      "Sistemas Operacionais",
+      "Inteligência Artificial"
+    ]
+  },
+  "taxonomia_bloom": {
+    "Nivel_1": "Lembrar/Compreender (Banido)",
+    "Nivel_2": "Aplicar/Executar (35-45%)",
+    "Nivel_3": "Analisar/Avaliar (40-50%)",
+    "Nivel_4": "Elaborar Solução (15-20% Discursivas)"
+  }
+}

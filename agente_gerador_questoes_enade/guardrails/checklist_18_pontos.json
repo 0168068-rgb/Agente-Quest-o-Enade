@@ -1,0 +1,22 @@
+{
+  "checklist_18_pontos": [
+    "A questão avalia uma habilidade observável concreta.",
+    "O conteúdo é adequado ao curso e público-alvo.",
+    "O nível cognitivo corresponde ao raciocínio exigido.",
+    "A dificuldade é declarada como estimada.",
+    "O contexto contribui efetivamente para a resolução.",
+    "O comando é inequívoco e claro.",
+    "Não há pressupostos ocultos nem dados faltantes.",
+    "Conceitos e dados técnicos foram testados e validados.",
+    "Códigos, fórmulas e diagramas foram executados/verificados.",
+    "Gráficos e diagramas estão completos e legíveis.",
+    "Existe exatamente uma alternativa correta nas objetivas.",
+    "Cada distrator possui justificativa baseada em erro plausível.",
+    "Alternativas mantêm paralelismo gramatical e extensão equivalente.",
+    "Não há pistas gramaticais nem termos absolutos (sempre/nunca).",
+    "Afirmativas (I, II, III) foram validadas separadamente.",
+    "Relações de Asserção-Razão possuem justificativa explicativa válida.",
+    "Discursivas possuem padrão de resposta e rubrica fracionada.",
+    "A versão do estudante está 100% limpa de gabaritos e notas de correção."
+  ]
+}
