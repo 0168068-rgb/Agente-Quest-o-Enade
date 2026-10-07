@@ -105,7 +105,7 @@ Apresente as questões e gere os arquivos `.xlsx` e `.csv` com as seguintes colu
 | :--- | :--- |
 | **Identificação da questão** | `UA-nr_QUESTÃO-nr_OBJ-nr_Grau` (ex: `UA-07_QUESTÃO-1_OBJ-1_FÁCIL`) |
 | **Palavra chave** | Palavra-chave extraída do objetivo de aprendizagem |
-| **Tipo da Questão** | `Questão de Resposta múltiplas` ou `Questão de Asserção e Razão` |
+| **Tipo da Questão** | `Questão de Resposta múltiplas`, `Questão de Asserção e Razão` ou `questão de complementação Simples` |
 | **Nível cognitivo** | `Julgamento`, `Síntese`, `Análise`, `Aplicação`, `Compreensão` ou `(Re)conhecimento` |
 | **Texto da Questão** | `Disciplina: <Nome>\n<Texto Base/Enunciado>` |
 | **Alternativa A** | Texto da opção a |
