@@ -1,0 +1,460 @@
+LINGUAGENS
+FORMAIS E
+AUTÔMATOS
+
+Decidibilidade
+Fernanda Rosa da Silva
+
+OBJETIVOS DE APRENDIZAGEM
+
+>> Definir formalmente os problemas de decisão.
+>> Introduzir o conceito de decidibilidade e indecidibilidade via máquinas
+de Turing.
+>> Conceituar o problema da parada e outras linguagens indecidíveis ou
+irreconhecíveis por máquina de Turing.
+
+Introdução
+Vários fundamentos da computação foram desenvolvidos e aperfeiçoados a
+partir dos anos 1930 (FONSECA FILHO, 2007), com importantes contribuições de
+personagens como Alan Turing, Alonzo Church e Stephen Kleene. Usualmente
+chamada “teoria da computabilidade”, essa área do conhecimento envolve
+perguntas essenciais, tais como: Quais funções matemáticas são computáveis?
+Qual é o conceito de algoritmo? Quais problemas podem ser resolvidos pelo
+uso de um computador?
+Neste capítulo, abordaremos essas questões por meio do estudo da máquina de Turing (MT) e de sua aplicação nos chamados “problemas de decisão”.
+Você poderá compreender os principais conceitos de problemas de decisão,
+o modo como a decidibilidade e a indecidibilidade são caracterizadas, além
+da maneira como se dão problemas específicos, como o problema de parada
+e outros problemas que envolvem as linguagens indecidíveis e decidíveis.
+Ao final, deveremos ter uma visão mais clara do que podemos considerar
+computável (problemas que podem ser solucionados via algoritmos) e do que
+seria incomputável (problemas que não podem ser resolvidos via algoritmos).
+
+2
+
+Decidibilidade
+
+Problemas de decisão
+Com o surgimento dos computadores, diversas questões foram levantadas
+em relação ao poder da tecnologia e à forma como os computadores seriam
+capazes de solucionar problemas. Além disso, questionou-se até que ponto
+esses problemas seriam considerados computáveis, dúvida essa que deu
+origem a diversos contextos que caracterizam a teoria da computação.
+Na literatura, podemos encontrar diferentes visões para o conceito de
+problema de decisão. Uma delas é mais próxima dos trabalhos de máquinas
+reconhecedoras de linguagens (HOPCROFT; MOTWANI; ULLMAN, 2002; DIVERIO;
+MENEZES, 2011; SIPSER, 2007), ao passo que outra está mais relacionada com
+a construção de funções matemáticas (DIVERIO; MENEZES, 2011) e, até mesmo,
+da satisfatibilidade de fórmulas lógicas (FERREIRA, 2019; DIVERIO; MENEZES,
+2011). De todo modo, podemos dizer informalmente que um problema de
+decisão é qualquer tipo de questionamento para o qual a resposta seja “sim”
+ou “não” (de forma equivalente a “verdadeiro” ou “falso”). Uma ilustração
+desse fluxo de problema de decisão pode ser vista na Figura 1.
+
+Figura 1. Representação de fluxo do
+problema de decisão.
+
+Decidibilidade
+
+3
+
+Um exemplo simples de problema de decisão é descobrir se um
+número pertencente a um determinado conjunto é ou não é primo.
+O problema é definido a partir do seguinte questionamento: “Dado um número
+inteiro x, esse x é um número primo?”. A resposta para essa pergunta pode ser
+“sim” ou “não” e depende dos valores que a variável x assume em cada instância
+do problema. Quando a entrada é definida pelo número 7, por exemplo, a resposta
+gerada na saída é “sim”; já para a instância 8, a resposta é “não”.
+
+No estudo de máquinas (HOPCROFT; MOTWANI; ULLMAN, 2002), o problema
+de decisão está relacionado à questão decisória de se uma dada palavra
+pertence ou não pertence a uma linguagem — a qual nada mais é do que
+um conjunto de palavras formadas pela concatenação de símbolos de um
+determinado alfabeto. Será esse o nosso foco de trabalho.
+Tomemos como exemplo a linguagem expressa pela expressão regular
+0(0 + 1)*0, ou seja, a linguagem de números binários que começam e terminam
+com símbolos 0, L = {00, 000, 010, 0000, 0010, …}, sobre o alfabeto Σ ={0, 1}.
+Essa linguagem pode ser aceita por meio de diferentes tipos de autômatos
+(como o autômato finito determinístico ou o autômato de pilha), mas vamos
+analisar o funcionamento de uma MT (Figura 2), que processa uma palavra w
+de entrada e sempre responde “sim” (ou aceita) se a palavra pertence a L e
+responde “não” (ou rejeita) se a palavra não pertence a L.
+Para a palavra w = 010, a MT terminará o seu processamento no estado
+q3 e, portanto, será aceita. Já para a palavra w = 011, a MT terminará o seu
+processamento no estado q1 e, portanto, será rejeitada. É importante compreender que, para qualquer palavra, a MT da Figura 2 sempre vai parar e
+responder “sim” ou “não”.
+
+Figura 2. MT reconhecedora da linguagem 0(0 + 1)*0.
+
+4
+
+Decidibilidade
+
+Formalmente, podemos enunciar (HOPCROFT; MOTWANI; ULLMAN, 2002;
+DIVERIO; MENEZES, 2011; SIPSER, 2007): se Σ é um alfabeto e L ⊆ Σ* é uma
+linguagem sobre Σ, então o problema de decisão L é, dada uma palavra
+w ∈ Σ*, decidir se w ∈ L ou w ∉ L.
+Sendo assim, o problema de decisão é um problema que determina se um
+elemento específico faz parte ou não faz parte de um conjunto específico ou,
+de modo equivalente, se satisfaz a uma determinada propriedade (DIVERIO;
+MENEZES, 2011).
+
+O conceito de problema de decisão, conhecido em alemão como
+Entscheidungsproblem, foi proposto por David Hilbert, em 1928.
+Hilbert queria encontrar um procedimento mecânico (ou algoritmo) para verificar
+se uma determinada fórmula na lógica de predicados de primeira ordem seria
+válida ou não. Church e Turing provaram que tal algoritmo não existe.
+Para saber mais sobre esse tópico, sugerimos a leitura do artigo “O problema
+da decisão e a máquina universal de Turing”, de Ferreira (2019).
+
+A partir do conceito de problema de decisão, é possível classificar os problemas em algumas classes (Figura 3) com relação à decidibilidade, conforme
+apresentamos a seguir (DIVERIO; MENEZES, 2011).
+ Problema solucionável, ou decidível: se existe uma máquina que sempre
+para respondendo “sim” ou “não”.
+ Problema não solucionável, ou indecidível: se não existe uma máquina
+que sempre para respondendo “sim” ou “não”.
+ Problema parcialmente solucionável, ou computável: se existe uma
+máquina que para quando a resposta para o problema é “sim”, mas,
+quando a resposta esperada é “não”, a máquina pode parar ou entrar
+em um loop infinito de processamento.
+ Problema completamente insolúvel, ou não computável: se não existe
+uma máquina que para quando a resposta esperada para o problema
+é “sim”.
+
+Decidibilidade
+
+5
+
+Figura 3. Classificação de problemas.
+Fonte: Diverio e Menezes (2011, p. 251).
+
+Considerando a mesma teoria, Sipser (2007) afirma que, mesmo em casos em que um problema é decidível, ele pode ser considerado não solúvel
+por necessitar de uma quantidade excessiva de recursos, como memória,
+além de muito tempo para ser solucionado, dando origem à complexidade
+computacional.
+É importante frisar que essa classificação dos problemas está intimamente
+relacionada com o uso da MT como reconhecedora de linguagens. Assim
+sendo, podemos estabelecer uma associação entre o conjunto das linguagens
+recursivas e das linguagens recursivamente enumeráveis e a classificação de
+problemas via decidibilidade. Apresentaremos esse assunto na próxima seção.
+
+Decidibilidade e máquina de Turing
+Como nos apresenta Menezes (2011), a MT é um modelo abstrato de computação
+criado com o objetivo de explorar os limites da capacidade da solucionabilidade de problemas. Sendo assim, ela é uma proposta de definição formal
+para o conceito intuitivo de algoritmo.
+A partir do formalismo da MT, são definidas as classes de linguagens
+apresentadas a seguir (MENEZES, 2011; DIVERIO; MENEZES, 2011; HOPCROFT;
+MOTWANI; ULLMAN, 2002; SIPSER, 2007).
+ Linguagem recursiva: conjunto de linguagens decididas por uma MT,
+ou seja, para as quais existe uma máquina (Figura 4a) que sempre
+para indicando se uma palavra pertence ou não pertence à linguagem.
+ Linguagem recursivamente enumerável: conjunto de linguagens aceitas
+por uma MT, ou seja, para as quais existe uma máquina (Figura 4b) capaz
+de determinar se uma palavra pertence à linguagem. Caso a palavra
+
+6
+
+Decidibilidade
+
+não pertença à linguagem, a máquina pode parar ou ficar processando
+indefinidamente.
+
+a
+
+b
+
+Figura 4. (a) Linguagem recursiva e (b) linguagem recursivamente enumerável.
+Fonte: Adaptada de Menezes (2011).
+
+A relação entre as linguagens recursivas e as linguagens recursivamente
+enumeráveis está resumida na Figura 5. Com base no que apresentamos,
+é possível concluir que a classe dos problemas solucionáveis, ou decidíveis,
+é equivalente à classe das linguagens recursivas. Assim, de acordo com
+Diverio e Menezes (2011) e Hopcroft, Motwani e Ullman (2002), a questão da
+solucionabilidade de um problema pode ser traduzida em uma investigação
+acerca de se a linguagem associada é recursiva (problema solucionável) ou
+recursivamente enumerável (problema parcialmente solucionável).
+
+Figura 5. Relação entre o conjunto de linguagens associadas à MT.
+
+Decidibilidade
+
+7
+
+Na Figura 5, pode-se constatar a presença de um conjunto muito maior que
+os outros, o qual foi nomeado “universo de todas as linguagens”. Isso significa
+que há linguagens para as quais não existe qualquer MT que as reconheça.
+Trata-se de um resultado importantíssimo na teoria da computabilidade, e,
+na literatura da área, há diversos exemplos de problemas não computáveis.
+Alan Turing contribuiu para resolver o problema de decisão por meio
+dos conceitos relacionados ao problema de parada, o qual é um dos mais
+importantes problemas não solucionáveis. A seguir, vamos analisar as suas
+características e apresentar alguns exemplos.
+
+Problema da parada e outras linguagens
+Esta seção se concentra em apresentar diferentes problemas e classificá-los
+de acordo com a Figura 3. Nosso principal objetivo será definir pelo menos
+um problema para cada um dos seguintes casos: problema associado a uma
+linguagem recursiva que não seja recursivamente enumerável, problema
+associado a uma linguagem recursivamente enumerável que não seja recursiva, problema associado a uma linguagem que não seja recursivamente
+enumerável.
+Antes de apresentarmos exemplos de linguagens e problemas associados
+à Figura 5, convém introduzirmos o conceito de codificação de máquinas em
+palavras de uma linguagem. A ideia é semelhante à do funcionamento de
+um compilador que traduz um programa escrito em uma linguagem de alto
+nível (como C) para uma linguagem de baixo nível (código de máquina). Assim,
+existem algoritmos que traduzem a descrição completa de uma MT M em
+palavras 〈M〉 (notação utilizada por Sipser, 2007) pertencentes a um alfabeto
+(usualmente um alfabeto binário).
+
+Diferentes algoritmos de codificação para máquinas podem ser
+encontrados na página 252 da obra Teoria da computação: máquinas
+universais e computabilidade, de Diverio e Menezes (2011); e na página 397 da
+obra Introdução à teoria de autômatos, linguagens e computação, de Hopcroft,
+Motwani e Ullman (2002).
+
+8
+
+Decidibilidade
+
+Os exemplos que apresentaremos na sequência se baseiam em dois
+conceitos importantes: MT universal (Figura 6) e princípio da redução (Figuras 7 e 8). Desse modo, vamos analisar cada um desses conceitos antes de
+prosseguirmos.
+A MT universal (HOPCROFT; MOTWANI; ULLMAN, 2002; SIPSER, 2007; DIVERIO;
+MENEZES, 2011) U é uma MT capaz de simular a execução de qualquer outra
+MT M recebida como uma entrada codificada 〈M〉 e uma palavra w a ser reconhecida. A ideia é a mesma de um computador (a MT universal) executando
+um programa qualquer (uma MT qualquer) com dados de entrada (a palavra
+a ser reconhecida).
+
+Figura 6. MT universal.
+
+O princípio da redução tem múltiplas aplicações na computação (DIVERIO;
+MENEZES, 2011; HOPCROFT; MOTWANI; ULLMAN, 2002; SIPSER, 2007). Ele pode ser
+usado para construir a solução de um problema desconhecido reutilizando-se
+a solução de um problema conhecido (sendo esse uso bastante comum na área
+de construção de algoritmos), bem como para investigar a solucionabilidade
+de um problema a partir de outro, sendo essa a forma com que aplicaremos
+o princípio.
+Conforme aponta Sipser (2007), a redutibilidade sempre evolve dois problemas, denominados A e B; e, como destacam Hopcroft, Motwani e Ullman
+(2002), a direção da redução é importante, ou seja, dizer que o problema A se
+reduz ao problema B produz resultados diferentes dos obtidos ao dizer que
+o problema B se reduz ao problema A. A Figura 7 mostra a visão da redução
+de A para B, em que o problema B é utilizado para resolver o problema A. Já a
+Figura 8 mostra como a redução de A para B pode ser utilizada para investigar
+a solucionabilidade de A, uma vez que se conhece a solucionabilidade de B
+(e vice-versa).
+
+Decidibilidade
+
+9
+
+Figura 7. Resolvendo um problema A via redução para um problema B.
+Fonte: Adaptada de Hopcroft, Motwani e Ullman (2002).
+
+Figura 8. Princípio da redução de A para B.
+Fonte: Diverio e Menezes (2011, p. 249).
+
+O princípio da redução apresentado na Figura 8 pode ser aplicado à questão
+da solucionabilidade da forma descrita a seguir (DIVERIO; MENEZES, 2011).
+ Quando existem dois problemas de decisão, é possível modificar o
+problema A por meio do princípio da redução, permitindo que ele se
+comporte como se fosse o problema B.
+ Se o problema A for insolúvel (respectivamente indecidível ou não
+computável), será possível concluir que, como os dois são semelhantes,
+o problema B acaba se tornando insolúvel (respectivamente indecidível
+ou não computável).
+ Se o problema B for solucionável (respectivamente decidível ou parcialmente solucionável), o problema A também poderá ser solucionável
+(respectivamente decidível ou parcialmente solucionável).
+
+10
+
+Decidibilidade
+
+Além disso, é correto afirmar que o princípio da redução consiste em facilitar a solução de problemas a partir das características de outro problema
+que tenha sido resolvido por meio de uma classe conhecida de soluções,
+considerando condições em comum entre eles.
+Um exemplo de problema decidível é proposto por Sipser (2007). O chamado
+“problema da aceitação de autômatos finitos determinísticos” é definido
+como um problema de decisão para a pergunta “Dado um autômato finito
+determinístico AFD e uma palavra w, AFD aceita w?”. Ao traduzirmos o problema
+como linguagem, obtemos:
+L AFD = {〈AFD, w〉|AFD aceita a palavra w}
+
+A linguagem L AFD é uma linguagem recursiva e não recursivamente enumerável, portanto, decidível. A ideia da prova formal é que podemos criar uma
+MT M que decide a linguagem mediante a simulação dos passos de execução
+do autômato finito determinístico sobre os símbolos da palavra de entrada.
+Neste momento, podemos pensar que todos os problemas práticos da
+computação são decidíveis e que apenas exemplos teóricos sem aplicação
+prática estariam no conjunto de problemas indecidíveis. Não poderíamos estar
+mais enganados. Diverio e Menezes (2011) explicam que existem problemas
+não solucionáveis (indecidíveis) bastante práticos e que dois deles, descritos
+a seguir, são bem conhecidos do nosso dia a dia.
+ Detector universal de loops: dado um programa e qualquer entrada,
+nenhum algoritmo geral pode verificar se o programa, considerando
+a entrada, será finalizado. Esse problema é frequentemente referido
+como o “problema da parada”.
+ Equivalência de compiladores: não é possível criar um algoritmo universal capaz de identificar se dois compiladores diferentes para a mesma
+linguagem de programação, cuja gramática é classificada como livre
+de contexto, são equivalentes ou não.
+O problema de parada pode ser definido como um problema de decisão e
+foi comprovado como indecidível, por mais que os recursos computacionais
+fossem suficientes para tratar da situação apresentada. A importância histórica do problema da parada se deve ao fato de ter sido o primeiro problema
+
+Decidibilidade
+
+11
+
+considerado indecidível, comprovado pelas teorias de Turing e a máquina
+universal — apesar de isso ter ocorrido após Alonzo Church lançar, no mesmo
+ano de 1936, como prova da indecidibilidade, um problema representado
+pelo cálculo lambda.
+Dessa forma, o problema da parada foi definido considerando-se as propriedades de uma máquina universal de Turing M e uma palavra w qualquer.
+O problema da parada é, então, caracterizado pelo seguinte problema de
+decisão, de acordo com Diverio e Menezes (2011):
+
+onde:
+
+LP = {〈M, w〉|w ∈ ACEITA(M) ∪ REJEITA(M)}
+
+ LP é a linguagem associada ao problema;
+ 〈M〉 é uma codificação bijetora de programas em um número natural.
+
+Considerando-se uma máquina universal qualquer e utilizando-se uma
+palavra qualquer como entrada, geralmente existe um algoritmo que verifica
+se a máquina em questão está aceitando ou rejeitando a entrada processada.
+Um programa mais complexo pode ser mais difícil de se analisar. O programa
+pode rodar por um tempo fixo, e, se ele não parar, não há um jeito de saber
+se eventualmente ele vai parar ou se vai continuar rodando para sempre.
+Turing provou que não há um algoritmo que pode ser aplicado a qualquer
+programa arbitrário, com uma entrada, para decidir se o programa para ou
+não para com essa entrada. Em termos de linguagem, LP é uma linguagem
+recursivamente enumerável, mas não recursiva.
+Posteriormente ao problema da parada, muitos outros problemas foram
+descritos. Além disso, a técnica da redução do problema da parada a esses
+problemas foi essencial para provar que tais problemas são indecidíveis.
+Hopcroft, Motwani e Ullman (2002) apresentam uma lista de problemas indecidíveis sobre MTs:
+1.
+2.
+3.
+4.
+
+determinar se a linguagem aceita por uma MT é vazia;
+determinar se a linguagem aceita por uma MT é finita;
+determinar se a linguagem aceita por uma MT é linguagem regular;
+determinar se a linguagem aceita por uma MT é linguagem livre de
+contexto.
+
+12
+
+Decidibilidade
+
+Outros problemas de decisão definidos pela
+máquina de Turing
+Além do problema da parada, que representa o principal problema de decisão,
+há outros problemas que podem ser aplicados considerando-se os conceitos
+e as características da MT. A seguir, vamos analisar alguns deles.
+
+Problema da parada da palavra vazia
+O problema da parada apresenta uma variação: o problema da parada da
+palavra vazia. Nesse caso, sempre que a linguagem ou o algoritmo recebe
+uma entrada, essa entrada é vazia ou não existe. Segundo Diverio e Menezes
+(2011), ela pode ser definida com o seguinte questionamento: Considerando
+uma máquina universal, pode-se aplicar um algoritmo para definir se a entrada vazia, ao ser processada, deve ser aceita ou não; é possível que essa
+definição seja realizada?
+A Figura 9 demonstra de forma genérica como o teorema pode ser apresentado e representa a prova de que o problema da parada da palavra vazia
+é não solucionável, considerando-se a seguinte linguagem:
+Lε = {〈M〉|ε ∈ ACEITA(M) ∪ REJEITA(M)}
+
+A ideia de redução do problema da parada da palavra vazia é representada
+graficamente na Figura 9. Nela, é possível observar que, uma vez provado que
+o problema da parada é indecidível e que ele pode ser reduzido ao problema
+da parada da palavra vazia, o problema da parada da palavra vazia também
+é indecidível.
+
+Figura 9. Representação do problema da
+parada da palavra vazia.
+Fonte: Diverio e Menezes (2011, p. 260).
+
+Decidibilidade
+
+13
+
+Problema da totalidade
+O problema da totalidade, de acordo com Diverio e Menezes (2011), pode ser
+definido por meio do seguinte questionamento: Dada uma máquina universal M
+qualquer, existe um algoritmo que verifica se M para, aceitando ou rejeitando,
+ao processar qualquer entrada?
+O problema da totalidade é não solucionável e pode ser representado
+pela linguagem que traduz o problema da totalidade como não recursiva da
+seguinte forma:
+LT = {〈M〉|LOOP(M) = ∅}
+
+A Figura 10 representa graficamente a ideia de redução do problema da
+totalidade.
+
+Figura 10. Representação do problema da
+totalidade.
+Fonte: Menezes (2011, p. 260).
+
+Problema da equivalência
+De acordo com Diverio e Menezes (2011), o problema de equivalência de MTs
+é utilizado para decidir se duas máquinas reconhecem a mesma linguagem.
+A linguagem que traduz o problema da equivalência não é recursiva e pode
+ser representada pela seguinte expressão:
+LE = {〈M1, M2〉|ACEITA(M1) = ACEITA(M2) e REJEITA(M1) = REJEITA(M2)}
+
+14
+
+Decidibilidade
+
+A ideia de redução do problema da equivalência é representada graficamente na Figura 11.
+
+Figura 11. Representação do problema da
+equivalência.
+Fonte: Menezes (2011, p. 261).
+
+Linguagem da diagonalização
+Hopcroft, Motwani e Ullman (2002) e Menezes (2011) descrevem um exemplo de
+linguagem não recursivamente enumerável chamada “linguagem da diagonalização”. Trata-se de uma linguagem para a qual não existe qualquer MT que a
+processe. Em outras palavras, é um exemplo de um problema incomputável.
+A ideia da linguagem da diagonalização é o problema de decisão que consiste em todas as palavras w tais que a MT M representada por w não aceita
+a palavra w. É importante salientar que a palavra w representa a própria
+codificação 〈M〉 da máquina.
+
+Neste capítulo, foi possível identificar que um problema de decisão pode
+auxiliar na identificação das classes de problemas definindo se ele é decidível
+(computável) ou não. A decidibilidade corresponde a um método a ser aplicado
+a um problema para gerar uma decisão quanto à resposta afirmativa ou negativa de um determinado problema. Por meio do seu modelo de computação,
+Turing nos fornece um sistema formal, desde que ele seja decidível e suporte
+um conjunto finito de passos válido para demonstrar a forma como se pode
+resolver um problema.
+
+Decidibilidade
+
+15
+
+Referências
+DIVERIO, T. A.; MENEZES, P. B. Teoria da Computação: máquinas universais e computabilidade. 3. ed. Porto Alegre: Bookman, 2011.
+FERREIRA, F. O problema da decisão e a máquina universal de Turing. In: SANTO, J. C. E.
+(Ed.). Alan Turing: cientista universal. Lisboa: UMinho Editora, 2019. p. 55–84. Disponível
+em: https://doi.org/10.21814/uminho.ed.5. Acesso em: 28 fev. 2021.
+FONSECA FILHO, C. História da Computação: o caminho do pensamento e da tecnologia.
+Porto Alegre: EDIPUCRS, 2007.
+HOPCROFT, J. E.; MOTWANI, R.; ULLMAN, J. D. Introdução à teoria de autômatos, linguagens
+e computação. Rio de Janeiro: Elsevier, 2002.
+MENEZES, P. B. Linguagens formais e autômatos. 6. ed. Porto Alegre: Bookman, 2011.
+SIPSER, M. Introdução à teoria da computação. 2. ed. São Paulo: Cengage Learning, 2007.
+
+Leitura recomendada
+LOBO, D. de C. Problemas indecidíveis. 2013. Dissertação (Mestrado em Matemática)
+– Universidade de Coimbra, Coimbra, 2013. Disponível em: https://eg.uc.pt/bitstream/10316/33698/1/Problemas%20indecidiveis_DianaLobo.pdf. Acesso em: 28 fev.
+2021.
+
+Os links para sites da web fornecidos neste capítulo foram todos
+testados, e seu funcionamento foi comprovado no momento da
+publicação do material. No entanto, a rede é extremamente dinâmica; suas
+páginas estão constantemente mudando de local e conteúdo. Assim, os editores
+declaram não ter qualquer responsabilidade sobre qualidade, precisão ou
+integralidade das informações referidas em tais links.
+
+

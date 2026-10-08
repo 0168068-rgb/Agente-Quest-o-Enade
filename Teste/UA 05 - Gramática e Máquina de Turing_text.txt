@@ -1,0 +1,513 @@
+LINGUAGENS
+FORMAIS E
+AUTÔMATOS
+
+Gramáticas e
+máquina de Turing
+Júlio Henrique Araújo Pereira Machado
+
+OBJETIVOS DE APRENDIZAGEM
+
+>> Explicar a relação entre gramática irrestrita e máquina de Turing.
+>> Desenvolver os algoritmos de conversão entre gramática irrestrita e
+Máquina de Turing.
+>> Relacionar a hierarquia de linguagens de Chomsky com a hierarquia de
+máquinas.
+
+Introdução
+Na década de 1930, quando ainda não havia computadores, Alan Turing propôs
+um modelo de máquina abstrata chamada de máquina de Turing, que podia
+realizar qualquer processo computacional feito pelo computador atual. Essa
+máquina apresenta o formato da linguagem irrestrita, ou seja, ela aceita todos
+os tipos de linguagens. Com base na máquina de Turing, foi desenvolvida a
+chamada teoria dos problemas indecisíveis, os quais não podem ser resolvidos
+por nenhum computador.
+A gramática é um conjunto de regras executadas que produz sentenças
+para as linguagens. Chomsky (1957) estruturou uma hierarquia de linguagens
+formais com base nas propriedades da gramática para gerar as linguagens.
+Neste capítulo, você vai ver a relação entre as gramáticas irrestritas e a
+máquina de Turing, como aplicar os passos de derivação na gramática irrestrita,
+as diversas formas de máquinas de Turing e, por fim, a relação entre a hierarquia
+de Chomsky e a hierarquia de máquina.
+
+2
+
+Gramáticas e máquina de Turing
+
+Máquina de Turing
+As máquinas de Turing, propostas por Alan Turing em 1936, podem ser usadas
+para aceitar linguagens. Desde então, quaisquer novos modelos de computação, particularmente os de computação paralelos (p. ex., redes neurais) foram
+propostos. Considerada similar a um computador moderno, embora tenha
+sido proposta alguns anos antes do primeiro computador digital, a máquina
+de Turing é um dos modelos mais utilizados como formalização de algoritmo.
+Não se trata de uma máquina usual, mas de um programa para uma máquina
+universal.
+A máquina de Turing (TM) é definida por sete símbolos, como você pode
+ver na seguinte equação (LINZ, 2017):
+M = (Q, Σ, ƭ, δ, q0, □, F)
+
+Os símbolos descrevem as seguintes funcionalidades à máquina:
+ Q: conjunto finito de estados;
+ Σ: conjunto finito de alfabetos de entrada;
+ ƭ: conjunto finito de símbolos permitidos na fita;
+ δ: função de transição;
+ q0: estado inicial;
+ □: é um símbolo especial chamado de espaço em branco;
+ F: estados finais.
+
+Denotação: a partir de um estado, obtendo uma entrada para a fita,
+a máquina passa para um estado, escreve um símbolo na fita e se
+move para a esquerda, para a direita ou para.
+
+Uma máquina de Turing, como você pode ver na Figura 1, consiste em
+uma fita de entrada, um cabeçote de leitura e gravação e uma unidade de
+controle. A fita de entrada contém os alfabetos de entrada com um número
+infinito de espaços em branco à esquerda e à direita dos símbolos de entrada.
+O cabeçote de leitura/gravação lê um símbolo de entrada na fita e o envia para
+a unidade de controle. A máquina deve estar em algum estado. Na unidade de
+controle, as funções de transição são escritas de acordo com o estado atual
+
+Gramáticas e máquina de Turing
+
+3
+
+e a entrada atual. Após a execução de uma função de transição adequada,
+as seguintes operações são realizadas:
+ a máquina entra em algum estado;
+ a máquina grava um símbolo na célula da fita de entrada de onde o
+símbolo de entrada foi verificado;
+ a máquina move a cabeça de leitura ou para a esquerda ou para a
+direita ou para.
+
+Figura 1. Diagrama para a máquina de Turing.
+
+Os autômatos finitos bidirecionais se movem tanto para a direita quanto
+para a esquerda. Mas, na máquina de Turing, ambas as operações de leitura e
+gravação são feitas na fita de entrada. Já nos autômatos finitos bidirecionais
+apenas a operação de leitura é feita, não tendo a de gravação.
+
+Definição: considere uma string qualquer. A string é aceita por uma
+máquina de Turing se for percorrida pela fita e a máquina parar e
+estiver em um estado final; se parar em um estado não final, a palavra será
+rejeitada.
+
+Representação transicional da máquina de Turing
+Na máquina de Turing, a função de transição δ consiste na forma Q x ƭ →
+(Q x ƭ x {L, R, S}). Na forma Q x ƭ → (Q x ƭ x {L, R, S}), o lado esquerdo, Q x ƭ,
+é um estado presente, e o lado direito, (Q x ƭ x {L, R, S}), é a entrada presente
+(caractere único pertencente a ƭ). A transição produz um estado, um símbolo
+pertencente a ƭ escrito na fita de entrada, e a cabeça se move para a esquerda
+ou para a direita.
+
+4
+
+Gramáticas e máquina de Turing
+
+A notação gráfica da máquina de Turing pode ser vista na Figura 2,
+na qual há um círculo com uma seta, indicando um estado inicial, e um estado
+com um círculo duplo, indicando um estado final, onde a máquina finaliza.
+As transições de estado são indicadas por setas. Os rótulos das transições
+de estado consistem no símbolo de entrada, o símbolo escrito na fita após a
+travessia e a direção do movimento da cabeça de leitura/gravação (esquerda,
+direita ou parada) (KANDAR, 2013).
+
+Figura 2. Notação gráfica da máquina de Turing elucidando os estados, as transições e os
+movimentos da cabeça de leitura/gravação.
+
+Linguagens das máquinas de Turing
+Uma string w é aceita por uma máquina de Turing se houver condição de
+parada, ou seja, se não ocorrer a condição de loop infinito (SIPSER, 2007). Você
+deve estar se perguntando: o que acontece se não parar? Pode acontecer
+que no estado atual q0 o símbolo de entrada atual ∈ Σ, onde nenhuma função
+de transição seja definida ou possa ser executada para sempre sem parar,
+ou seja, um loop infinito.
+
+Vamos considerar uma máquina de Turing com as funções de transição
+da seguinte maneira (KANDAR, 2013):
+
+Gramáticas e máquina de Turing
+
+5
+
+δ(q0, a) → (q1, X, R)
+δ(q1, a) → (q4, X, S)
+δ(q1, □) → (q2, □, L)
+δ(q2, X) → (q3, a, L)
+δ(q3, □) → (q0, □, R)
+δ(q0, □) → (q5, □, S)
+
+A partir das funções de transição, crie o diagrama para a máquina de Turing.
+O primeiro passo deve ser verificar quantos estados têm as funções de
+transição. Perceba que são seis estados: q0, q1, q2, q3, q4 e q5. Cada função de
+transição diz como criar o diagrama. Por exemplo:
+δ(q0, a) → (q1, X, R)
+Se a entrada for a no estado q0, o estado q1 escreve X e move o cabeçote de
+leitura e escrita para a direita R.
+δ(q1, a) → (q4, X, S)
+Se a entrada for a no estado q1, o estado q4 escreve X e para:
+δ(q2, X) → (q3, a, L)
+Se a entrada for X no estado q2, o estado q3 escreve a e move o cabeçote de
+leitura e escrita para a esquerda L.
+As funções de transição geram um diagrama para uma máquina de Turing,
+como na Figura 3, que mostra a conversão através de funções de transição para
+um diagrama de Turing.
+
+Figura 3. Figura da máquina de Turing descrita pelas funções de transição.
+
+6
+
+Gramáticas e máquina de Turing
+
+Considere as três strings de entrada ε, aa e a. O que será que vai acontecer
+com elas?
+ A string ε é aceita porque a máquina obtém □, entra no estado q5 e para.
+ Para a string aa, o primeiro a é percorrido substituindo a pelo X.
+O segundo a entra no estado q4 e para. A string aa é rejeitada pela
+máquina de Turing definida.
+ Para a string a, a máquina funciona sem parar. O destino da string a
+não é decidido pela máquina de Turing.
+Com este exemplo de funções de transição podemos concluir que, em uma
+máquina de Turing, existem dois tipos de linguagens: aceitável ou recursivamente enumerável e recursiva ou Turing decidível.
+ Aceitável ou recursivamente enumerável: uma linguagem L é Turing
+aceitável ou Turing reconhecível ou recursivamente enumerável se
+houver uma máquina de Turing que para e aceita L, ou para e rejeita,
+ou faz um loop por um tempo infinito.
+ Recursiva ou Turing decidível: uma linguagem L é chamada de Turing
+decidível ou recursiva se existe uma máquina de Turing M tal que na
+entrada x, M aceita se x ∈ L, e M rejeita se x ∉ L.
+
+Gramática irrestrita e máquina de Turing
+Os autômatos finitos podem reconhecer linguagens regulares LREG mas não
+linguagens irregulares, como L = {anbn: n ∈ ℕ}, que é conhecida por ser uma
+linguagem livre de contexto. Os autômatos push-down, no entanto, podem
+reconhecer todas as linguagens livres de contexto LLC geradas por gramáticas
+livres de contexto GLC (YAN, 1998).
+Existem outras máquinas, chamadas de autômatos lineares (LBA), mais
+poderosas do que autômatos push-down, que podem reconhecer todas as
+linguagens geradas por gramáticas sensíveis ao contexto GSC . No entanto,
+o LBA não pode reconhecer todas as linguagens geradas por gramáticas
+de estrutura de frase GPS . As máquinas de Turing podem reconhecer todas
+as linguagens geradas por gramáticas de estrutura de frase, chamadas de
+gramáticas irrestritas, que incluem todas as linguagens regulares, linguagens
+livres de contexto e linguagens sensíveis ao contexto. Além disso, as máquinas de Turing também podem modelar todos os cálculos possíveis de serem
+realizados em qualquer máquina de computação (YAN, 1998).
+
+Gramáticas e máquina de Turing
+
+7
+
+Gramática irrestrita
+Os formalismos gramaticais podem ser classificados por sua capacidade gerativa, que é o conjunto de linguagens que eles podem representar. Chomsky
+(1957) descreve quatro classes de formalismos gramaticais. As classes podem
+ser organizadas em uma hierarquia, na qual cada classe pode ser utilizada
+para descrever todas as linguagens. As quatro classes descritas por Chomsky
+(1957) são listadas a seguir:
+ Recursivamente enumeráveis: utilizam regras irrestritas, em que ambos
+os lados das regras de reescrita podem ter qualquer número de símbolos de terminais e não terminais. Essas gramáticas são equivalentes
+à máquina de Turing em seu poder de expressão.
+ Gramáticas sensíveis ao contexto: são restritas apenas pelo fato de
+que o lado direito deve conter pelo menos tantos símbolos quanto o
+lado esquerdo. Podem representar linguagens como anbncn, ou seja,
+uma sequência de n cópias de a, seguida de n cópias de b e seguida
+de n cópias de c.
+ Gramáticas livres de contexto (GLC): o lado esquerdo consiste em um
+único símbolo de não terminal. As gramáticas livres de contexto podem
+representar anbn, mas não anbncn.
+ Gramáticas regulares: toda a regra tem um único símbolo de não terminal no lado esquerdo e um símbolo de terminal opcionalmente seguido
+por um símbolo de não terminal do lado direito. Essa forma se adapta
+mal às linguagens de programação, porque não pode representar construções como a abertura e o fechamento de parênteses balanceados.
+O mais perto que se pode chegar dessa gramática é representá-la
+por a*b*, ou seja, uma sequência de qualquer número de símbolos a
+seguida por qualquer número de símbolos b.
+O termo irrestrito significa que a gramática não é restrita. A restrição
+significa o aparecimento de símbolos não terminais e terminais em ambos
+os lados.
+A gramática (VN , Σ, P, S) é chamada de gramática irrestrita se todas as suas
+produções estiverem na forma LS ⟶ RS, onde LS ∈ (VN ∪ Σ)+ e RS ∈ (VN ∪ Σ)*
+(KANDAR, 2013).
+
+8
+
+Gramáticas e máquina de Turing
+
+ VN é um conjunto infinito de símbolos não terminais.
+ Σ é um conjunto símbolos terminais.
+ P é um subconjunto que contém as regras de produção.
+ S é o símbolo inicial.
+Na gramática irrestrita, qualquer combinação de terminal e não terminal
+pode aparecer em ambas as extremidades da regra de produção. A única
+restrição é que a string nula (ε) não pode aparecer no lado esquerdo da regra
+de produção (Observe que para LS é + não *). Na hierarquia de Chomsky,
+o tipo 0 ou gramática irrestrita é o superconjunto de todas as gramáticas
+e, portanto, gera mais linguagens do que o tipo 1 ou outras gramáticas.
+A linguagem gerada pela gramática irrestrita é aceita pela máquina de Turing,
+e a linguagem aceita por uma máquina de Turing é chamada de linguagem
+recursivamente enumerável (Yan, 1998).
+
+Descrição dos teoremas da gramática irrestrita
+Teorema: Qualquer idioma definido, gerado por uma gramática irrestrita é
+recursivamente enumerável (KANDAR, 2013).
+Prova: Considere G = (VN , Σ, P, S) como sendo a gramática irrestrita. Uma gramática define um conjunto de procedimentos para enumerar todas as strings
+∈ L(G). Os passos da derivação da gramática irrestrita são listados a seguir.
+
+ Liste todos os w ∈ L(G) de forma que w seja derivado das regras de
+produção P em uma etapa.
+ Como S é o símbolo inicial, podemos escrever que w é o conjunto de
+strings derivadas de S em uma etapa.
+ Simbolicamente, pode ser escrito como S ⇒ w.
+ Liste todos os w ∈ L(G) de forma que w seja derivado das regras de
+produção P em duas etapas.
+ Podemos escrever como S ⇒ x ⇒ w. Pelo processo, a derivação progride.
+ Se S for o conjunto de todas as strings, então um procedimento de
+enumeração para S é uma máquina de Turing que gera todas as strings
+de S, uma a uma, em um período de tempo finito.
+ Se, para um conjunto, existe um procedimento de enumeração, o conjunto é contável.
+
+Gramáticas e máquina de Turing
+
+9
+
+Se o conjunto de strings gerado por uma linguagem irrestrita é contável,
+os procedimentos de derivação podem ser enumerados em uma máquina de
+Turing. Portanto, está provado que a linguagem gerada por uma gramática
+irrestrita é recursivamente enumerável.
+As derivações podem ser simuladas em uma máquina de Turing e, portanto,
+temos um procedimento de enumeração para a linguagem. Por esse motivo,
+ela apresenta uma linguagem recursivamente enumerável.
+
+A linguagem L = {anbncn|n ≥ 0} é gerada de que forma usando a gramática irrestrita (MENEZES, 2010)?
+Uma gramática irrestrita é simplesmente uma gramática sem qualquer restrição nas produções.
+A linguagem:
+L = {anbncn|n ≥ 0}
+é gerada pela seguinte gramática irrestrita:
+G = ({S, C}, {a, b, c}, P, S)
+onde as regras de produção são:
+S → abc|ε
+ab → aabbC
+Cb → bC
+Cc → cc
+A palavra aaabbbccc pode ser derivada como:
+S ⇒ abc ⇒ aabbCc ⇒ aaabbCbCc ⇒ aaabbCbcc ⇒ aaabbbCcc ⇒ aaabbbccc
+
+Observe que a variável C anda pela palavra até a posição correta para gerar
+um símbolo terminal c.
+
+Descrição do teorema para conversão entre
+gramática irrestrita e máquina de Turing
+No texto que segue, usaremos uma notação especial para indicar os passos
+de computação de uma máquina de Turing (chamados de descrição instan-
+
+10
+
+Gramáticas e máquina de Turing
+
+tânea da máquina, representando uma “foto” do estado atual em que ela se
+encontra). Uma mudança de uma configuração para outra será denotada por ⊢.
+Por exemplo: Seja a função de transição δ(q1, c) = (q2, e, R), então o movimento
+abq1cd ⊢ abeq2d é feito sempre que o estado interno é q1, onde a fita contém
+abcd e o cabeçote de leitura e gravação está na posição c, resultando abed
+na fita, com o cabeçote na posição d e a mudança para o estado q2.
+ Teorema: Para toda a linguagem recursivamente enumerável, L, existe
+uma gramática irrestrita G (BEDREGAL; ACIÓLY; LYRA, 2010).
+ Prova: Seja L = L(G), se L é recursivamente enumerável, existe uma
+máquina de Turing M que pode descrever essa linguagem L = L(G).
+Se você quer construir uma gramática G, tal que L(G) = L(M), isso significa
+que queremos ter S ⇒* wG . Se todas as variáveis seguem a mesma definição,
+S é o conjunto de todas as strings e wG é a string de entrada.
+q0w⊢*Mxqf y
+
+Nessa descrição instantânea, q0 é o estado inicial e qf o estado final.
+Queremos construir uma gramática G que codifica a sequência de descrições instantâneas q0w⊢*Mxqf y associadas ao passo a passo de computação
+da máquina M necessários para reconhecer a palavra w. Como M começa
+quando há uma entrada w, as derivações de G devem terminar nessa cadeia.
+A derivação será a reversa da computação de M. Como a derivação começa
+em S, primeiro você precisa derivar uma forma sentencial que represente a
+condição de parada xqf y, da qual devemos derivar q0w. Assim, a gramática
+deve ser construída da seguinte forma:
+S ⇒* xqf y ⇒* q0w
+
+se e somente se w ∈ L(M), porém, isso vai nos gerar uma dificuldade, já que
+queremos nos livrar de q0 para obtermos S ⇒* w. O que vamos fazer? Vamos
+introduzir um símbolo especial para controlar o processo de derivação — o #.
+Esse # vai ser associado com a variável de estado na descrição instantânea, de
+modo que possa ser eliminado na última etapa. Outro problema é o símbolo
+em branco; lembra-se do quadradinho? O quadradinho □ é um problema,
+pois ele também precisa ser eliminado pela gramática irrestrita. Quando
+juntamos todos esses detalhes, precisamos saber o que vamos fazer para
+criar a gramática G (BEDREGAL; ACIÓLY; LYRA, 2010):
+
+Gramáticas e máquina de Turing
+
+11
+
+i.
+
+um conjunto de produções que permite todas as derivações da forma S
+⇒* #xqf y, para todos os x e y possíveis pertencentes a Σ* e todo estado
+final qf, com brancos possíveis à direita e esquerda de #xqf y;
+ii. um conjunto de produções que permite a derivação #xqf y ⇒* #q0w
+sempre que q0w⊢*Mxqf y;
+iii. um conjunto de produções para remover #q0 e qualquer símbolo de
+branco.
+Vamos a um exemplo passo a passo?
+
+Vamos considerar a máquina de Turing
+M = (Q, Σ, ƭ, δ, q0, □, F)
+
+Agora, para o exemplo, vamos considerar a seguinte máquina de Turing
+(BEDREGAL; ACIÓLY; LYRA, 2010):
+Q = {q0, q1}
+Σ = {0, 1}
+ƭ = {0, 1, □}
+F = {q1}
+Com as seguintes funções de transição: δ(q0, 0) → (q0, 0, R) e δ(q0, □) → (q1, □, L)
+Agora vamos lembrar como se cria a máquina de Turing. Primeiro vemos
+quantos estados temos; são dois, certo? q0 e q1
+
+O que nos dizem as funções de transição? δ(q0, 0) → (q0, 0, R) o estado q0 fica
+nele mesmo com 0, 0, R; o R representa o movimento do cabeçote da máquina
+de Turing para a direita. A função δ(q0, □) → (q1, □, L) mostra a transição entre
+os estados q0 e q1, ou seja, há uma seta que vai de q0 à q1 com □, □, L, sendo
+que se entrou na máquina □ ela vai para o estado q1 movendo o cabeçote para
+a esquerda.
+Essa máquina aceita 0*. Assim, sabemos que a gramática irrestrita segue
+G = (VN , Σ, P, S), onde VN = {S, A, □, #, q0, q1} e Σ = {0, 1}
+
+12
+
+Gramáticas e máquina de Turing
+
+As regras de produção para o primeiro conjunto “i” seguem a derivação:
+S → □S|S□|#A
+A → 0A|1A|A0|A1|q1
+Podemos utilizar essas derivações para gerar qualquer cadeia #xq1y com x,
+y ∈ {0, 1}*.
+Com relação ao segundo conjunto de produções “ii” chegamos às seguintes
+derivações:
+0q0 → q00
+q10□ → 0q0 □
+q11□ → 1q0 □
+q1 □□ → □q0 □
+
+Perceba que todas as derivações seguem as descrições das funções de transição. Por exemplo, a cadeia q00 toma o lugar de 0q0, quando usamos a função
+de transição δ(q0, 0) → (q0, 0, R). Finalmente para o conjunto de produções “iii”:
+#q0 → ε
+□→ε
+
+Essas duas derivações utilizamos para nos livrar dos símbolos de branco
+e do #q0.
+Agora vamos olhar a máquina de Turing novamente. Sabemos pela linguagem
+que M aceita 00.
+Assim, sabemos, olhando o diagrama que fizemos ou olhando para as produções anteriores que:
+q000 ⊢ 0q00 ⊢ 00q0 □ ⊢ 0q10□
+
+Agora vamos derivar essa cadeia para a gramática irrestrita:
+S ⟹ S□ ⟹ #A□ ⟹ #0A□ ⟹#0A0□ ⟹ #0q10□ ⟹ #00q0 □ ⟹ #0q00□ ⟹ #q000□
+⟹ #q000 ⟹ 00
+
+Se você ignorar as marcas especiais, verá que essa derivação é uma sequência
+de descrições da máquina de Turing em ordem reversa.
+
+Hierarquia de linguagens de Chomsky e
+hierarquia de máquinas
+A hierarquia de Chomsky é uma contribuição importante no campo da linguagem formal e da teoria dos autômatos. Em meados da década de 1950,
+Noam Chomsky começou a trabalhar com linguagens e gramáticas formais.
+
+Gramáticas e máquina de Turing
+
+13
+
+Ele estruturou uma hierarquia de linguagens formais com base nas propriedades das gramáticas necessárias para gerar as linguagens. A hierarquia de
+Chomsky leva a teoria dos autômatos um passo à frente. Chomsky classificou
+a gramática em quatro tipos, dependendo das regras de produção, listadas
+a seguir.
+ Tipo 0: é uma gramática de estrutura de fase sem qualquer restrição.
+Todas as gramáticas são gramáticas do tipo 0. As regras de produção
+estão no formato de {(Lc)(NT)(Rc)} → {String de terminais ou não terminais
+ou ambos}. Onde Lc é o contexto esquerdo, Rc é o contexto direito e
+NT é não terminal.
+ Tipo 1: chamada de gramática sensível ao contexto. Para gramática do
+tipo 1, todas as regras de produção são sensíveis ao contexto se todas
+as regras em são da forma αAβ → αγβ, onde A ∈ NT (A é não terminal),
+α, β ∈ (NT ∪ Σ) (α e β são strings de não terminais e terminais), e γ ∈
+(NT ∪ Σ) (γ é uma string não vazia de não terminais e terminais).
+ Tipo 2: chamada de gramática livre de contexto, não havendo contexto esquerdo ou direito. Para gramática do tipo 2, todas as regras de
+produção estão no formato de (NT) → α, onde |NT| = 1 e α ∈ (NT ∪ T).
+ Tipo 3: chamada de gramática regular. As produções serão nas seguintes
+formas: A → α ou A → αB, onde A, B ∈ NT e α ∈ T.
+
+O Quadro 1 mostra os diferentes formatos de máquina para diferentes
+linguagens.
+Quadro 1. Paralelo entre a gramática, linguagem e máquina
+Gramática
+
+Linguagem
+
+Máquina
+
+Tipo 0
+
+Linguagem irrestrita
+
+Máquina de Turing
+
+Tipo 1
+
+Sensível de contexto
+
+Autômatos lineares limitados
+
+Tipo 2
+
+Livre de contexto
+
+Autômatos push-down
+
+Tipo 3
+
+Expressão regular
+
+Autômato finito
+
+14
+
+Gramáticas e máquina de Turing
+
+Neste capítulo estudamos a conversão entre a gramática irrestrita e a
+máquina de Turing, os teoremas, as provas, os passos de derivação que
+compreendem a teoria sobre gramáticas irrestritas. Você também viu, além
+da prova dos teoremas, exemplos de aplicação da gramática irrestrita. Esses
+exemplos mostram como converter as funções de transição para um diagrama
+para as máquinas de Turing, como proceder os passos de derivação e como
+criar uma gramática irrestrita.
+
+Referências
+BEDREGAL, B. R. C.; ACIÓLY, B. M.; LYRA, A. Introdução à teoria das linguagens formais,
+dos autômatos e da computabilidade. Natal: UnP; Fapern, 2010. 287 p.
+CHOMSKY, N. Reviewed Work: Fundamentals of Language by Roman Jakobson, Morris
+Halle. International Journal of American Linguistics, [S. l.], v. 23, n. 3, p. 234–242, July 1957.
+KANDAR, S. Introduction to automata theory, formal languages and computation. New
+Delhi: Dorling Kindersley; Pearson Education, 2013. 631 p. (Always Learning).
+LINZ, P. An introduction to formal languages and automata. 6. ed. Sudbury: Jones &
+Bartlett Learning, 2017. 450 p.
+MENEZES, P. B. Linguagens formais e autômatos. Porto Alegre: Bookman, 2010. 256 p.
+(Série Livros Didáticos Informática UFRGS, 3).
+SIPSER, M. Introdução à teoria da computação. São Paulo: Cengage Learning, 2007. 459 p.
+YAN, S. Y. An introduction to formal languages and machine computation. Singapore:
+World Scientific Publishing, 1998. 400 p.
+
+Leituras recomendadas
+DIVERIO, T. A.; MENEZES, P. B. Teoria da computação: máquinas universais e computabilidade. 3. ed. Porto Alegre: Bookman, 2011. 288 p. (Série Livros Didáticos Informática
+UFRGS, 5).
+MCCARTHY, J. A basis for a mathematical theory of computation. In: BRAFFORT, P.;
+HIRSCHBERG, D. (ed.). Computer programming and formal systems. Amsterdam: North
+Holland Pub. Co., 1963, p. 33–70. Disponível em: http://jmc.stanford.edu/articles/basis.
+html. Acesso em: 4 mar. 2021.
+
+Os links para sites da web fornecidos neste capítulo foram todos
+testados, e seu funcionamento foi comprovado no momento da
+publicação do material. No entanto, a rede é extremamente dinâmica; suas
+páginas estão constantemente mudando de local e conteúdo. Assim, os editores declaram não ter qualquer responsabilidade sobre qualidade, precisão ou
+integralidade das informações referidas em tais links.
+
+

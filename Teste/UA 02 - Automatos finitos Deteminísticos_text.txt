@@ -1,0 +1,725 @@
+LINGUAGENS
+FORMAIS E
+AUTÔMATOS
+
+Autômatos finitos
+determinísticos
+Leonardo Brendo Gomes Nascimento
+
+OBJETIVOS DE APRENDIZAGEM
+
+>> Definir a classe dos autômatos finitos determinísticos.
+>> Exemplificar a construção de autômatos finitos determinísticos.
+>> Desenvolver o algoritmo de minimização de autômatos finitos determinísticos.
+
+Introdução
+O autômato finito determinístico (AFD), ou máquina de estado finita, é uma
+abstração matemática de modelos computacionais teóricos-formais que utilizam
+uma quantidade de memória extremamente restrita e pequena em relação às
+aplicações dos modelos computacionais modernos (LEWIS; PAPADIMITRIOU,
+2004). Nos AFDs, é gerado apenas um único ramo de computação para cada
+cadeia fornecida na entrada. Isto se dá por meio da rejeição ou aceitação das
+cadeias formadas pelos símbolos disponíveis nas transições entre os estados
+finitos e pré-definidos dos autômatos (SIPSER, 2007). É importante salientar
+que os AFDs são reconhecedores eficientes de linguagens regulares (HOPCROFT;
+MOTWANI; ULLMAN, 2003).
+Os aspectos que caracterizam os AFDs podem ser vistos a seguir: determinismo dos símbolos e estados, um único estado inicial para o autômato,
+função de transição total para qualquer cadeia fornecida para ser aceita ou
+não, muitos estados de aceitação e um conjunto finito de estados em que
+acontecerão as transições.
+
+2
+
+Autômatos finitos determinísticos
+
+Neste capítulo, você vai conhecer o conceito, os componentes, as características, a formalização, as operações (união, concatenação e estrela) e a
+ideia de minimização de AFDs. É exemplificada a utilização de autômatos por
+meio dos diagramas e das tabelas de mapeamentos dos estados-transições,
+nos quais será possível trabalhar os conceitos de símbolos, alfabeto, cadeias
+aceitas e rejeitadas, estados, estados iniciais e estados finais.
+
+Conceituando o autômato finito
+determinístico
+Para entender o que é AFD, faz-se necessário compreender o que é um autômato
+em si. A ideia de autômato surgiu a partir da necessidade de representação de
+um computador. No entanto, a idealização de um computador é muito complexa,
+por isso utiliza-se um computador idealizado chamado de modelo computacional
+para representar somente os detalhes pertinentes para se fazer uma formalização teórica ou não (SIPSER, 2007). Na teoria da computação há muitos tipos de
+modelos computacionais; o mais simples deles, com memória extremamente
+limitada, é escopo de atuação restrita e chamado de máquina de estados finitos
+ou autômatos finitos, podendo ser visualizado na Figura 1. É considerado uma
+máquina formada por três componentes, a saber (MENEZES, 2011):
+ fita: mecanismo que contém as informações de entradas que serão
+processadas;
+ unidade de controle: estrutura que representa o estado atual da
+máquina, possuindo uma unidade responsável por fazer a leitura,
+acessando uma célula da fita por vez, no sentido único da esquerda
+para a direita da fita;
+ função de transição: mecanismo responsável por estabelecer as leituras e definir o estado da máquina de acordo com a informação de
+entrada da fita.
+
+Figura 1. Autômato finito representado por uma máquina contendo estados finitos.
+Fonte: Menezes (2011, p. 70).
+
+Autômatos finitos determinísticos
+
+3
+
+O autômato finito, por sua vez, está dividido entre (MENEZES, 2011):
+ determinístico (AFD): neste tipo de autômato, o sistema chega em um
+único estado bem determinado, a partir do estado atual e do símbolo
+lido/consumido na entrada da fita;
+ não determinístico (AFN): neste tipo de autômato, o sistema pode
+chegar a um estado que está contido em uma coleção de estados,
+a partir do estado atual e do símbolo lido/consumido na entrada da fita.
+Este capítulo está dedicado somente ao estudo dos AFDs. Como já mencionado anteriormente, os AFDs têm pouca memória e com isso os computadores que estes vão representar também são restritos, podendo realizar
+atividades que exijam pouca memória. Neste momento, o caro leitor pergunta
+o que se pode fazer com um computador que possui memória extremamente
+limitada? Muitas coisas em nosso cotidiano, pois esse tipo de computador é
+usado o tempo todo em vários dispositivos eletromecânicos, como o sistema
+lógico para controlar um elevador, o regulador usado em ar-condicionado e
+o controlador para porta automática. Para fins de explicação, será utilizado
+o exemplo do controlador para uma porta automática, com a finalidade de
+trazer uma abordagem inicialmente prática do AFD. A Figura 2 apresenta a
+visão superior do controlador para uma porta automática que abre/fecha de
+acordo com a aproximação de algum objeto detectado pelo sensor.
+
+Figura 2. Porta lógica que abre/fecha de acordo
+com a aproximação de algum objeto/corpo.
+Fonte: Adaptada de Sipser (2007).
+
+4
+
+Autômatos finitos determinísticos
+
+Conforme pode ser visto na Figura 2, tem-se uma situação que pode ser
+modelada como um AFD. Essa situação envolve um controlador de porta
+automática que possui um tapete à sua frente e outro na sua dianteira. Esse
+dispositivo é geralmente utilizado em entradas e saídas de shoppings, lojas,
+supermercados e outros estabelecimentos. Esse tipo de porta abre e fecha
+automaticamente à proporção que a pessoa ou objeto se aproxima. Trazendo
+para a realidade de AFD, pode-se elencar os estados e os símbolos (condições)
+que promovem o bom funcionamento do controlador da porta automática,
+a saber:
+ estados: aberta e fechada;
+ símbolos: (1) frente (pessoa ou objeto está se aproximando da frente
+da porta); (2) atrás (pessoa ou objeto está na traseira porta); (3) ambos
+(condições 1 e 2 simultaneamente); e (4) nenhum (negação das condições
+1 e 2 simultaneamente).
+A representação gráfica da modelagem do controlador da porta automática é apresentada a seguir, na Figura 3, por meio do diagrama de estados 1.
+Pode-se ver, no Quadro 1, os estados sendo alcançados por meio do consumo
+dos símbolos.
+
+Figura 3. Diagrama de estados do controlador da porta
+automática.
+
+Quadro 1. Estados e símbolos do controlador da porta automática
+Símbolos
+
+Estados
+
+Nenhum
+
+Frente
+
+Atrás
+
+Ambos
+
+Fechada
+
+Fechada
+
+Aberta
+
+Fechada
+
+Fechada
+
+Aberta
+
+Fechada
+
+Aberta
+
+Aberta
+
+Aberta
+
+Autômatos finitos determinísticos
+
+5
+
+Conforme pode-se ver na Figura 3, o estado é representado por um círculo
+e consome um símbolo, que pode ir para si mesmo ou para outro estado.
+No exemplo da Figura 3, quando o estado fechado consome o símbolo nenhum,
+ele vai continuar fechado; quando consome o símbolo frente, vai ao estado
+aberto e assim por diante no outro estado, de acordo com as possibilidades
+fornecidas pela quantidade de símbolos; quanto mais símbolos, mais transições haverá. O Quadro 1 mostra todas as possibilidades de transições que
+este AFD realiza durante o processo de abrir e fechar da porta automática
+por meio do controlador.
+Observe que diante da situação da porta automática, é necessário tomar
+uma decisão, para que assim o controlador da porta seja acionado e realize
+a ação correta, abrindo ou fechando. Neste contexto é importante salientar
+que a decisão realizada pelo mecanismo vai determinar a ação que deve
+executar. Ainda sobre o exemplo da porta automática, uma decisão que ela
+deve tomar é abrir ou fechar — abrir quando alguém se aproximar; fechar
+quando não há aproximação. Com isso, surgem alguns detalhes que vão ser
+especificados nos AFDs.
+O AFD busca estabelecer que uma informação pode pertencer, ou não,
+a um padrão ou grupo de informações. A informação é chamada de cadeia
+(conjunto de símbolos) e o padrão ou grupo de informações de linguagem, que,
+por sua vez, contém muitas cadeias. Para que uma cadeia venha a pertencer
+a uma linguagem, faz-se necessário que obedeça aos critérios da linguagem;
+traduzindo, para o AFD, uma cadeia será aceita quando seu último símbolo
+for consumido no estado de aceitação.
+O AFD possui um conjunto de estados; dentre eles, só há um inicial,
+no qual o autômato começa seu processamento da entrada e pode ter vários
+de aceitação. O estado de aceitação, ou final, é a estrutura responsável por
+indicar se uma cadeia deve ou não ser rejeitada por uma linguagem: se o
+último símbolo da entrada for utilizado neste, dizemos que esta cadeia deve
+ser aceita. Mas o que seria o símbolo? O símbolo é uma entrada de dados
+contido em um conjunto de símbolos chamado de alfabeto da linguagem. É
+importante destacar que o símbolo é usado para expressar as demais palavras
+do alfabeto, inclusive a vazia, denotado pela letra grega épsilon (ε).
+A ideia inicial de AFD já foi introduzida, então, a seguir é apresentada a
+resolução de um exercício para fixação do conteúdo estudado até o momento.
+De acordo com a Figura 4 e o Quadro 2, pode-se ver o AFD que será resolvido
+e suas possibilidades de transições. Desenvolva o AFD por meio do diagrama
+de estados que aceite somente cadeia que contenha no mínimo três 1, em
+
+6
+
+Autômatos finitos determinísticos
+
+seguida esboce a tabela dos estados e símbolos. Observação: os símbolos
+que podem ser utilizados são 1 e 0.
+
+Figura 4. Diagrama de estados do AFD que aceita somente
+cadeias que tenha no mínimo três 1.
+
+Quadro 2. AFD que aceita somente cadeias que tenha no mínimo três 1
+Símbolos
+
+Estados
+
+—
+
+0
+
+1
+
+q0 (estado inicial)
+
+q0 (estado inicial)
+
+q1
+
+q1
+
+q1
+
+q2
+
+q2
+
+q2
+
+q3
+
+q3 (estado final)
+
+q3 (estado final)
+
+q3 (estado final)
+
+Conforme pode-se ver na Figura 4 e no Quadro 2, há quatro estados
+(q0, q1, q2 e q3) e os dois símbolos (0 e 1) que são consumidos entre os estados.
+Diferente do diagrama apresentado na Figura 3, o diagrama da Figura 4 tem
+alguns recursos gráficos diferentes que desempenham um papel importante.
+O primeiro recurso gráfico diferente é o aplicado ao estado q0; este tem um
+triângulo apontando para si, então, por conversão, este é o estado inicial do
+AFD. O segundo recurso gráfico diferente é o aplicado ao estado q3, que tem
+um círculo menor dentro do círculo que representa o estado q3, então, por
+conversão, este é o estado final ou de aceitação do AFD.
+No tocante à resolução deste exercício, é preciso assegurar que haverá
+no mínimo três 1s, independentemente das posições dos 1s. A estratégia
+para resolver esse problema é encadear o consumo de três 1s entre quatro
+estados. No quarto e último estado, pode-se colocá-lo como o estado de
+aceitação, em seguida, o consumo do outro símbolo. A seguir são mostradas
+cadeias que devem ser aceitas e rejeitadas por este AFD.
+
+Autômatos finitos determinísticos
+
+7
+
+ Cadeias aceitas: 111, 0101010, 1110001, 0001110, 100000000000011 e
+11111111110000001.
+ Cadeias rejeitadas: 000, 0101000, 0010001; 1100;10000000000000001
+e 10000001.
+Até o presente momento do estudo foram vistas somente as estruturas
+chamadas de estados e símbolos, sendo rapidamente falado de transições.
+Mas o AFD teria outras estruturas além dessas? Sim, e serão vistas na formalização do AFD, disposta na subseção a seguir.
+
+Formalização do autômato finito determinístico
+Embora expressar o AFD por meio dos exemplos vistos nos diagramas e tabelas
+seja interessante e intuitivamente didático, pode deixar a definição do que
+se deseja explicar evasiva e com muitas dúvidas, pois exemplos não são uma
+generalização, mas casos isolados e específicos do que seja um AFD. Desta
+forma, é necessário usar a definição formal, por duas razões. A primeira é
+que uma definição formal é precisa, por exemplo, caso seja necessário saber
+se um AFD poderia ter vários estados de aceitação, ou se poderia ter mais de
+um estado inicial. Por meio da consulta à definição formal, saberíamos que
+a primeira assertiva é verdadeira e a segunda é falsa. A segunda razão é que
+a definição formal viabiliza notação. Boas notações chegam muito próximo
+da generalização dos casos que se desejam trabalhar, ajudando a pensar e
+expressar as ideias claramente, pois a notação conduz um significado em
+volta dos objetos utilizados em sua formação. Por fim, a formalização do AFD
+pode ser vista por meio de uma 5-upla (Q, Σ, δ, q0, F) (HOPCROFT; MOTWANI;
+ULLMAN, 2003; SIPSER, 2007; MENEZES, 2011):
+ Q é um conjunto finito e pré-definido de estados;
+ Σ é um conjunto finito de símbolos chamado de alfabeto;
+ δ: Q × Σ → Q é a função de transição ou computação;
+ q0 ∈ Q é o estado inicial utilizado;
+ F ⊆ Q é o conjunto de estados de aceitação. Logicamente, a quantidade
+de estados finais não pode ser maior que a quantidade dos estados
+do autômato em questão.
+
+8
+
+Autômatos finitos determinísticos
+
+Sobre os AFDs, é necessário levar em considerar que: (1) todas as palavras
+são finitas, (2) um AFD sempre vai parar e (3) todo símbolo é consumido e
+processado a cada função de transição. A última consideração origina a função
+de transição estendida, ou computação. A partir do diagrama apresentado
+na Figura 5, que aceita a linguagem L1, pode-se ver, conforme o Quadro 3,
+os itens da formalização de um AFD.
+
+Figura 5. Diagrama de estados usado para exemplificar
+a computação M1 no AFD.
+
+Pode-se expressar M1 formalmente escrevendo M1 = (Q, Σ, δ, q0, F), onde:
+ Q = {q0, q1 e q2},
+ Σ = {a, b},
+ δ é desenhada como exemplificado no Quadro 3:
+Quadro 3. Exemplificação da computação da M1 no AFD
+a
+
+b
+
+q0
+
+q0
+
+q1
+
+q1
+
+q2
+
+q1
+
+q2
+
+q1
+
+q1
+
+ q0 é o estado inicial;
+ F = {q1}.
+
+Autômatos finitos determinísticos
+
+9
+
+Formalização de computação em um autômato
+finito determinístico
+Desta forma, considere M = (Q, Σ, δ, q0, F) um AFD. O processo de computação de M é definido por uma extensão da função de transição δ: Q × Σ para
+palavras, representada por δ*: Q × Σ*→ Q e chamada de função de transição
+estendida. Essa função é definida de forma indutiva: (HOPCROFT; MOTWANI;
+ULLMAN, 2003; SIPSER, 2007; DIVERIO; MENEZES, 2011):
+δ*(q, ε) = q
+
+(a) (base da indução)
+
+δ*(q, aw) = δ*(δ(q, a), w)
+
+(b) (passo da indução)
+
+Conforme pode-se ver, a evolução de (a) chegando a (b) foi por meio das
+contínuas sucessões de aplicações da função de transição estendida para
+cada símbolo consumido da cadeia fornecida, sendo a um símbolo prefixo
+qualquer da palavra w. A seguir você verá um exemplo da aplicação da função
+de transição estendida. Desenvolva o resultado da computação da palavra
+00 a partir de q0:
+δ*(q0, 00) = função estendida sobre 00,
+δ*(δ(q0, 0), 0) = processo 00,
+δ*(q1, 0) = função estendida sobre 0,
+δ*(δ(q1, 0), ε) = processo 0,
+δ*(qf, ε) = qf função estendida sobre ε.
+
+Considere M = (Q, Σ, δ, q0, F) um AFD e w = w 1w2 … wn uma sequência de
+caracteres, de forma que wi pertence a Σ. Então pode-se dizer que M aceita
+w caso exista uma cadeia de estados r0, r 1, r2 … rn que pertença a Q com três
+condições, a saber (SIPSER, 2007):
+ r0 = q0: isto significa que a máquina sempre vai começar no estado
+inicial;
+ δ(ri, wi+1) = ri+1: isto significa que a máquina alcança outros estados a
+partir da execução da função de transição;
+ rn pertence a F: isto significa que a máquina só aceita a sequência se
+a execução da função de transição chegar ao estado de aceitação.
+
+10
+
+Autômatos finitos determinísticos
+
+Entendidas as três condições anteriores, a seguir é apresentado um problema para fixação da formalização da computação por meio de um AFD
+esboçado pelo Quadro 4. Tenha que o AFD é do formato M1 = ({q0, q1, q2, qf},
+{0,1}, δ1, q0,{qf}).
+Quadro 4. Exemplificação da função de transição δ1
+Símbolos
+
+Estados
+
+-
+
+0
+
+1
+
+q0
+
+q1
+
+q2
+
+q1
+
+qf
+
+q2
+
+q2
+
+q1
+
+qf
+
+qf
+
+qf
+
+qf
+
+Desenvolva o resultado da computação da palavra 0100 a partir de q0,
+mostrando cada símbolo sendo consumido e o seu diagrama.
+
+Aplicando a função de transição na palavra 0100 a partir de q0, tem-se:
+ δ*(q0, 0100) = função estendida sobre 0100,
+ δ*(δ(q0, 0) ,100) = processo 0100,
+ δ*(q1, 100) = função estendida sobre 100,
+ δ*(δ(q1, 1), 00) = processo 100,
+ δ*(q2, 00) = função estendida sobre 00,
+ δ*(δ(q2, 0), 0) = processo 00,
+ δ*(q1, 0) = função estendida sobre 0,
+ δ*(δ(q1, 0), ε) = processo 0,
+ δ*(qf, ε) = qf função estendida sobre ε.
+A Figura 6 representa o diagrama da computação M1 e pode-se concluir que
+a palavra 0100 é aceita por este AFD, pois após o consumo do último símbolo,
+o estado alcançado foi o estado de aceitação. Fique atento à definição formal
+do AFD, pois a partir desta formalização as dúvidas e incertezas dos exemplos
+sobre as propriedades deste tipo de autômato podem ser dirimidas. É importante
+destacar que cada componente da 5-upla cumpre um papel indispensável, sendo
+possível estabelecer o autômato a partir das cinco informações dispostas na
+formalização. Muita atenção à função de transição, pois esta costuma ser a
+parte mais complexa do AFD.
+
+Autômatos finitos determinísticos
+
+11
+
+Figura 6. Diagrama de estados usado para exemplificar
+a computação M1 no AFD.
+
+Implementando autômatos finitos
+determinísticos por meio dos diagramas
+e tabelas
+A seguir serão realizados exercícios envolvendo AFDs para fixação do conteúdo. Esta seção busca ativamente aprofundar os conhecimentos por meio
+de outros exemplos. Cada exercício será composto por duas partes, a saber:
+problema e resposta.
+Problema 1
+L(Ma) = {w ∈ (0, 1)* | |w| > 0 e w termina com 1}. Exemplos de cadeias aceitas
+por essa linguagem: 1, 01, 11, 001, 011, 101.... Esboce o diagrama de estados e
+a construção formal do AFD que reconheça esta linguagem. A Figura 7 apresenta a figura do AFD que reconhece a L(Ma) e o Quadro 5 ilustra os estados
+e transições utilizados na L(Ma) .
+Resposta 1
+ Q = {q0 e q1};
+ Σ = {0, 1};
+ δ é desenhada conforme exemplificado no Quadro 5.
+
+12
+
+Autômatos finitos determinísticos
+
+Quadro 5. Transições do AFD da L(Ma)
+0
+
+1
+
+q0
+
+q0
+
+q1
+
+q1
+
+q0
+
+q1
+
+ q0 é o estado inicial;
+ F = {q1}.
+
+Figura 7. Diagrama de estados AFD do L(Ma).
+
+Problema 2
+L(Mb) = {w ∈ (0, 1)* | w não termina com 1}. Exemplos de cadeias aceitas por
+essa linguagem: 10, 010, 110, 0110, 1010, 1000.... Esboce o diagrama de estados e a construção formal do AFD que reconheça esta linguagem. A Figura 8
+apresenta o AFD que reconhece a L(Ma) e o Quadro 6 dispõe das transições
+utilizadas no AFD em questão.
+Resposta 2
+
+Figura 8. Diagrama de estados AFD do L(Mb).
+
+ Q = {q0 e q1},
+ Σ = {0, 1},
+ δ é desenhada como no Quadro 6:
+
+Autômatos finitos determinísticos
+
+13
+
+Quadro 6. Transições do AFD da L(Mb)
+0
+
+1
+
+q0
+
+q0
+
+q1
+
+q1
+
+q0
+
+q1
+
+ q0 é o estado inicial;
+ F = {q0}.
+
+Problema 3
+L(Mc) = {w ∈ (0, 1)* | |w| > 0 e w começa e termina o mesmo símbolo}. Exemplos
+de cadeias aceitas por essa linguagem: 1, 0, 11, 00, 1001, 0110.... Esboce o
+diagrama de estados e a construção formal do AFD que reconheça esta linguagem. A Figura 9 mostra o AFD que reconhece a L(Mc) e o Quadro 7 apresenta
+as transições necessárias para o AFD em questão.
+Resposta 3
+
+Figura 9. Diagrama de estados AFD do L(Mc).
+
+ Q = {s, r1, r2, q1 e q2},
+ Σ = {0, 1},
+ δ é desenhada como:
+
+14
+
+Autômatos finitos determinísticos
+
+Quadro 7. Transições do AFD da L(Mc)
+0
+
+1
+
+s
+
+q1
+
+r1
+
+r1
+
+r2
+
+r1
+
+r2
+
+r2
+
+r1
+
+q1
+
+q1
+
+q2
+
+q2
+
+q1
+
+q2
+
+ s é o estado inicial;
+ F = {r1, q1}.
+
+Problema 4
+L(Md) = {w ∈ (0, 1)* | w contém a subcadeia 001}. Exemplos de cadeias aceitas por
+essa linguagem: 1001, 0110, 10011, 00001, 1000101, 0100110.... Esboce o diagrama
+de estados e a construção formal do AFD que reconheça esta linguagem. A
+Figura 10 apresenta o AFD que reconhece a L(Md) e o Quadro 8 apresenta as
+transições utilizadas no AFD em questão.
+Resposta 4
+
+Figura 10. Diagrama de estados AFD do L(Md).
+
+ Q = {q0, q1, q2, q3},
+ Σ = {0, 1},
+ δ é desenhada como:
+
+Autômatos finitos determinísticos
+
+15
+
+Quadro 8. Transições do AFD da L(Md)
+0
+
+1
+
+q0
+
+q1
+
+q0
+
+q1
+
+q2
+
+q0
+
+q2
+
+q2
+
+q3
+
+q3
+
+q3
+
+q3
+
+ q0 é o estado inicial;
+ F = {q3}.
+
+Uma linguagem pode ter vários AFDs que a reconheçam, possibilitando
+assim múltiplas respostas, desde que atendam as especificações estabelecidas. No entanto, há soluções que envolvem mais estados para um problema
+que nem sempre exige muitos estados. Desta forma, existe a possibilidade de
+melhorar um AFD, reduzindo-o para um AFD mais otimizado e com o mesmo
+poder de representação. Na seção a seguir será visto como acontece tal
+mecanismo.
+
+Otimizando o autômato finito
+determinístico
+A estratégia principal aplicada por meio do algoritmo de minimização é
+determinar quais estados de um AFD possuem equivalência, isto é, que se
+comportam identicamente ao consumir um símbolo ou não. Por definição, se
+dois estados X e Y possuem equivalência, então o resultado final (aceitação
+ou rejeição) do processamento de qualquer cadeia w ∈ Σ* deve ser igual se
+iniciado a partir de X ou a partir de Y. Formalmente dois estados possuem
+equivalência se ∀w ∈ Σ*: w é aceita a partir X e ⇔ w é aceita a partir Y (HOPCROFT; MOTWANI; ULLMAN, 2003).
+A minimização do autômato une os estados equivalentes entre si, não
+alterando o seu funcionamento, visto que estados equivalentes têm o comportamento idêntico para toda cadeia. Em relação aos estados que não possuem
+equivalência, estes não devem ser unidos e permanecem separados (SIPSER,
+2007; MENEZES, 2011). Algumas observações sobre a minimização dos AFDs
+estão listadas a seguir:
+
+16
+
+Autômatos finitos determinísticos
+
+ Neste mecanismo, o conjunto de estados Q é particionado entre o
+bloco dos estados finais F e dos estados não-finais Q – F.
+ Nenhum estado contido em F pode ser equivalente a algum estado de
+Q – F, pois a cadeia p ∈ Σ* é reconhecida a partir de qualquer estado
+pertencente a F, mas rejeitada a partir de qualquer estado contido em
+Q – F. Em seguida, o algoritmo de minimização separa mais os estados,
+e isto acontece de forma interativa.
+ Os estados X e Y são n-distinguíveis caso tenha uma cadeia s ∈ Σ* de
+comprimento n, de forma que s é aceita a partir de X, mas rejeitada a
+partir de Y, ou vice-versa.
+ O algoritmo procura uma partição, de tal forma que os estados não
+equivalentes fiquem em blocos distintos e que usem o menor número
+possível de blocos.
+Por fim, o algoritmo de minimização de autômatos funciona de acordo
+com as etapas a seguir (SIPSER, 2007):
+1. Produz uma partição Z0 = {F, Q – F} do conjunto de estados contidos em
+Q, separando os estados finais (F) dos não finais (Q – F).
+2. Para cada bloco de estados L na partição Zi, cada símbolo s do alfabeto
+Σ, sendo cada par de estados X, Y contidos no bloco L:
+a) sendo O = δ(X, s) e O’ = δ(X, s) os estados que o AFD alcança quando
+consome símbolo s a partir dos estados X, Y pertencentes ao bloco L;
+b) caso O e O’ estejam contidos em blocos distintos na partição Zi, então
+os estados X e Y não possuem equivalência e devem ser separados
+na partição Zi+1.
+3. Se a partição Zi+1 não for igual à partição Zi, deve-se repetir a etapa 2.
+4. O autômato mínimo é formado de tal maneira que os seus estados são
+os blocos contidos da enésima partição Zi+1 gerada.
+A seguir, nas Figuras 11 a 14, a execução do algoritmo de minimização de
+AFD é aplicada, sendo mostrada a redução da quantidade de estados em
+cada interação executada.
+
+Autômatos finitos determinísticos
+
+Figura 11. Diagrama D1 que será minimizado.
+
+Figura 12. Interação 1 sobre o D1.
+
+Figura 13. Interação 2 sobre o D1.
+
+17
+
+18
+
+Autômatos finitos determinísticos
+
+Figura 14. Interação 3 sobre o D1.
+
+Observe que o diagrama D1, que anteriormente tinha 6 estados, após
+a aplicação do algoritmo de minimização de AFD ficou com 4 estados, não
+tendo o funcionamento alterado, apenas o número de estados reduzidos.
+
+Você sabia que o AFD utiliza operações regulares? O que é isso? São
+mecanismos usados para detectar se uma linguagem é regular ou não,
+podendo definir estratégias de como manipular uma linguagem. São definidas
+três operações sobre linguagens regulares, sendo elas:
+ união (A U B = { x | x ∈ A ou x ∈ B});
+ concatenação (A • B = { xy | x ∈ A ou y ∈ B})
+
+ estrela (A* = { x 1x 2...xk | k ≥ 0 e cada xi ∈ A }).
+
+Referências
+DIVERIO, T. A.; MENEZES, P. B. Teoria da computação: máquinas universais e computabilidade. 3. ed. Porto Alegre: Bookman, 2011. 288 p. (Série Livros Didáticos Informática
+UFRGS, 5).HOPCROFT, J. E.; MOTWANI, R.; ULLMAN, J. D. Introdução à teoria de autômatos,
+linguagens e computação. Rio de Janeiro: Campus; Elsevier, 2003. 560 p.
+LEWIS, H. R.; PAPADIMITRIOU, C. H. Elementos da teoria da computação. 2. ed. Porto
+Alegre: Bookman, 2004. 344 p.
+MENEZES, P. B. Linguagens formais e autômatos. 6. ed. Porto Alegre: Bookman, 2011.
+256 p. (Série Livros Didáticos Informática UFRGS, 3).
+SIPSER, M. Introdução à teoria da computação. São Paulo: Cengage Learning, 2007. 459 p.
+
+

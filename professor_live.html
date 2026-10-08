@@ -1,0 +1,2174 @@
+<!DOCTYPE html><html class="full" lang="pt-br"><head>
+    <meta charset="UTF-8">
+     
+    <title>AvaliA</title>
+    <meta name="theme-color" content="#503050">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Com o uso do AvaliA, as provas aplicadas são feitas por meio de questões aleatórias baseadas no plano de ensino da Instituição, estimulando, assim, que o conteúdo das disciplinas seja ministrado conforme inicialmente planejado. Dessa forma, os gestores podem acompanhar não apenas o avanço dos alunos como também o desempenho dos professores já que, tendo em vista que estes também não têm acesso às questões antes da prova, o resultado das avaliações está ligado à efetividade e acuracidade dos conteúdos passados em sala de aula em relação ao plano de ensino proposto.">
+    <meta name="keywords" content="avaliação, avalia">
+    <meta name="author" content="AvaliA">
+    <!--css import-->
+
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/lib/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/lib/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/fullcalendar/css/fullcalendar.min.css">
+    
+    <link rel="stylesheet" href="/css/site.min.css" media="all">
+
+    <link rel="stylesheet" href="/Css/Cor?id=1335" media="all">
+    
+
+
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+        <!-- Hotjar Tracking Code for https://avalia.grupoa.com.br/aluno -->
+
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-52FRRMVDH6&amp;cx=c&amp;gtm=4e69e1"></script><script>
+
+        (function(h,o,t,j,a,r){
+
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+
+            h._hjSettings={hjid:2903267,hjsv:6};
+
+            a=o.getElementsByTagName('head')[0];
+
+            r=o.createElement('script');r.async=1;
+
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+
+            a.appendChild(r);
+
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+
+    </script><script async="" src="https://static.hotjar.com/c/hotjar-2903267.js?sv=6"></script>
+<style type="text/css">span.im-caret {
+    -webkit-animation: 1s blink step-end infinite;
+    animation: 1s blink step-end infinite;
+}
+
+@keyframes blink {
+    from, to {
+        border-right-color: black;
+    }
+    50% {
+        border-right-color: transparent;
+    }
+}
+
+@-webkit-keyframes blink {
+    from, to {
+        border-right-color: black;
+    }
+    50% {
+        border-right-color: transparent;
+    }
+}
+
+span.im-static {
+    color: grey;
+}
+
+div.im-colormask {
+    display: inline-block;
+    border-style: inset;
+    border-width: 2px;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+div.im-colormask > input {
+    position: absolute;
+    display: inline-block;
+    background-color: transparent;
+    color: transparent;
+    -webkit-appearance: caret;
+    -moz-appearance: caret;
+    appearance: caret;
+    border-style: none;
+    left: 0; /*calculated*/
+}
+
+div.im-colormask > input:focus {
+    outline: none;
+}
+
+div.im-colormask > input::-moz-selection{
+    background: none;
+}
+
+div.im-colormask > input::selection{
+    background: none;
+}
+div.im-colormask > input::-moz-selection{
+    background: none;
+}
+
+div.im-colormask > div {
+    color: black;
+    display: inline-block;
+    width: 100px; /*calculated*/
+}</style><script async="" src="https://script.hotjar.com/modules.e762be2b6b709245aabb.js" charset="utf-8"></script><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-CHTML-styles">
+mjx-container[jax="CHTML"] {
+  line-height: 0;
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > * {
+  display: table-cell;
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+_::-webkit-full-page-media, _:future, :root mjx-container {
+  will-change: opacity;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-c::before {
+  display: block;
+  width: 0;
+}
+
+.MJX-TEX {
+  font-family: MJXZERO, MJXTEX;
+}
+
+.TEX-B {
+  font-family: MJXZERO, MJXTEX-B;
+}
+
+.TEX-I {
+  font-family: MJXZERO, MJXTEX-I;
+}
+
+.TEX-MI {
+  font-family: MJXZERO, MJXTEX-MI;
+}
+
+.TEX-BI {
+  font-family: MJXZERO, MJXTEX-BI;
+}
+
+.TEX-S1 {
+  font-family: MJXZERO, MJXTEX-S1;
+}
+
+.TEX-S2 {
+  font-family: MJXZERO, MJXTEX-S2;
+}
+
+.TEX-S3 {
+  font-family: MJXZERO, MJXTEX-S3;
+}
+
+.TEX-S4 {
+  font-family: MJXZERO, MJXTEX-S4;
+}
+
+.TEX-A {
+  font-family: MJXZERO, MJXTEX-A;
+}
+
+.TEX-C {
+  font-family: MJXZERO, MJXTEX-C;
+}
+
+.TEX-CB {
+  font-family: MJXZERO, MJXTEX-CB;
+}
+
+.TEX-FR {
+  font-family: MJXZERO, MJXTEX-FR;
+}
+
+.TEX-FRB {
+  font-family: MJXZERO, MJXTEX-FRB;
+}
+
+.TEX-SS {
+  font-family: MJXZERO, MJXTEX-SS;
+}
+
+.TEX-SSB {
+  font-family: MJXZERO, MJXTEX-SSB;
+}
+
+.TEX-SSI {
+  font-family: MJXZERO, MJXTEX-SSI;
+}
+
+.TEX-SC {
+  font-family: MJXZERO, MJXTEX-SC;
+}
+
+.TEX-T {
+  font-family: MJXZERO, MJXTEX-T;
+}
+
+.TEX-V {
+  font-family: MJXZERO, MJXTEX-V;
+}
+
+.TEX-VB {
+  font-family: MJXZERO, MJXTEX-VB;
+}
+
+mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+  font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+}
+
+@font-face /* 0 */ {
+  font-family: MJXZERO;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Zero.woff") format("woff");
+}
+
+@font-face /* 1 */ {
+  font-family: MJXTEX;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff") format("woff");
+}
+
+@font-face /* 2 */ {
+  font-family: MJXTEX-B;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff") format("woff");
+}
+
+@font-face /* 3 */ {
+  font-family: MJXTEX-I;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff") format("woff");
+}
+
+@font-face /* 4 */ {
+  font-family: MJXTEX-MI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff") format("woff");
+}
+
+@font-face /* 5 */ {
+  font-family: MJXTEX-BI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff") format("woff");
+}
+
+@font-face /* 6 */ {
+  font-family: MJXTEX-S1;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff") format("woff");
+}
+
+@font-face /* 7 */ {
+  font-family: MJXTEX-S2;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff") format("woff");
+}
+
+@font-face /* 8 */ {
+  font-family: MJXTEX-S3;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff") format("woff");
+}
+
+@font-face /* 9 */ {
+  font-family: MJXTEX-S4;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff") format("woff");
+}
+
+@font-face /* 10 */ {
+  font-family: MJXTEX-A;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff") format("woff");
+}
+
+@font-face /* 11 */ {
+  font-family: MJXTEX-C;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff") format("woff");
+}
+
+@font-face /* 12 */ {
+  font-family: MJXTEX-CB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff") format("woff");
+}
+
+@font-face /* 13 */ {
+  font-family: MJXTEX-FR;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff") format("woff");
+}
+
+@font-face /* 14 */ {
+  font-family: MJXTEX-FRB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff") format("woff");
+}
+
+@font-face /* 15 */ {
+  font-family: MJXTEX-SS;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff") format("woff");
+}
+
+@font-face /* 16 */ {
+  font-family: MJXTEX-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff") format("woff");
+}
+
+@font-face /* 17 */ {
+  font-family: MJXTEX-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff") format("woff");
+}
+
+@font-face /* 18 */ {
+  font-family: MJXTEX-SC;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff") format("woff");
+}
+
+@font-face /* 19 */ {
+  font-family: MJXTEX-T;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff") format("woff");
+}
+
+@font-face /* 20 */ {
+  font-family: MJXTEX-V;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff") format("woff");
+}
+
+@font-face /* 21 */ {
+  font-family: MJXTEX-VB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff") format("woff");
+}
+</style></head>
+<body class="nav-md">
+
+    <!-- Begin page -->
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" style="min-height: 1009px;">
+                    <input type="hidden" id="idInstituicaoAnterior" value="0">
+                    <div id="idDivControleMenu" class="navbar nav_title" style="border: 0;">
+                        <a href="/" class="site_title">
+                            
+                            <span id="idSpanLogo" style="display: none;"><img id="logo" alt="" style="vertical-align: unset; display: none;" src="data:image/png;base64, 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"></span>
+                            <span id="idSpanLogoEstendida"><img id="idImgLogomarcaEstendida" alt="" style="vertical-align: unset;" src="data:image/png;base64, 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"></span>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section active">
+<ul class="nav side-menu"><li>
+                            <a href="/Home/Index">
+                            <i class="fa fa-home"></i> 
+                                Início
+                                </a><ul class="nav child_menu" style="display: none;"></ul></li><li>
+                            <a class="dropdownMenu">
+                            <i class="fa fa-connectdevelop"></i> 
+                                Conteúdos e Questões
+                                <span class="fa fa-chevron-down"></span></a><ul class="nav child_menu" style="display: none;"><li><a href="/AssociarConteudoDisciplina/Index"> Associar Conteúdos e Questões </a><ul class="nav child_menu" style="display: none;"></ul></li></ul></li><li>
+                            <a class="dropdownMenu">
+                            <i class="fa fa-file-text-o"></i> 
+                                Avaliações
+                                <span class="fa fa-chevron-down"></span></a><ul class="nav child_menu" style="display: none;"><li><a class="dropdownMenu"> Avaliação Digital <span class="fa fa-chevron-down"></span></a><ul class="nav child_menu" style="display: none;"><li><a href="/AcompanhamentoAvaliacao/Index"> Dashboard de Aplicações </a></li></ul></li><li><a href="/CorrecaoDiscursiva/Index"> Corrigir Questões Discursivas </a><ul class="nav child_menu" style="display: none;"></ul></li></ul></li><li>
+                            <a href="/AnalisarRecurso/Index">
+                            <i class="fa fa-gavel"></i> 
+                                Análise de Recursos
+                                </a><ul class="nav child_menu" style="display: none;"></ul></li><li>
+                            <a class="dropdownMenu">
+                            <i class="fa fa-line-chart"></i> 
+                                Resultados e Relatórios
+                                <span class="fa fa-chevron-down"></span></a><ul class="nav child_menu" style="display: none;"><li><a class="dropdownMenu"> Notas <span class="fa fa-chevron-down"></span></a><ul class="nav child_menu" style="display: none;"><li><a href="/AvaliacaoRelatorio/Index/2"> Exportação de Notas (Disciplina) </a></li></ul></li><li><a class="dropdownMenu"> Relatórios Institucionais <span class="fa fa-chevron-down"></span></a><ul class="nav child_menu" style="display: none;"><li><a href="/ResultadoRespostasAlunos/Index"> Análise de Desempenho </a></li><li><a href="/AvaliacaoRelatorio/Index/3"> Mapeamento de Resultados </a></li><li><a href="/AcompanhamentoAdesao/Index"> Adesão em Avaliação </a></li></ul></li><li><a class="dropdownMenu"> Relatórios Alunos <span class="fa fa-chevron-down"></span></a><ul class="nav child_menu" style="display: none;"><li><a href="/AcompanhamentoNota/PesquisaAluno"> Timeline de Acompanhamento Individual </a></li><li><a href="/VisualizarQuestoesAluno/Index"> Visualizar avaliações </a></li></ul></li></ul></li><li>
+                            <a href="/Documentacao/Index">
+                            <i class="fa fa-file"></i> 
+                                Arquivos e Manuais
+                                </a><ul class="nav child_menu" style="display: none;"></ul></li><li><a id="termosDeUso" data-toggle="modal" data-target="#termosDeUsoModal"><i class="fa fa-file-o"></i>Termos de uso</a></li></ul>                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- top navigation start -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle" id="toggleMenuButton" style="padding-left: 15px;">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li>
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+Hamilcar Pereira da Silva                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+
+                                        <li class="dropdown-submenu">
+                                            <a class="test" tabindex="-1" href="#" id="menuInstituicoes"><i class="fa fa-caret-down pull-right"></i>Minhas Instituições </a>
+                                            <ul class="dropdown-menu-left" style="display: none;">
+                                                <li id="searchMenuIESLi" style="display:none">
+                                                    <form id="formSearchMenuIES">
+                                                        <input type="text" class="form-control" id="searchMenuIES" autocomplete="off" style="color: #3c3c3c; width:100%" placeholder="Pesquisar IES">
+                                                    </form>
+                                                </li>
+                                                    <li><i></i><a href="/Contexto/AlterarInstituicao/572">Papéis Gerais</a> </li>
+                                                    <li><i class="fa fa-check  pull-left"></i><a href="/Contexto/AlterarInstituicao/1335">UNIG/UNIABEU Graduação</a> </li>
+                                            </ul>
+                                        </li>
+                                    <li><a data-target="#myModal" data-toggle="modal" onclick="alterarSenha()">Alterar Senha</a></li>
+                                    <li><a href="/Login/Logoff"><i class="fa fa-sign-out pull-right"></i>Sair</a></li>
+                                </ul>
+                            </li>
+                            <li id="usuarioPerfil">
+
+
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Professor/Tutor<i class="fa fa-caret-down"></i>
+</a>
+
+<ul class="dropdown-menu">
+        <li>
+            <a href="/Contexto/AlterarPapel/67">
+                Coordenador de Curso
+            </a>
+        </li>
+        <li>
+            <a href="/Contexto/AlterarPapel/57">
+                Coordenador Institucional
+            </a>
+        </li>
+        <li>
+            <a href="/Contexto/AlterarPapel/15">
+                Professor/Tutor
+            </a>
+        </li>
+
+</ul></li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- Top navigation End -->
+            <!-- Start right content -->
+            <div class="right_col" style="min-height: 663px;">
+
+                <div class="container-fluid">
+                    
+<div id="dashboard"><div class="row top_tiles">
+
+
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-question-circle"></i></div>
+            <div class="count" id="TotalQuestaoAvaliar">78</div>
+            <h3>Questões a avaliar</h3>
+        </div>
+    </div>
+
+
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="/AnalisarRecurso">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-comments"></i></div>
+                <div class="count" id="NumeroRecursos">0</div>
+                <h3>Recursos a analisar</h3>
+            </div>
+        </a>
+    </div>
+
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-graduation-cap"></i></div>
+            <div class="count" id="TotalTurmaDisciplina">163</div>
+            <h3>Turmas/Disciplinas</h3>
+        </div>
+    </div>
+
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="#" data-toggle="modal" data-load-url="/Treinamento/TreinamentoProfessor" title="Treinamentos" data-target="#myModal2">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-video-camera"></i></div>
+                <div class="count" id="TotalTutoriais">2</div>
+                <h3>Treinamentos</h3>
+            </div>
+        </a>
+    </div>
+
+
+</div>
+</div>
+
+<div id="tabelaResumo">
+<style>
+    .dataTables_filter {
+        display: none !important;
+    }
+
+    td, th {
+        font-size: 12px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    Associações de conteúdos e questões.
+                </h2>
+
+                    <a href="https://grupoa-my.sharepoint.com/:v:/g/personal/mbnascimento_maisaedu_com_br/IQBDRYfYvZvATYQHXsdeYXEZAWwr55X8gL7N7ZPdg9kAWJA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&amp;e=w5olCd" target="_blank" class="btn btn-success" style="margin-top:8px;margin-left:10px"><span style="color:white" class="glyphicon glyphicon-facetime-video"></span>Video tutorial</a>
+
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <p>Filtros:</p>
+                <div class="alert alert-info">
+                    Ao expandir os filtros, apenas os 100 primeiros itens serão exibidos. Se não encontrar o item desejado na lista, insira o nome no campo de busca e faça a seleção manualmente. Ao escolher 'Selecionar todos', a mesma regra se aplica, apenas os 100 primeiros itens serão selecionados.
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-2" id="comboModalidade">
+                        <select id="filtroModalidade" multiple="multiple" tabindex="-1" class="ms-offscreen" style="display: inline-block;"><option selected="selected" value="9">Educação Semipresencial</option>
+<option value="7">Ensino a Distância</option>
+</select><div class="ms-parent  " title="" style="width: 100%;"><button type="button" class="ms-choice">
+      <span class="">Educação Semipresencial</span>
+      
+      <div class="icon-caret"></div>
+      </button><div class="ms-drop bottom" style=""><ul>
+      <li class=" selected " tabindex="0">
+      <label class="">
+      <input type="radio" value="9" data-key="option_0" data-name="selectItem" checked="checked" tabindex="-1">
+      <span>Educação Semipresencial</span>
+      </label>
+      </li>
+    
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="radio" value="7" data-key="option_1" data-name="selectItem" tabindex="-1">
+      <span>Ensino a Distância</span>
+      </label>
+      </li>
+    <li class="ms-no-results">Nenhum resultado encontrado</li></ul></div></div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 select-container" id="comboCurso">
+                        <select class="select-combo ms-offscreen" multiple="" id="filtroCurso" tabindex="-1" style="display: block;"><option value="CURSO GLOBAL">CURSO GLOBAL</option><option value="Graduação Semipresencial">Graduação Semipresencial</option><option value="Não Utillizar - Inativo">Não Utillizar - Inativo</option></select><div class="ms-parent select-combo " title="" style="width: 100%;"><button type="button" class="ms-choice" tabindex="-1">
+      <span class="placeholder">Cursos</span>
+      <div class="icon-close"></div>
+      <div class="icon-caret"></div>
+      </button><div class="ms-drop bottom" style="">
+        <div class="ms-search">
+          <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="">
+        </div>
+      <ul>
+        <li class="ms-select-all" tabindex="0">
+        <label>
+        <input type="checkbox" data-name="selectAll" tabindex="-1">
+        <span>[Selecionar todos]</span>
+        </label>
+        </li>
+      
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="CURSO GLOBAL" data-key="option_0" data-name="selectItem" tabindex="-1">
+      <span>CURSO GLOBAL</span>
+      </label>
+      </li>
+    
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="Graduação Semipresencial" data-key="option_1" data-name="selectItem" tabindex="-1">
+      <span>Graduação Semipresencial</span>
+      </label>
+      </li>
+    
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="Não Utillizar - Inativo" data-key="option_2" data-name="selectItem" tabindex="-1">
+      <span>Não Utillizar - Inativo</span>
+      </label>
+      </li>
+    <li class="ms-no-results">Nenhum resultado encontrado</li></ul></div></div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 select-container" id="comboGrade">
+                        <select class="select-combo ms-offscreen" multiple="" id="filtroGrade" tabindex="-1" style="display: block;"><option value="GRADE GLOBAL">GRADE GLOBAL</option><option value="Graduação Semipresencial">Graduação Semipresencial</option></select><div class="ms-parent select-combo " title="" style="width: 100%;"><button type="button" class="ms-choice" tabindex="-1">
+      <span class="placeholder">Grades</span>
+      <div class="icon-close"></div>
+      <div class="icon-caret"></div>
+      </button><div class="ms-drop bottom" style="">
+        <div class="ms-search">
+          <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="">
+        </div>
+      <ul>
+        <li class="ms-select-all" tabindex="0">
+        <label>
+        <input type="checkbox" data-name="selectAll" tabindex="-1">
+        <span>[Selecionar todos]</span>
+        </label>
+        </li>
+      
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="GRADE GLOBAL" data-key="option_0" data-name="selectItem" tabindex="-1">
+      <span>GRADE GLOBAL</span>
+      </label>
+      </li>
+    
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="Graduação Semipresencial" data-key="option_1" data-name="selectItem" tabindex="-1">
+      <span>Graduação Semipresencial</span>
+      </label>
+      </li>
+    <li class="ms-no-results">Nenhum resultado encontrado</li></ul></div></div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-2 col-xs-2 select-container" id="comboPeriodo">
+                        <select class="select-combo ms-offscreen" multiple="" id="filtroPeriodo" tabindex="-1" style="display: block;"><option value="1">1º período</option><option value="27">27º período</option><option value="38">38º período</option></select><div class="ms-parent select-combo " title="" style="width: 100%;"><button type="button" class="ms-choice" tabindex="-1">
+      <span class="placeholder">Períodos</span>
+      <div class="icon-close"></div>
+      <div class="icon-caret"></div>
+      </button><div class="ms-drop bottom" style="">
+        <div class="ms-search">
+          <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="">
+        </div>
+      <ul>
+        <li class="ms-select-all" tabindex="0">
+        <label>
+        <input type="checkbox" data-name="selectAll" tabindex="-1">
+        <span>[Selecionar todos]</span>
+        </label>
+        </li>
+      
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="1" data-key="option_0" data-name="selectItem" tabindex="-1">
+      <span>1º período</span>
+      </label>
+      </li>
+    
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="27" data-key="option_1" data-name="selectItem" tabindex="-1">
+      <span>27º período</span>
+      </label>
+      </li>
+    
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="38" data-key="option_2" data-name="selectItem" tabindex="-1">
+      <span>38º período</span>
+      </label>
+      </li>
+    <li class="ms-no-results">Nenhum resultado encontrado</li></ul></div></div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-3 select-container" id="comboDisciplina">
+                        <select class="select-combo ms-offscreen" multiple="" id="filtroDisciplina" tabindex="-1" style="display: block;"><optgroup label="DISCIPLINAS DE CURSOS"><option value="7c5f6385-8ff3-410c-ba95-89147ba9a676|Formação Geral - AI Semi UNIG">Formação Geral - AI Semi UNIG</option><option value="7c5f6385-8ff3-410c-ba95-89147ba9a676|Programação em PYTHON">Programação em PYTHON</option><option value="7c5f6385-8ff3-410c-ba95-89147ba9a676|Redes de Computadores">Redes de Computadores</option></optgroup></select><div class="ms-parent select-combo " title="" style="width: 100%;"><button type="button" class="ms-choice" tabindex="-1">
+      <span class="placeholder">Disciplinas</span>
+      <div class="icon-close"></div>
+      <div class="icon-caret"></div>
+      </button><div class="ms-drop bottom" style="">
+        <div class="ms-search">
+          <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="">
+        </div>
+      <ul>
+        <li class="ms-select-all" tabindex="0">
+        <label>
+        <input type="checkbox" data-name="selectAll" tabindex="-1">
+        <span>[Selecionar todos]</span>
+        </label>
+        </li>
+      
+        <li class="group " tabindex="0">
+        <label class="optgroup">
+        <input type="checkbox" data-name="selectGroup" data-key="group_0" tabindex="-1">DISCIPLINAS DE CURSOS
+        </label>
+        </li>
+      
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="7c5f6385-8ff3-410c-ba95-89147ba9a676|Formação Geral - AI Semi UNIG" data-key="option_0_0" data-name="selectItem" tabindex="-1">
+      <span>Formação Geral - AI Semi UNIG</span>
+      </label>
+      </li>
+    
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="7c5f6385-8ff3-410c-ba95-89147ba9a676|Programação em PYTHON" data-key="option_0_1" data-name="selectItem" tabindex="-1">
+      <span>Programação em PYTHON</span>
+      </label>
+      </li>
+    
+      <li class=" " tabindex="0">
+      <label class="">
+      <input type="checkbox" value="7c5f6385-8ff3-410c-ba95-89147ba9a676|Redes de Computadores" data-key="option_0_2" data-name="selectItem" tabindex="-1">
+      <span>Redes de Computadores</span>
+      </label>
+      </li>
+    <li class="ms-no-results">Nenhum resultado encontrado</li></ul></div></div>
+                    </div>
+
+                </div>
+
+                <br>
+                    <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" id="apenasDisciplinasComMatriculas" name="apenasDisciplinasComMatriculas" class="flat" onchange="filtrarDadosNumeroMatriculas()" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                    <label> Exibir somente disciplinas com matrículas</label>
+
+                <hr>
+
+
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                        <li class="active">
+                            <a href="/GradeDisciplinaGerenciamento/Tabela?idGestao=0" id="formularioGeral" data-target="#contentGeral" role="tab" data-toggle="tab" aria-expanded="true">Geral</a>
+                        </li>
+
+
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="contentGeral"><div style="margin-top:10px;margin-bottom:10px;text-align:center" class="btnExportar">
+<div class="dt-buttons btn-group"><a class="btn btn-default buttons-collection buttons-colvis" tabindex="0" aria-controls="DataTables_Table_0" href="#"><span>Ocultar/Mostrar colunas</span></a></div></div>
+<div class="table-responsive">
+
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="10000">10000</option></select> resultados por página</label></div><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Pesquisar<input type="search" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div><div id="DataTables_Table_0_processing" class="dataTables_processing panel panel-default" style="display: none;">Processando...</div><div class="DTFC_ScrollWrapper" style="position: relative; clear: both; height: 311px;"><div class="DTFC_RightWrapper" style="position:absolute; top:0; right:0;" aria-hidden="true"><div class="DTFC_RightHeadWrapper" style="position:relative; top:0; left:0;"><div class="DTFC_RightHeadBlocker DTFC_Blocker" style="position:absolute; top:0; bottom:0;"></div></div><div class="DTFC_RightBodyWrapper" style="position:relative; top:0; left:0; overflow:hidden;"><div class="DTFC_RightBodyLiner" style="position:relative; top:0; left:0; overflow-y:scroll;"></div></div><div class="DTFC_RightFootWrapper" style="position:relative; top:0; left:0;"><div class="DTFC_RightFootBlocker DTFC_Blocker" style="position:absolute; top:0; bottom:0;"></div></div></div><div class="dataTables_scroll"><div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;"><div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 1330px; padding-right: 0px;"><table class="table table-striped table-hover table-bordered dataTable no-footer" style="width: 1330px; text-align: center; margin-left: 0px;" role="grid"><thead>
+                <tr style="text-align: center; height: 35px;" role="row"><th colspan="7" rowspan="1"></th><th colspan="4" style="text-align:center" rowspan="1"><span id="dataInvalidarQuestaoDesassociarConteudo">Não informado</span> <i class="fa fa-question-circle fa" data-html="true" style="cursor: help; color: rgb(0,77,138);" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-content="Prazo para os professores alocados às disciplinas alterarem a pré-validação ou a invalidação de questões.&lt;br&gt;&lt;br&gt;Após essa data, apenas o Coordenador de Curso ou Coordenador Institucional poderão reverter a pré-validação ou a invalidação de questões." data-original-title="" title=""></i> </th><th colspan="2" rowspan="1"></th></tr>
+                <tr style="text-align: center; height: 88px;" role="row"><th style="width: 69px; text-align: center;" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Curso: Ordenar colunas de forma descendente" aria-sort="ascending">Curso</th><th style="width: 69px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Grade: Ordenar colunas de forma ascendente">Grade</th><th style="width: 27px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Per.  : Ordenar colunas de forma ascendente">Per. <i class="fa fa-question-circle fa" data-html="true" style="cursor: help; color: rgb(0,77,138);" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-content="Período da disciplina" data-original-title="" title=""></i> </th><th style="width: 66px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Disciplina: Ordenar colunas de forma ascendente">Disciplina</th><th style="width: 19px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CH: Ordenar colunas de forma ascendente">CH</th><th style="width: 70px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Nº Matrículas: Ordenar colunas de forma ascendente">Nº Matrículas</th><th style="width: 92px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Equivalências: Ordenar colunas de forma ascendente">Equivalências</th><th style="width: 73px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Mínimo sugerido de associação: Ordenar colunas de forma ascendente">Mínimo sugerido de associação</th><th style="width: 73px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Conteúdos associados: Ordenar colunas de forma ascendente">Conteúdos associados</th><th style="width: 64px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Questões pré-validadas: Ordenar colunas de forma ascendente">Questões pré-validadas</th><th style="width: 77px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Questões invalidadas: Ordenar colunas de forma ascendente">Questões invalidadas</th><th style="width: 63px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Questões a avaliar: Ordenar colunas de forma ascendente">Questões a avaliar</th><th style="width: 61px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Total de questões: Ordenar colunas de forma ascendente">Total de questões</th></tr>
+            </thead></table></div></div><div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%; max-height: 500px;"><table class="table table-striped table-hover table-bordered dataTable no-footer" style="width: 100%; text-align: center;" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info"><thead>
+                <tr style="text-align: center; height: 0px;" role="row"><th colspan="7" rowspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 667px;"><div class="dataTables_sizing" style="height:0;overflow:hidden;"></div></th><th colspan="4" style="text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 426px;" rowspan="1"><div class="dataTables_sizing" style="height:0;overflow:hidden;"><span id="dataInvalidarQuestaoDesassociarConteudo">Não informado</span> <i class="fa fa-question-circle fa" data-html="true" style="cursor: help; color: rgb(0,77,138);" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-content="Prazo para os professores alocados às disciplinas alterarem a pré-validação ou a invalidação de questões.&lt;br&gt;&lt;br&gt;Após essa data, apenas o Coordenador de Curso ou Coordenador Institucional poderão reverter a pré-validação ou a invalidação de questões." data-original-title="" title=""></i> </div></th><th colspan="2" rowspan="1" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 184px;"><div class="dataTables_sizing" style="height:0;overflow:hidden;"></div></th></tr>
+                <tr style="text-align: center; height: 0px;" role="row"><th style="width: 69px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting_asc" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Curso: Ordenar colunas de forma descendente" aria-sort="ascending"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Curso</div></th><th style="width: 69px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Grade: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Grade</div></th><th style="width: 27px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Per.  : Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Per. <i class="fa fa-question-circle fa" data-html="true" style="cursor: help; color: rgb(0,77,138);" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-content="Período da disciplina" data-original-title="" title=""></i> </div></th><th style="width: 66px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Disciplina: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Disciplina</div></th><th style="width: 19px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="CH: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">CH</div></th><th style="width: 70px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Nº Matrículas: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Nº Matrículas</div></th><th style="width: 92px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Equivalências: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Equivalências</div></th><th style="width: 73px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Mínimo sugerido de associação: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Mínimo sugerido de associação</div></th><th style="width: 73px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Conteúdos associados: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Conteúdos associados</div></th><th style="width: 64px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Questões pré-validadas: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Questões pré-validadas</div></th><th style="width: 77px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Questões invalidadas: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Questões invalidadas</div></th><th style="width: 63px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Questões a avaliar: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Questões a avaliar</div></th><th style="width: 61px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Total de questões: Ordenar colunas de forma ascendente"><div class="dataTables_sizing" style="height:0;overflow:hidden;">Total de questões</div></th></tr>
+            </thead>
+            
+
+        <tbody><tr role="row" class="odd" style="height: 67px;"><td class="sorting_1">CURSO GLOBAL</td><td>GRADE GLOBAL</td><td>1</td><td><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=4424020" target="_blank">Formação Geral - AI Semi UNIG</a></td><td>20</td><td><a href="#" title="Disciplinas ofertadas" data-load-url="/GradeDisciplinaGerenciamento/TurmasDisciplinas?idGrade=170429&amp;idDisciplina=1777025" data-toggle="modal" data-target="#myModal">4452</a></td><td>0</td><td>5</td><td><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=4424020" target="_blank"><span class="badge bg-red" data-content="Recomendação: Associar 5 conteúdos." data-toggle2="popover" data-trigger="hover" data-original-title="" title="" style="cursor: pointer;">0</span></a></td><td><a class="badge bg-orange" modal-width="100%" data-content="Recomendação: 2 questões validadas." data-toggle2="popover" data-trigger="hover" href="#" title="" data-load-url="/DisciplinaQuestao/Index?filtro=1&amp;idGrade=170429&amp;idDisciplina=1777025" data-toggle="modal" data-target="#myModal" data-original-title="Questões validadas" style="cursor: pointer;">0</a></td><td><a href="#" title="Questões invalidadas" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=2&amp;idGrade=170429&amp;idDisciplina=1777025" data-toggle="modal" data-target="#myModal">0</a></td><td><a href="#" title="Questões a avaliar" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=3&amp;idGrade=170429&amp;idDisciplina=1777025" data-toggle="modal" data-target="#myModal">7</a></td><td><a href="#" title="Todas questões" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?idGrade=170429&amp;idDisciplina=1777025" data-toggle="modal" data-target="#myModal">7</a></td></tr><tr role="row" class="even" style="height: 51px;"><td class="sorting_1">Graduação Semipresencial</td><td>Graduação Semipresencial</td><td>38</td><td><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=4290811" target="_blank">Programação em PYTHON</a></td><td>80</td><td><a href="#" title="Disciplinas ofertadas" data-load-url="/GradeDisciplinaGerenciamento/TurmasDisciplinas?idGrade=162482&amp;idDisciplina=1412233" data-toggle="modal" data-target="#myModal">31</a></td><td>0</td><td>15</td><td><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=4290811" target="_blank"><span class="badge bg-red" data-content="Recomendação: Associar 15 conteúdos." data-toggle2="popover" data-trigger="hover" data-original-title="" title="" style="cursor: pointer;">0</span></a></td><td><a class="badge bg-orange" modal-width="100%" data-content="Recomendação: 15 questões validadas." data-toggle2="popover" data-trigger="hover" href="#" title="" data-load-url="/DisciplinaQuestao/Index?filtro=1&amp;idGrade=162482&amp;idDisciplina=1412233" data-toggle="modal" data-target="#myModal" data-original-title="Questões validadas" style="cursor: pointer;">0</a></td><td><a href="#" title="Questões invalidadas" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=2&amp;idGrade=162482&amp;idDisciplina=1412233" data-toggle="modal" data-target="#myModal">0</a></td><td><a href="#" title="Questões a avaliar" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=3&amp;idGrade=162482&amp;idDisciplina=1412233" data-toggle="modal" data-target="#myModal">0</a></td><td><a href="#" title="Todas questões" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?idGrade=162482&amp;idDisciplina=1412233" data-toggle="modal" data-target="#myModal">0</a></td></tr><tr role="row" class="odd" style="height: 51px;"><td class="sorting_1">Não Utillizar - Inativo</td><td>Graduação Semipresencial</td><td>27</td><td><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=3566912" target="_blank">Redes de Computadores</a></td><td>80</td><td><a href="#" title="Disciplinas ofertadas" data-load-url="/GradeDisciplinaGerenciamento/TurmasDisciplinas?idGrade=133442&amp;idDisciplina=1412162" data-toggle="modal" data-target="#myModal">0</a></td><td>0</td><td>15</td><td><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=3566912" target="_blank">0</a></td><td><a href="#" title="Questões validadas" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=1&amp;idGrade=133442&amp;idDisciplina=1412162" data-toggle="modal" data-target="#myModal">0</a></td><td><a href="#" title="Questões invalidadas" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=2&amp;idGrade=133442&amp;idDisciplina=1412162" data-toggle="modal" data-target="#myModal">0</a></td><td><a href="#" title="Questões a avaliar" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=3&amp;idGrade=133442&amp;idDisciplina=1412162" data-toggle="modal" data-target="#myModal">0</a></td><td><a href="#" title="Todas questões" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?idGrade=133442&amp;idDisciplina=1412162" data-toggle="modal" data-target="#myModal">0</a></td></tr></tbody></table></div></div><div class="DTFC_LeftWrapper" style="position: absolute; top: 0px; left: 0px; width: 386px; height: 1px;" aria-hidden="true"><div class="DTFC_LeftHeadWrapper" style="position:relative; top:0; left:0; overflow:hidden;"><table class="table table-striped table-hover table-bordered dataTable no-footer DTFC_Cloned" style="width: 100%; text-align: center; margin-left: 0px;" role="grid"><thead><tr style="text-align: center; height: 35px;" role="row"><th colspan="4" rowspan="1"></th></tr><tr style="text-align: center; height: 88px;" role="row"><th style="width: 68px; text-align: center;" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Curso: Ordenar colunas de forma descendente" aria-sort="ascending">Curso</th><th style="width: 68px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Grade: Ordenar colunas de forma ascendente">Grade</th><th style="width: 27px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Per.  : Ordenar colunas de forma ascendente">Per. <i class="fa fa-question-circle fa" data-html="true" style="cursor: help; color: rgb(0,77,138);" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-content="Período da disciplina" data-original-title="" title=""></i> </th><th style="width: 66px; text-align: center;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Disciplina: Ordenar colunas de forma ascendente">Disciplina</th></tr></thead></table></div><div class="DTFC_LeftBodyWrapper" style="position: relative; top: 0px; left: 0px; overflow: hidden; height: 171px;"><div class="DTFC_LeftBodyLiner" style="position: relative; top: 0px; left: 0px; overflow-y: scroll; width: 396px; height: 171px; max-height: 171px;"><table class="table table-striped table-hover table-bordered dataTable no-footer DTFC_Cloned" style="width: 100%; text-align: center; padding: 0px; margin: 0px;" role="grid" aria-describedby="DataTables_Table_0_info"><thead>
+                <tr style="text-align: center; height: 0px;" role="row"><th style="width: 68px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Curso: Ordenar colunas de forma descendente" aria-sort="ascending"></th><th style="width: 68px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Grade: Ordenar colunas de forma ascendente"></th><th style="width: 27px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Per.  : Ordenar colunas de forma ascendente"></th><th style="width: 66px; text-align: center; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Disciplina: Ordenar colunas de forma ascendente"></th></tr>
+                <tr style="text-align: center; height: 0px;" role="row"></tr>
+            </thead>
+            
+
+        <tbody><tr role="row" class="odd" style="height: 67px;" data-dt-row="0"><td class="sorting_1" data-dt-row="0" data-dt-column="0">CURSO GLOBAL</td><td data-dt-row="0" data-dt-column="1">GRADE GLOBAL</td><td data-dt-row="0" data-dt-column="2">1</td><td data-dt-row="0" data-dt-column="3"><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=4424020" target="_blank">Formação Geral - AI Semi UNIG</a></td></tr><tr role="row" class="even" style="height: 51px;" data-dt-row="1"><td class="sorting_1" data-dt-row="1" data-dt-column="0">Graduação Semipresencial</td><td data-dt-row="1" data-dt-column="1">Graduação Semipresencial</td><td data-dt-row="1" data-dt-column="2">38</td><td data-dt-row="1" data-dt-column="3"><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=4290811" target="_blank">Programação em PYTHON</a></td></tr><tr role="row" class="odd" style="height: 51px;" data-dt-row="2"><td class="sorting_1" data-dt-row="2" data-dt-column="0">Não Utillizar - Inativo</td><td data-dt-row="2" data-dt-column="1">Graduação Semipresencial</td><td data-dt-row="2" data-dt-column="2">27</td><td data-dt-row="2" data-dt-column="3"><a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=3566912" target="_blank">Redes de Computadores</a></td></tr></tbody></table></div></div><div class="DTFC_LeftFootWrapper" style="position:relative; top:0; left:0; overflow:hidden;"></div></div></div><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Mostrando de 1 até 3 de 3 registros</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Anterior</a></li><li class="paginate_button active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">Próximo</a></li></ul></div></div>
+
+
+</div>
+
+
+<script>
+    $(function () {
+        atualizarParametroData();
+        iniciarTabela();
+    });
+
+    var table;
+    function iniciarTabela() {
+         table = $(".table").DataTable({
+            "paging": true,
+            "ordering": true,
+            "searching": true,
+            "processing": true,
+            "pageLength": 50,
+            "lengthMenu": [10, 25, 50,100, 10000],
+            language: {
+                buttons: {
+                    colvis: 'Ocultar/Mostrar colunas'
+                },
+                thousands: '.',
+                decimal: ","
+            },
+            dom: 'Blfrtip',
+            stateSave: true,
+            buttons: [
+                'colvis','excel'
+            ],
+            "initComplete": function () {   
+                setTimeout(() => {
+                    $($.fn.dataTable.tables(true)).DataTable().columns.adjust().fixedColumns().relayout();
+                }, 1500);  
+            },
+            "ajax": {
+                "url": "/GradeDisciplinaGerenciamento/TabelaResumoData",
+                "type": "POST",
+                "data": function (d) {
+                    d.modalidade = idModalidade
+                    d.cursos = $('#filtroCurso').multipleSelect('getSelects');
+                    d.grades = $('#filtroGrade').multipleSelect('getSelects');
+                    d.periodos = $('#filtroPeriodo').multipleSelect('getSelects');
+                    d.disciplinas = sanitize($('#filtroDisciplina').multipleSelect('getSelects'));
+                    d.idGestao = "0";
+                    d.apenasDisciplinasComMatriculas = $("#apenasDisciplinasComMatriculas").is(":checked");
+                },
+                "datatype": "json"
+            },
+            "columns": [
+                {
+                    "data": "nomeCurso", "name": "NomeCurso", "visible": false,
+                    "render": function (data, type, row, meta) {
+                        if (row.siglaCurso != null) {
+                            if (row.idPapel == 57 || row.idPapel == 67) {
+                                return '<a data-toggle3="popover" data-content="' + data + '" data-trigger="hover" href="Grade/GradeCurricular/' + row.idCurso + '" target="_blank">' + row.siglaCurso + '</a>';
+                            } else {
+                                return '<span data-toggle3="popover" data-content="' + data + '" data-trigger="hover" >'+row.siglaCurso+'</span>';
+                            }
+                        } else {
+                            if (row.idPapel == 57 || row.idPapel == 67) {
+                                return '<a href="/Grade/GradeCurricular/' + row.idCurso + '" target="_blank">' + data + '</a>';
+                            } else {
+                                return data;
+                            }
+
+                        }
+
+                    }
+                },
+                {
+                    "data": "nomeGrade", "name": "NomeGrade",
+                    "render": function (data, type, row, meta) {
+                        if (row.idPapel == 57 || row.idPapel == 67) {
+                            return '<a href="/Grade/GradeDisciplina/' + row.idGrade + '" target="_blank">' + data + '</a>';
+                        } else {
+                            return data;
+                        }
+                    }
+                },
+                { "data": "periodo", "name": "Periodo" },
+                {
+                    "data": "nomeDisciplina", "name": "NomeDisciplina",
+                    "render": function (data, type, row, meta) {
+                        if (row.disciplinaInstitucional && row.idPapel != 57 && row.idPapel != 15) {
+                            return '<span data-content="Disciplina gerenciada pelo coordenador institucional" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                        } else {
+                            return '<a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=' + row.idGradeDisciplina + '" target="_blank">' + data + '</a>';
+                        }
+                    }
+                },
+                { "data": "cargaHoraria", "name": "CargaHoraria" },
+                {
+                    "data": "numeroMatriculas", "name": "NumeroMatriculas",
+                    "render": function (data, type, row, meta) {
+                         return '<a href="#" title="Disciplinas ofertadas" data-load-url="/GradeDisciplinaGerenciamento/TurmasDisciplinas?idGrade=' + row.idGrade + '&idDisciplina=' + row.idDisciplina + '" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                    }},
+                 {
+                        "data": "quantidadeDisciplinaEquivalente", "name": "QuantidadeDisciplinaEquivalente",
+                        "render": function (data, type, row, meta) {
+                            if (data == 0) {
+                                return data;
+                            } else {
+                                return '<a href="#" title="Equivalências" data-load-url="/GradeDisciplinaGerenciamento/Equivalencias/' + row.idGradeDisciplina + '" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                            }
+                        }
+                },
+                //{
+                //    "data": "quantidadeDisciplinaEquivalenciaQuestao", "name": "QuantidadeDisciplinaEquivalenciaQuestao",
+                //    "render": function(data, type, row, meta) {
+                //        if (data == 0) {
+                //            return data;
+                //        } else {
+                //            return '<a href="#" title="Equivalências" data-load-url="GradeDisciplinaGerenciamento/Equivalencias/' + row.idGradeDisciplina + '" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                //        }
+                //    }
+                //},
+                {
+                    "data": "minimoAssociadoRecomendado", "name": "MinimoAssociadoRecomendado",
+                    "render": function (data, type, row, meta) {
+                        return data;
+
+                     }
+                },
+                {
+                    "data": "quantidadeConteudosAssociados", "name": "QuantidadeConteudosAssociados",
+                    "render": function (data, type, row, meta) {
+
+                        if (row.minimoAssociadoRecomendado > data && row.quantidadeQuestoesValidadasRecomendacao > row.quantidadeQuestaoValidada) {
+                            data = "<span class='badge bg-red' data-content='Recomendação: Associar " + row.minimoAssociadoRecomendado + " conteúdos.' data-toggle2='popover' data-trigger='hover'>" + data + "</span>";
+                        }
+                        if (row.disciplinaInstitucional && row.idPapel != 57 && row.idPapel != 15) {
+                            return '<span data-content="Disciplina gerenciada pelo coordenador institucional" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                        } else {
+                            return '<a href="/AssociarConteudoDisciplina/Index?idGradeDisciplina=' + row.idGradeDisciplina + '" target="_blank">' + data + '</a>';
+                        }
+
+                    }
+                },
+                {
+                    "data": "quantidadeQuestaoValidada", "name": "QuantidadeQuestaoValidada",
+                    "render": function (data, type, row, meta) {
+                        if (row.disciplinaInstitucional && row.idPapel != 57 && row.idPapel != 15) {
+                            return '<span data-content="Disciplina gerenciada pelo coordenador institucional" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                        }
+                        if (row.quantidadeQuestoesValidadasRecomendacao > data) {
+
+                            var complementoAvaliacoes = "";
+
+                            if (row.quantidadeAvaliacoes == 0) {
+
+                                complementoAvaliacoes = "<br><br>Esse valor foi projetado de acordo com a carga horária e quantidade de turnos. Durante o período de geração de provas, esse valor será atualizado de acordo com a quantidade real questões necessárias, levando em conta os turnos em que a disciplina ocorre.";
+                            }
+
+                            if (row.liberadoAlteracao == false) {
+                                return '<span class="badge bg-orange" data-content="Recomendação: ' + row.quantidadeQuestoesValidadasRecomendacao + ' questões validadas. Período para visualização/alteração encerrado.' + complementoAvaliacoes+'" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                            } else {
+                                return '<a class="badge bg-orange" modal-width="100%" data-content="Recomendação: ' + row.quantidadeQuestoesValidadasRecomendacao + ' questões validadas.' + complementoAvaliacoes +'" data-toggle2="popover" data-trigger="hover" href="#" title="Questões validadas" data-load-url="/DisciplinaQuestao/Index?filtro=1&idGrade=' + row.idGrade + "&idDisciplina=" + row.idDisciplina + '" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                            }
+
+                        } else {
+                            if (row.liberadoAlteracao == false) {
+                                return '<span data-content="Período para visualização/alteração encerrado" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                            } else {
+                                return '<a href="#" title="Questões validadas" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=1&idGrade=' + row.idGrade + "&idDisciplina=" + row.idDisciplina + '" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                            }
+                        }
+                    }
+                },
+                {
+                    "data": "quantidadeQuestaoInvalidada", "name": "QuantidadeQuestaoInvalidada",
+                    "render": function (data, type, row, meta) {
+
+                        if (row.disciplinaInstitucional && row.idPapel != 57 && row.idPapel != 15) {
+                            return '<span data-content="Disciplina gerenciada pelo coordenador institucional" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                        }
+
+                        var msgPercentualInvalidada = "A quantidade de questões invalidadas ultrapassou o número de " + row.quantidadeMinimaInvalidadas +" questões, verifique se não houve associações ou invalidações indevidas.";
+                        var msgPercentualConteudo = "Existe(m) conteúdo(s) com a quantidade de invalidações alta. Clique nesse link para detalhar."
+
+                        if (row.quantidadeMinimaInvalidadas < data && row.invalidacoesPorConteudo) {
+                            data = "<span class='badge bg-red' data-content='" + msgPercentualInvalidada + "<br><br>" + msgPercentualConteudo + "' data-toggle2='popover' data-trigger='hover'>" + data + "</span>";
+                        } else if (row.quantidadeMinimaInvalidadas < data) {
+                            data = "<span class='badge bg-orange' data-content='" + msgPercentualInvalidada + "'  data-toggle2='popover' data-trigger='hover'>" + data + "</span>";
+                        } else if (row.invalidacoesPorConteudo) {
+                            data = "<span class='badge bg-orange' data-content='" + msgPercentualConteudo + "' data-toggle2='popover' data-trigger='hover'>" + data + "</span>";
+                        }
+
+                        if (row.liberadoAlteracao == false) {
+                            return '<span data-content="Período para visualização/alteração encerrado" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                        } else {
+                            return '<a href="#" title="Questões invalidadas" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=2&idGrade=' + row.idGrade + "&idDisciplina=" + row.idDisciplina + '" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                        }
+                    }
+                },
+                {
+                    "data": "quantidadeQuestaoAAvaliar", "name": "QuantidadeQuestaoAAvaliar",
+                    "render": function (data, type, row, meta) {
+                        if (row.disciplinaInstitucional && row.idPapel != 57 && row.idPapel != 15) {
+                            return '<span data-content="Disciplina gerenciada pelo coordenador institucional" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                        }
+                        return '<a href="#" title="Questões a avaliar" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?filtro=3&idGrade=' + row.idGrade + "&idDisciplina=" + row.idDisciplina + '" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                    }
+                },
+                {
+                    "data": "quantidadeQuestaoTotal", "name": "QuantidadeQuestaoTotal",
+                    "render": function (data, type, row, meta) {
+                        if (row.disciplinaInstitucional && row.idPapel != 57 && row.idPapel != 15) {
+                            return '<span data-content="Disciplina gerenciada pelo coordenador institucional" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                        }
+                        if (row.liberadoAlteracao == false) {
+                            return '<span data-content="Período para visualização/alteração encerrado" modal-width="100%" data-toggle2="popover" data-trigger="hover" >' + data + '</span>';
+                        } else {
+                            return '<a href="#" title="Todas questões" modal-width="100%" data-load-url="/DisciplinaQuestao/Index?idGrade=' + row.idGrade + "&idDisciplina=" + row.idDisciplina + '" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                        }
+
+                    }
+                },
+            ],
+            "serverSide": true,
+            "info": true,
+            scrollY: "500px",
+            scrollX: true,
+            scrollCollapse: true,
+            fixedColumns: {
+                leftColumns: 4
+            }
+        });
+
+         table.columns().visible(true);
+         if ("0" == "1") {
+             for (var i = 7; i < 14; i++) {
+                 table.column(i).visible(false);
+             }
+             table.columns.adjust().draw(false);
+         } else if ("0" == "2") {
+             table.column(1).visible(false);
+             table.column(8).visible(false);
+             table.columns.adjust().draw(false);
+         }else if ("0" == "3") {
+             table.column(1).visible(false);
+             table.column(8).visible(false);
+             table.column(9).visible(false);
+             table.columns.adjust().draw(false);
+         }
+         table.buttons().container()
+             .appendTo($('.btnExportar'));
+    }
+
+    function carregarTabelaResumo() {
+        curr_pos = {
+            'top': $(table.settings()[0].nScrollBody).scrollTop(),
+            'left': $(table.settings()[0].nScrollBody).scrollLeft()
+        };
+        table.ajax.reload(function () {
+            $(table.settings()[0].nScrollBody).scrollTop(curr_pos.top);
+            $(table.settings()[0].nScrollBody).scrollLeft(curr_pos.left);
+        },false);
+    }
+
+    table.on('buttons-action', function (e, buttonApi, dataTable, node, config) {
+        if (buttonApi.text() != "Ocultar/Mostrar colunas") {
+            curr_pos = {
+                'top': $(table.settings()[0].nScrollBody).scrollTop(),
+                'left': $(table.settings()[0].nScrollBody).scrollLeft()
+            };
+            table.ajax.reload(function () {
+                $(table.settings()[0].nScrollBody).scrollTop(curr_pos.top);
+                $(table.settings()[0].nScrollBody).scrollLeft(curr_pos.left);
+            });
+        }
+
+    });
+
+    $('#myModal').on('hide.bs.modal', function (e) {
+        curr_pos = {
+            'top': $(table.settings()[0].nScrollBody).scrollTop(),
+            'left': $(table.settings()[0].nScrollBody).scrollLeft()
+        };
+        if (typeof alterouInformacoes !== "undefined" && alterouInformacoes == true) {
+            table.ajax.reload(function () {
+                $(table.settings()[0].nScrollBody).scrollTop(curr_pos.top);
+                $(table.settings()[0].nScrollBody).scrollLeft(curr_pos.left);
+            }, false);
+            atualizarTotalAAvaliar();
+        }
+    })
+
+
+    $('.table').on('processing.dt', function () {
+        $('[data-toggle2="popover"]').popover({ "container": "body", "placement": "left", "html": "true" } );
+        $('[data-toggle2="popover"]').css("cursor", "pointer");
+
+        $('[data-toggle3="popover"]').popover({ "container": "body", "placement": "right", "html": "true" } );
+        $('[data-toggle3="popover"]').css("cursor", "pointer");
+
+        $('[data-toggle="popover"]').popover({ "container": "body", "placement": "left", "html": "true" });
+    });
+
+
+    function atualizarParametroData() {
+        $.post("/GradeDisciplinaGerenciamento/AtualizarParametroResumo", { modalidade: idModalidade }, function (data) {
+            //$("#mesAlerta").html(data.periodicidadeAlertaValidacaoQuestao)
+            //$("#dataAlteracao").html(data.dataLimiteAlteracaoValidacaoQuestao + data.qtdDiasLimiteAlteracaoValidacaoQuestao)
+           // $("#dataValidar").html(data.dataBaseAlertaValidacaoQuestao)
+            $("#dataInvalidarQuestaoDesassociarConteudo").html(data.dataInvalidarQuestaoDesassociarConteudo + data.qtdDiasLimiteInvalidarQuestaoDesassociarConteudo)
+        }, "json");
+    }
+
+
+    function exportar(el) {
+         $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                    modalidade: idModalidade,
+                    cursos: $('#filtroCurso').multipleSelect('getSelects'),
+                    grades: $('#filtroGrade').multipleSelect('getSelects'),
+                    periodos: $('#filtroPeriodo').multipleSelect('getSelects'),
+                    disciplinas: sanitize($('#filtroDisciplina').multipleSelect('getSelects')),
+                    idGestao:"0",
+                    apenasDisciplinasComMatriculas:$("#apenasDisciplinasComMatriculas").is(":checked"),
+                },
+            url: '/GradeDisciplinaGerenciamento/Exportar',
+            success: function (data) {
+                mostrarDocumentoSemLoading(data);
+            }
+         });
+
+    }
+</script></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    var cursosFilter = [];
+    var gradesFilter = [];
+    var periodosFilter = [];
+    var disciplinasFilter = [];
+    var idModalidade = null;
+
+    var filtroAtualCursos = "";
+    var filtroAtualGrades = "";
+    var filtroAtualPeriodos = "";
+    var filtroAtualDisciplina = "";
+
+    const idDisciplinasInstitucionais = "8b69dada-df75-4533-98a3-5199a9a1c64c";
+    const idDisciplinasCursos = "7c5f6385-8ff3-410c-ba95-89147ba9a676";
+
+    
+    $(function () {
+        $('#filtroCurso').multipleSelect({
+            filter: true,
+            placeholder: "Cursos",
+            width: '100%',
+            showClear: true,
+            onClose: function () {
+                if (cursosFilter.toString() != $('#filtroCurso').multipleSelect('getSelects', 'text').toString()) {
+                    cursosFilter = $('#filtroCurso').multipleSelect('getSelects', 'text');
+                    atualizarGrades("");
+                    atualizarPeriodos("");
+                    atualizarDisciplinas("");
+                    table.ajax.reload();
+                }
+            },
+            onClear: function () {
+                if (cursosFilter.toString() != $('#filtroCurso').multipleSelect('getSelects', 'text').toString()) {
+                    cursosFilter = $('#filtroCurso').multipleSelect('getSelects', 'text');
+                    atualizarGrades("");
+                    atualizarPeriodos("");
+                    atualizarDisciplinas("");
+                    table.ajax.reload();
+                }
+            },
+            customFilter: function ({ text, search, originalText, originalSearch }) {                
+                return text;
+            },
+            onAfterCreate: function () {                                                                
+                $("#comboCurso .ms-search :input")[0].onkeyup = function (event) {
+
+                    if (event.which === 13) {
+                        return;
+                    };
+
+                    filtroAtualCursos = $("#comboCurso .ms-search :input").val();
+                    const search = event.target.value;
+                    setTimeout(function () {
+                        atualizarCursos(search);
+                    }, 2000);
+                };
+            },
+            onOpen: function () {                
+                $("#comboCurso .ms-search :input").val(filtroAtualCursos);
+            }
+        });
+
+        $('#filtroModalidade').multipleSelect({
+            placeholder: "Modalidade",
+            width: '100%',
+            single: true,            
+            onClick: function (view) {
+                if (idModalidade != view.value) {
+                    idModalidade = view.value;
+                    atualizarParametroData();
+                    atualizarCursos("");
+                    atualizarGrades("");
+                    atualizarPeriodos("");
+                    atualizarDisciplinas("");
+                    table.ajax.reload();
+                }
+
+            }
+        });
+        idModalidade = $('#filtroModalidade').multipleSelect('getSelects')[0];
+
+        $('#filtroGrade').multipleSelect({
+            filter: true,
+            placeholder: "Grades",
+            width: '100%',
+            showClear: true,
+            onClose: function () {
+                if (gradesFilter.toString() != $('#filtroGrade').multipleSelect('getSelects', 'text').toString()) {
+                    gradesFilter = $('#filtroGrade').multipleSelect('getSelects', 'text');
+                    atualizarPeriodos("");
+                    atualizarDisciplinas("");
+                    table.ajax.reload();
+                }
+
+            },
+            onClear: function () {
+                if (gradesFilter.toString() != $('#filtroGrade').multipleSelect('getSelects', 'text').toString()) {
+                    gradesFilter = $('#filtroGrade').multipleSelect('getSelects', 'text');
+                    atualizarPeriodos("");
+                    atualizarDisciplinas("");
+                    table.ajax.reload();
+                }
+
+            },
+            customFilter: function ({ text, search, originalText, originalSearch }) {
+                return text;
+            },
+            onAfterCreate: function () {
+                $("#comboGrade .ms-search :input")[0].onkeyup = function (event) {
+
+                    if (event.which === 13) {
+                        return;
+                    };
+                    
+                    filtroAtualGrades = $("#comboGrade .ms-search :input").val();
+                    const search = event.target.value;
+
+                    setTimeout(function () {
+                        atualizarGrades(search);
+                    }, 2000);
+                };
+            },
+            onOpen: function () {
+                $("#comboGrade .ms-search :input").val(filtroAtualGrades);
+            }
+        });
+        $('#filtroPeriodo').multipleSelect({
+            filter: true,
+            placeholder: "Períodos",
+            width: '100%',
+            showClear: true,
+            onClose: function () {
+                if (periodosFilter.toString() != $('#filtroPeriodo').multipleSelect('getSelects').toString()) {
+                    periodosFilter = $('#filtroPeriodo').multipleSelect('getSelects');
+                    atualizarDisciplinas("");
+                    table.ajax.reload();
+                }
+
+            },
+            onClear: function () {
+                if (periodosFilter.toString() != $('#filtroPeriodo').multipleSelect('getSelects').toString()) {
+                    periodosFilter = $('#filtroPeriodo').multipleSelect('getSelects');
+                    atualizarDisciplinas("");
+                    table.ajax.reload();
+                }
+
+            },
+            customFilter: function ({ text, search, originalText, originalSearch }) {
+                return text;
+            },
+            onAfterCreate: function () {
+                $("#comboPeriodo .ms-search :input")[0].onkeyup = function (event) {
+                    if (event.which === 13) {
+                        return;
+                    };
+                    filtroAtualPeriodos = $("#comboPeriodo .ms-search :input").val();
+                    const search = event.target.value;
+
+                    setTimeout(function () {
+                        atualizarPeriodos(search);
+                    }, 2000);
+                };
+            },
+            onOpen: function () {
+                $("#comboPeriodo .ms-search :input").val(filtroAtualPeriodos);
+            }            
+        });
+        $('#filtroDisciplina').multipleSelect({
+            filter: true,
+            placeholder: "Disciplinas",
+            width: '100%',
+            showClear: true,
+            onClose: function () {
+                if (disciplinasFilter.toString() != $('#filtroDisciplina').multipleSelect('getSelects', 'text').toString()) {                    
+                    disciplinasFilter = $('#filtroDisciplina').multipleSelect('getSelects', 'text');                    
+                    table.ajax.reload();
+                }
+            },
+            onClear: function () {
+                if (disciplinasFilter.toString() != $('#filtroDisciplina').multipleSelect('getSelects', 'text').toString()) {
+                    disciplinasFilter = $('#filtroDisciplina').multipleSelect('getSelects', 'text');
+                    table.ajax.reload();
+                }
+            },
+            customFilter: function ({ text, search, originalText, originalSearch }) {
+                return text;
+            },
+            onAfterCreate: function () {
+                $("#comboDisciplina .ms-search :input")[0].onkeyup = function (event) {
+
+                    if (event.which === 13) {
+                        return;
+                    };
+
+                    filtroAtualDisciplinas = $("#comboDisciplina .ms-search :input").val();
+                    const search = event.target.value;
+
+                    setTimeout(function () {
+                        atualizarDisciplinas(search);
+                    }, 2000);
+                };
+            },
+            onOpen: function () {
+                $("#comboDisciplina .ms-search :input").val(filtroAtualDisciplinas);
+            }
+        });
+
+        carregarFiltros();
+
+        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+            var url = $(this).attr("href");
+            if (url == "#") return;
+            var target = $(this).data("target");
+            var tab = $(this);
+            $("#contentGeral").html("");
+            $(target).load(url, function (result) {
+            });
+           
+        });
+
+        $('#formularioGeral').tab('show');
+    });
+
+    $('input').on('ifChanged', function (event) {
+        table.ajax.reload();
+    });
+
+    function carregarFiltros() {
+        filtroAtualCursos = $("#comboCurso .ms-search :input").val();
+        filtroAtualGrades = $("#comboGrade .ms-search :input").val();
+        filtroAtualPeriodos = $("#comboPeriodo .ms-search :input").val();
+        filtroAtualDisciplinas = $("#comboDisciplina .ms-search :input").val();
+        atualizarCursos(filtroAtualCursos);
+        atualizarGrades(filtroAtualGrades);
+        atualizarPeriodos(filtroAtualPeriodos);
+        atualizarDisciplinas(filtroAtualDisciplinas);
+    }
+
+    function atualizarCursos(filtro) {
+        if (filtro === filtroAtualCursos) {
+            var selectdsValues = $('#filtroCurso').multipleSelect('getSelects', 'text');            
+            $.post("/GradeDisciplinaGerenciamento/Cursos", { idModalidade: idModalidade, filtro: filtro, selecteds: selectdsValues }, function (data) {
+                $('#filtroCurso').html("");
+                $.each(data, function (i, item) {
+                    $('<option>').val(item).text(item).appendTo('#filtroCurso');
+                });
+
+                $('#filtroCurso').multipleSelect("refresh");
+
+                $('#filtroCurso').multipleSelect('setSelects', selectdsValues, 'text');
+                
+
+            }, "json");
+        }
+    }
+
+    function atualizarGrades(filtro) {
+        if (filtro === filtroAtualGrades) {
+            var selectdsValues = $('#filtroGrade').multipleSelect('getSelects', 'text');            
+            $.post("/GradeDisciplinaGerenciamento/Grades", { idModalidade: idModalidade, cursos: $('#filtroCurso').multipleSelect('getSelects', 'text'), filtro: filtro, selecteds: selectdsValues }, function (data) {
+                $('#filtroGrade').html("");
+                $.each(data, function (i, item) {
+                    $('<option>').val(item).text(item).appendTo('#filtroGrade');
+                });
+                $('#filtroGrade').multipleSelect("refresh");
+                $('#filtroGrade').multipleSelect('setSelects', selectdsValues, 'text');
+            }, "json");
+        }
+    }
+   
+    function atualizarPeriodos(filtro) {
+        if (filtro === filtroAtualPeriodos) {
+            
+            var selectdsValues = $('#filtroPeriodo').multipleSelect('getSelects', 'text');
+            var selectdsValuesClean = selectdsValues.map(function (value) {
+                return value.replace('º período', "");
+            });
+            
+            $.post("/GradeDisciplinaGerenciamento/Periodos", { idModalidade: idModalidade, cursos: $('#filtroCurso').multipleSelect('getSelects', 'text'), grades: $('#filtroGrade').multipleSelect('getSelects', 'text'), filtro: filtro, selecteds: selectdsValuesClean }, function (data) {
+                $('#filtroPeriodo').html("");
+                $.each(data, function (i, item) {
+                    $('<option>').val(item).text(item + 'º período').appendTo('#filtroPeriodo');
+                });
+                $('#filtroPeriodo').multipleSelect("refresh");
+                $('#filtroPeriodo').multipleSelect('setSelects', selectdsValues, 'text');
+            }, "json");
+        }
+    }
+
+
+    function GetNomeDisciplinaComGrupo(grupo, disciplina){
+
+        if ((grupo === undefined || grupo === null || grupo === "") &&
+            (disciplina === undefined || disciplina === null || disciplina === ""))  {
+            return "";
+        };
+                
+        if (grupo === undefined || grupo === null || grupo === "") {
+            return disciplina;
+        };
+
+        if (grupo === "DISCIPLINAS INSTITUCIONAIS") {
+            return idDisciplinasInstitucionais + '|' + disciplina;
+        };
+
+        return idDisciplinasCursos + '|' + disciplina;
+    }
+
+    function sanitize(values) {
+        return values.map(item => {
+            const parts = item.split('|');
+            if (parts[0] === idDisciplinasInstitucionais || parts[0] === idDisciplinasCursos) {
+                return parts.slice(1).join('|');
+            }
+            return item;
+        });
+    }
+
+    function atualizarDisciplinas(filtro) {        
+        if (filtro === filtroAtualDisciplinas) {            
+            var selectdsValues = $('#filtroDisciplina').multipleSelect('getSelects', 'text');
+            var valuesWithGuid = $('#filtroDisciplina').multipleSelect('getSelects');
+
+            $.post("/GradeDisciplinaGerenciamento/Disciplinas", { idModalidade: idModalidade, cursos: $('#filtroCurso').multipleSelect('getSelects', 'text'), grades: $('#filtroGrade').multipleSelect('getSelects', 'text'), periodos: $('#filtroPeriodo').multipleSelect('getSelects'), filtro: filtro, selecteds: valuesWithGuid }, function (data) {
+                $('#filtroDisciplina').html("");
+                $.each(data, function (i, grupo) {
+                    var $optgroup = $('<optgroup>').attr('label', grupo.tipo);
+                    $.each(grupo.disciplinas, function (i, disciplina) {
+                        var descricao = GetNomeDisciplinaComGrupo(grupo.tipo, disciplina);
+                        $('<option>').val(descricao).text(disciplina).appendTo($optgroup);
+                    });
+                    $optgroup.appendTo('#filtroDisciplina');
+                });
+                $('#filtroDisciplina').multipleSelect("refresh")
+                $('#filtroDisciplina').multipleSelect('setSelects', valuesWithGuid);
+            }, "json");
+        }
+    }
+
+
+    $("#myModal2").on("hidden.bs.modal", function () {
+        $("body").addClass("modal-open");
+    });
+
+     $(function () {
+        $('input.flat').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        });
+         
+
+        $('[data-toggle="popover"]').popover({
+            container: 'body',
+            html: true,
+            trigger: "hover",
+            placement: "left"
+        });
+
+
+    });
+
+</script>
+
+
+<style>
+    .radio label, .checkbox label {
+        padding-left: 0px;
+        margin-left: 2px;
+    }
+
+    .select-container{
+        display:flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .select-combo {
+        margin-right: 5px;
+    }
+</style></div>
+
+
+
+                </div>
+
+            </div>
+            <!-- End right content -->
+
+        </div>
+    </div>
+
+
+    <!-- Base Modal -->
+    <div id="myModal" class="modal fade" role="dialog" data-bs-focus="false">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <button type="button" class="fa fa-expand expandModal"></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center;">
+                        <i class="ld ld-ring ld-spin" style="width: 25px; height: 25px;"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Base Modal -->
+    <div id="myModal2" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <button type="button" class="fa fa-expand expandModal"></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center;">
+                        <i class="ld ld-ring ld-spin" style="width: 25px; height: 25px;"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Base Modal -->
+    <div id="myModal3" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <button type="button" class="fa fa-expand expandModal"></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center;">
+                        <i class="ld ld-ring ld-spin" style="width: 25px; height: 25px;"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Base Modal -->
+    <div id="myModal4" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <button type="button" class="modalMinimize fa fa-minus"></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center;">
+                        <i class="ld ld-ring ld-spin" style="width: 25px; height: 25px;"></i>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Termos de uso Modal -->
+    <!-- Base Modal -->
+    <div id="termosDeUsoModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+                    <button type="button" class="fa fa-expand expandModal"></button>
+                    <h4 class="modal-title">Termos de Uso</h4>
+                </div>
+                <div class="modal-body">                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Base Modal -->
+    <div id="myModalFullScreen" class="modal fade my-modal-fullscreen" role="dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+        </div>
+    </div>
+
+    <div class="minmaxCon"></div>
+
+    <!-- End of page -->
+    <!-- the overlay modal element -->
+    <div class="md-overlay"></div>
+    <!-- End of eoverlay modal -->
+
+    <script src="/js/site.min.js"></script>
+
+    <script src="/js/mathml-quebra.js"></script>
+
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    
+<script>
+        $(document).ready(function () {
+            exibeMensagem();
+            atualizarDashBoard();
+            atualizarTabelaResumo();
+        });
+    function atualizarDashBoard() {
+        $("#dashboard").load("/Professor/Dashboard", function () {
+            atualizarTotalAAvaliar();
+            atualizarTotalTurmaDisciplina();
+            atualizarTotalRecursos(); 
+        })
+        }
+
+        function atualizarTabelaResumo() {
+             $("#tabelaResumo").load("/GradeDisciplinaGerenciamento/TabelaResumo")
+        }
+
+        function atualizarTotalAAvaliar() {
+            $.getJSON("/DisciplinaQuestao/TotalAAvaliar", function (data) {
+                $("#TotalQuestaoAvaliar").html(data.total);
+             //   animateCounter($("#TotalQuestaoAvaliar"));
+            })
+        }
+
+        function atualizarTotalTurmaDisciplina() {
+            $.getJSON("/Professor/TotalTurmaDisciplina", function (data) {
+                $("#TotalTurmaDisciplina").html(data.total);
+               // animateCounter($("#TotalTurmaDisciplina"));
+            })
+        }
+
+        function atualizarTotalRecursos() {
+            $.getJSON("/AnalisarRecurso/TotalRecursosAnalisar", function (data) {
+                $("#NumeroRecursos").html(data.total);
+              //  animateCounter($("#NumeroRecursos"));
+            })
+        }
+
+        function exibeMensagem() {
+            $.get("/Contexto/MensagemInicial", function (data) {
+                if (data.titulo != "" && data.mensagem != "") {
+                    $("#myModal .modal-title").html(data.titulo);
+                    $("#myModal .modal-body").html(data.mensagem);
+                    $("#myModal").modal("show");
+                }
+            })
+        }
+
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+    var footerDefault = '';
+    var resizefunc = [];
+
+    $(document).ready(function () {
+        carregaPerfil();
+        //carregaInstituicoes();
+        addRequired();
+        addLoadingAjaxButtons();
+        $("#sidebar-menu li ul").css("display", "none");
+        $(".menu_section").find(".active").addClass("active-sm").removeClass("active");
+
+        $('.dropdown-submenu>ul').hide();
+
+        $('.dropdown-submenu a.test').on("click", function (e) {
+
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+        $(".col-md-3 .left_col").css("min-height", $(".main_container").height());
+
+        adicionarIconeSubmenu();
+        if ($(".dropdown-menu-left li").length >= 5) {
+            $("#searchMenuIESLi").show();
+        }
+        sessionStorage.setItem('expandirMenu', "true");
+        
+        $('#termosDeUso').on("click", function (e) {
+            let termosDeUsoHtml = 
+                `<div class="text-justify">
+                    <p>É dever do usuário utilizar o banco de questões de fonte AvaliA com idoneidade, não sendo permitida a distribuição, disseminação e disponibilização das questões aos estudantes na forma de cadernos de provas ou similares, assim como para demais integrantes da comunidade acadêmica e não-acadêmica.</p>
+                    <p>Não é permitido ao usuário redistribuição, revenda ou sublicenciamento de qualquer forma e para qualquer terceiro que não os usuários da plataforma AvaliA.</p>
+                    <p>Não é permitida a modificação, tradução ou transformação dos conteúdos da plataforma AvaliA de forma que infrinjam os direitos de autor ou outros direitos de propriedade intelectual ora licenciados.</p>
+                    <p>Não é permitida também a realização de cópias, mesmo que temporárias dos conteúdos presentes na plataforma AvaliA.</p>
+                    <p>Também é vedada a incorporação de partes dos conteúdos da plataforma AvaliA em apostilas de curso impressas ou eletrônicas e em ambientes virtuais de ensino.</p>
+                </div>`;
+            $("#termosDeUsoModal").find('.modal-title').html("Termos de Uso");
+            $("#termosDeUsoModal").find('.modal-body').html(termosDeUsoHtml);
+            $("#termosDeUsoModal").modal("show");
+            e.stopPropagation();
+            e.preventDefault;
+        });
+    });
+  
+    function adicionarIconeSubmenu() {
+        $("#sidebar-menu .nav li a.dropdownMenu").each(function () {
+            $(this).html($(this).html() + "<span class='fa fa-chevron-down'></span>")
+        });
+    }
+
+    $('#searchMenuIES').bind('input', function () {
+        var texto = $(this).val();
+        $(".dropdown-menu-left li").each(function () {
+            if ($(this)[0].innerText.toLocaleLowerCase().indexOf(texto.toLocaleLowerCase()) == -1) {
+                if ($(this)[0].innerText != "") {
+                    $(this).hide()
+                }
+            }
+            else {
+                $(this).show()
+            }
+        })
+    });
+
+    $("#formSearchMenuIES").submit(function (event) {
+        event.preventDefault();
+        var texto = $("#searchMenuIES").val();
+        var redirecionado = false;
+        $(".dropdown-menu-left li").each(function () {
+            if ($(this)[0].innerText.toLocaleLowerCase().trim().indexOf(texto.toLocaleLowerCase().trim()) != -1) {
+                if(!redirecionado){
+                    redirecionado = true;
+                    location.href = $(this).find("a")[0].href;
+                }
+            }
+        })
+    });
+
+    $(".navbar-nav .dropdown-toggle, #menuInstituicoes").on("click", function(){
+        setTimeout(function(){
+            $("#searchMenuIES").focus();
+        }, 100);
+    });
+
+    function carregaPerfil() {
+        const autenticado = 10499947 != null;
+
+        if (autenticado) {
+            $("#usuarioPerfil").load("/Contexto", function () {
+                var trocaSenha = $("#trocarSenha").val();
+                if (trocaSenha) {
+                    habilitaCloseModal("#myModal", false);
+                    $("#myModal").find('.modal-title').html("Alteração de senha");
+                    $("#myModal").modal({ backdrop: 'static', keyboard: false });
+                    $("#myModal").find('.modal-body').load("/Usuario/AlterarSenha");
+                }
+            });
+        }
+    }
+
+
+    function alterarSenha() {
+        var autenticado = 10499947 != null;
+        if (autenticado) {
+            $("#usuarioPerfil").load("/Contexto", function () {
+                $("#myModal").find('.modal-title').html("Alteração de senha");
+                $("#myModal").modal({ backdrop: 'static', keyboard: false });
+                $("#myModal").find('.modal-body').load("/Usuario/AlterarSenha");
+            });
+        }
+    }
+
+    var salvarExpansao = true;
+    function ExpandirMenu(expandir) {
+        if(expandir)
+            $("#toggleMenuButton").css("padding-left", "15px");   
+        else
+            $("#toggleMenuButton").css("padding-left", "0px"); 
+
+        if (salvarExpansao) {
+            $.ajax({
+                type: "POST",
+                url: "/Usuario/ExpandirMenu",
+                data: { expandir: expandir },
+                success: function (data) {
+                    if (data.type != "success")
+                        notificar(data.message, data.type);
+                    else
+                        sessionStorage.setItem('expandirMenu', expandir);
+                }
+            });
+        }
+    }
+
+    function ControleExpansaoMenu() {
+        let expandir = sessionStorage.getItem('expandirMenu');
+        salvarExpansao = false;
+        if (expandir == "true") {
+            $MENU_TOGGLE.click();
+            $MENU_TOGGLE.click();
+            $(".navbar").find("#logo").hide(); 
+            $("#idSpanLogo").hide();    
+        } else {
+            $MENU_TOGGLE.click();
+        }
+        salvarExpansao = true;
+    }
+
+    function onOpenModal(modal, e){
+        if (e.namespace !== 'bs.modal') {
+            return;
+        }
+        var loadurl = $(e.relatedTarget).data('load-url');
+        var width = $(e.relatedTarget).attr("modal-width");
+        if (width != undefined) {
+            $(modal).find('.modal-dialog').css('width', width);
+        }
+        footerDefault = '<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>';
+
+        if(loadurl != undefined){
+            var requestModal = $.ajax({
+                method: "GET",
+                url: loadurl,
+                success: function (data) { 
+                    $(modal).find(".modal-body").html(data);
+                    var addToFooter = $(modal).find("div[addToFooter]").html();
+                    if (addToFooter != undefined) {
+                        $(modal).parent().find(".modal-footer").html(addToFooter + $(modal).parent().find(".modal-footer").html());
+                        $(modal).find("div[addToFooter]").html("");
+                    }
+                    // Evento para identificar que o conteúdo do modal foi carregado ( Correção Discursiva Escuta esse evento )
+                    $(modal).trigger('modalContentLoaded');
+                }
+            });
+
+            $(modal).on("hidden.bs.modal", function (e) {
+                if(requestModal.readyState <= 1)
+                    requestModal.abort();
+            });
+        }
+        
+        $(modal).find('.modal-title').html($(e.relatedTarget).attr('title'))
+        if ($(e.relatedTarget).attr('modal-width'))
+            $(modal).find('.modal-dialog').css('width', $(e.relatedTarget).attr('modal-width'));
+    }
+    
+    $('.modal').on('shown.bs.modal', function (e) {
+        //ViewerJS, não utilizará essa função
+        onOpenModal(this, e);
+    });
+
+    loadingDefault = "<div style='text-align: center;'>" +
+        "<i class='ld ld-ring ld-spin' style='width: 25px; height: 25px;'></i>" +
+        "</div>";
+
+    $(".modal").on("hidden.bs.modal", function (e) {
+        setTimeout(function() { 
+            if($(".modal.fade.in").length > 0) {
+                $("body").addClass("modal-open");
+            } 
+        }, 500);
+        
+        //ViewerJS, não utilizará essa função
+        if (e.namespace !== 'bs.modal') {
+            return;
+        }
+        loading = "<div style='text-align: center;'>" +
+            "<i class='ld ld-ring ld-spin' style='width: 25px; height: 25px;'></i>" +
+            "</div>";
+        $(this).find(".modal-body").html(loading);
+        $(this).find(".modal-title").html("");
+        $(this).find(".modal-footer").html(footerDefault);
+        $(this).find('.modal-dialog').css('width', "");
+        habilitaCloseModal(this, true);
+    });
+
+    $(".modal").on("shown.bs.modal", function (e) {
+        $(document).off('focusin.modal');
+    });
+
+    var scre = $("body").width();
+    if (scre <= 790) {
+        $(".expandModal").hide();
+    } else {
+        $(".expandModal").show();
+    }
+
+    $(".expandModal").on("click", function () {
+        if ($(this).attr("class").indexOf("fa-expand") != -1) {
+            $(this.parentNode.parentNode.parentNode).css("width", "100%");
+            $(this).attr("class", "fa fa-compress expandModal");
+        } else {
+            $(this.parentNode.parentNode.parentNode).css("width", "900px");
+            $(this).attr("class", "fa fa-expand expandModal");
+        }
+    });
+
+    $.ajax({
+        method: "GET",
+        url: "/Css/RecuperarLogomarca?id=1335",
+        dataType: "json",
+        success: function (data) {
+            if (data.logomarcaExtendida == "")
+            {
+                document.getElementById("idImgLogomarcaEstendida").src = "/images/logo-interna-sagah.png"
+            }
+            else {
+                document.getElementById("idImgLogomarcaEstendida").src = "data:image/"+data.logomarcaExtendidaMimeType+";base64, " + data.logomarcaExtendida;
+            }
+
+            if (data.logomarca == "")
+            {
+                document.getElementById("logo").src = "/images/logo_sagah.png"
+            }
+            else {
+                document.getElementById("logo").src = "data:image/"+data.logomarcaMimeType+";base64, " + data.logomarca;
+            }
+        }
+    });
+
+    (function(open) {
+        XMLHttpRequest.prototype.open = function(XMLHttpRequest) {
+            var self = this;
+            this.addEventListener("readystatechange", function() {
+                if(this.responseURL && this.responseURL.indexOf("www.wiris.net/demo/editor/tick") > 0){
+                    this.abort();
+                }
+            }, false);
+            open.apply(this, arguments);
+        };
+    })(XMLHttpRequest.prototype.open);
+
+    $(document).ajaxError(function( event, jqxhr, settings, thrownError ) {
+        //validação para quando o WAF bloquear a requisição. 
+        if(thrownError == "Forbidden"){  
+            notificar('Ação não permitida', 2);
+        }
+    });
+      
+</script>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-123013333-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-123013333-1');
+    </script>
+
+
+
+<style>
+    .nav-sm .container.body .col-md-3.left_col {
+        z-index: 1039;
+        min-height: 100%;
+    }
+
+    nav a .fa-caret-down {
+        margin-left: 4px;
+    }
+
+    .my-modal-fullscreen {
+        padding-right: 0px !important;
+        width: 100vw;
+        max-width: none;
+        height: 100%;
+        margin: 0
+    }
+
+    .my-modal-fullscreen .modal-content {
+        height: 100%;
+        border: 0;
+        border-radius: 0
+    }
+
+    .my-modal-fullscreen .modal-footer,.my-modal-fullscreen .modal-header {
+        border-radius: 0
+    }
+
+    .my-modal-fullscreen .modal-body {
+        overflow-y: auto;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+</style></div><iframe id="_hjSafeContext_11335370" title="_hjSafeContext" tabindex="-1" aria-hidden="true" src="about:blank" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe></body></html>

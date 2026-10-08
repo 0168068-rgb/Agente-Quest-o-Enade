@@ -1,0 +1,432 @@
+COMPILADORES
+
+Introdução a
+compiladores
+Nicolli Souza Rios Alves
+
+OBJETIVOS DE APRENDIZAGEM
+
+>> Explicar interpretação e compilação de linguagens de programação.
+>> Definir a estrutura de um compilador.
+>> Demonstrar as fases do processo de compilação.
+
+Introdução
+Para transformarmos nosso código-fonte em algum código de máquina legível
+por computador em um formato binário, precisaremos contar com tradutores
+para nos ajudar a tornar nosso texto-fonte compreensível para nossas máquinas. O compilador é uma espécie de tradutor. Também há outro tradutor,
+cujo nome costuma ser usado em conjunto com o do compilador, chamado
+de interpretador. Tanto a compilação quanto a interpretação tornam o código
+legível para nossos computadores, mas de formas diferentes.
+Neste capítulo, você vai ver a diferença entre os processos realizados por
+um interpretador e por um compilador ao transformar o código legível para
+que possa ser lido por um computador. Além disso, vai reconhecer como um
+compilador é estruturado, bem como identificar as fases do processo de compilação de um código-fonte.
+
+2
+
+Introdução a compiladores
+
+Interpretação versus compilação
+Linguagens de programação são notações para descrever cálculos para pessoas e máquinas (AHO et al., 2008). Atualmente, somos altamente dependentes
+das linguagens de programação porque elas são utilizadas para escrever
+todos os tipos de software que estão sendo executados pelos computadores.
+Para reduzir a complexidade de fazer o projeto e a construção de computadores, a maioria deles é feita para executar comandos relativamente simples
+e de forma rápida. Para construir um programa de computador, deve-se
+combinar esses comandos simples em um programa denominado linguagem
+de máquina. Já que isso costuma ser um processo trabalhoso e arriscado a
+erros, a maior parte da programação é realizada utilizando uma linguagem
+de programação de alto nível. Como essa linguagem pode ser muito diferente
+da linguagem de máquina que o computador pode executar, o compilador
+entra em ação, como mostra a Figura 1.
+
+Figura 1. Funcionamento de um compilador.
+Fonte: Adaptada de Seco (2014).
+
+Basicamente, um compilador trata-se de um programa que recebe como
+entrada um texto de programa em uma determinada linguagem de alto nível e,
+a partir daí, produz como saída um texto de programa em outra linguagem de
+baixo nível, preservando seu significado. Isso é o que chamamos de processo
+de tradução. Lembre-se de que, ao longo desse processo, o compilador vai
+tentar identificar e relatar erros óbvios inseridos no texto pelo programador.
+
+Introdução a compiladores
+
+3
+
+Ao utilizar linguagens de alto nível para programar, temos um grande
+impacto na velocidade de desenvolvimento dos programas. Os principais
+motivos para isso são (MOGENSEN, 2010):
+ comparando à linguagem de máquina, a notação usada pelas linguagens de programação está mais próxima da maneira como os humanos
+pensam/resolvem os problemas;
+ o compilador pode detectar alguns erros de programação óbvios cometidos pelo programador;
+ programas escritos em uma linguagem de alto nível tendem a ser mais
+curtos do que aqueles equivalentes a eles escritos em linguagem de
+máquina;
+ o mesmo programa pode ser compilado em muitas linguagens de máquina diferentes e, portanto, pode ser executado em muitas máquinas
+diferentes.
+Por outro lado, quando os programas são escritos diretamente em linguagem de máquina, são traduzidos de forma mais rápida do que aqueles
+escritos em linguagem de alto nível. Nesse contexto, é possível encontrar
+programas críticos que são escritos parcialmente em linguagem de máquina.
+Vale ressaltar que um compilador se diferencia de um interpretador, que
+faz a leitura de um programa e o executa de forma direta, sem emitir uma
+tradução. Há diversas linguagens que normalmente são executadas por um
+interpretador, como Python, JavaScript, Perl e Ruby.
+Enquanto um interpretador produz um resultado de um programa,
+um compilador produz um programa escrito em linguagem Assembly. Dessa
+forma, o montador (assembler) de arquitetura transforma o programa resultante em código binário. A linguagem Assembly varia para cada computador
+individual, dependendo de sua arquitetura. Assim, esses programas compilados só poderão ser executados em computadores que tenham a mesma
+arquitetura do computador para o qual foram compilados.
+Depois de compilado, o programa torna-se ilegível por humanos, mas em
+uma linguagem de máquina específica da arquitetura. Além disso, a criação
+de um programa compilado requer várias etapas. Primeiro, o programador,
+por meio de uma ferramenta de desenvolvimento ou mesmo qualquer editor
+de texto, escreve o código-fonte em uma linguagem de computador escolhida. Pode acontecer de o programa ser complexo e, assim, estar dividido
+em diversos arquivos. O programador então faz a compilação do programa,
+
+4
+
+Introdução a compiladores
+
+classificando e vinculando os módulos, e prossegue com a tradução de tudo
+em código de máquina para que o computador possa entender.
+Na literatura técnica, é apontado que não há nenhuma diferença crucial
+entre o uso de um compilador e um interpretador. Nesses dois casos, o texto do
+programa é processado em uma forma intermediária, que é então interpretada
+por algum mecanismo de interpretação. Na compilação (GRUNE et al., 2012):
+ o processamento do programa é considerável;
+ o código executável binário específico da máquina (forma intermediária
+resultante) é de baixo nível;
+ o mecanismo de interpretação é a CPU do hardware; e
+ a execução do programa é relativamente rápida.
+Já na interpretação (GRUNE et al., 2012):
+ o processamento do programa é mínimo a moderado;
+ a forma intermediária resultante, alguma estrutura de dados específica
+do sistema, é de nível alto a médio;
+ o mecanismo de interpretação é um programa (software); e
+ a execução do programa é relativamente lenta.
+
+Compilador
+Um compilador é um componente que faz parte de uma cadeia de ferramentas de programas que são utilizados para a criação de executáveis a partir
+do código-fonte. Geralmente, quando um único comando é chamado para
+compilar um programa, toda uma sequência de programas é chamada em
+segundo plano, como mostra o exemplo da Figura 2, na qual temos os programas utilizados para a compilação de um código-fonte para a linguagem
+Assembly (THAIN, 2020):
+ Pré-processador para preparar o código-fonte para o compilador
+adequado — nesse caso, por exemplo, nas linguagens C e C ++, serão
+consumidas todas as linhas que comecem com # como o #include,
+fazendo o pré-processador abrir o arquivo nomeado e colocar seu
+conteúdo no código-fonte.
+
+Introdução a compiladores
+
+5
+
+ Compilador apropriado para consumir a saída limpa do pré-processador
+— nesse caso, ele vai verificar e analisar o código-fonte, executar a
+verificação de tipos e outras rotinas semânticas, além de otimizar o
+código, bem como produzir a linguagem Assembly como saída.
+ Montador (assembler) para consumir o código do Assembly e produzir
+o código-objeto — nesse caso, o código-objeto ainda não é completamente executável, faltando conter instruções brutas em linguagem de
+máquina na forma que o CPU precisa. Por outro lado, o código-objeto
+não conhece ainda os endereços de memória finais nos quais será carregado. Por isso, ainda há lacunas que devem ser preenchidas pelo linker.
+ Linker para consumir um ou mais arquivos do objeto e da biblioteca e
+fazer a combinação em um programa executável completo — aqui temos
+a seleção dos locais de memória finais, onde cada pedaço de código
+e os dados serão carregados. Após isso, é feito o seu link, escrevendo
+as informações de endereço que ainda faltam.
+
+Figura 2. Um sistema de processamento de linguagem.
+Fonte: Aho et al. (2008, p. 4).
+
+6
+
+Introdução a compiladores
+
+Essa “caixa” representando o compilador na Figura 2 vai mapear um programa de origem em um programa de destino semanticamente equivalente.
+Na Figura 3, é possível ver o que constitui essa caixa. Para entendermos mais
+sobre seu funcionamento, esse mapeamento é dividido em duas partes:
+análise e síntese.
+A parte da análise é chamada, na maioria das vezes, de front-end do compilador. Aqui, o programa de origem é dividido em partes constituintes, impondo
+uma estrutura gramatical a elas. Depois disso, essa estrutura é utilizada na
+hora de criar uma representação intermediária do programa de origem. Caso
+essa parte da análise detecte que o programa de origem esteja mal-formado
+ou com sintática incorreta, ela vai fornecer mensagens informativas para
+que o usuário possa executar correções. Além disso, ainda nessa parte são
+coletadas informações sobre esse programa e armazenadas em uma estrutura
+chamada de tabela de símbolo. Isso tudo depois será repassado para a parte
+de síntese, juntamente com a representação intermediária.
+Já a parte da síntese é conhecida como back-end. É aqui que o programa
+de destino desejado é construído com base na representação intermediária
+e nas informações na tabela de símbolos.
+Ainda na Figura 3, é possível observar que o compilador opera em uma
+sequência de fases, na qual cada uma delas transforma uma representação
+do programa de origem em outra. Vamos entender um pouco mais sobre cada
+uma das principais fases da compilação mais adiante.
+
+Ferramentas de construção de compiladores
+Assim como qualquer outro desenvolvedor, aquele que vai escrever um compilador pode usar ambientes modernos de desenvolvimento de software, contendo ferramentas como editores de linguagem, depuradores, gerenciadores
+de versão e perfis, equipamentos de teste e assim por diante. Além dessas
+ferramentas gerais de desenvolvimento, outras mais especializadas foram
+criadas para ajudar a implementar várias fases de um compilador.
+
+Introdução a compiladores
+
+7
+
+Figura 3. Fases do processo de compilação.
+Fonte: Aho et al. (2008, p. 5).
+
+Essas ferramentas fazem o uso de linguagens especializadas de especificação e implementação de componentes específicos, e muitas delas
+usam algoritmos bastante robustos. Aquelas ferramentas que fazem maior
+sucesso são as que ocultam os detalhes do algoritmo de geração e procuram
+produzir componentes que podem ser facilmente integrados ao restante do
+compilador. Algumas ferramentas de construção de compilador comumente
+usadas incluem (AHO et al., 2008):
+
+8
+
+Introdução a compiladores
+
+ geradores de analisador que geram analisadores de sintaxe automaticamente com base em uma descrição gramatical de uma linguagem
+de programação;
+ geradores de varreduras que geram analisadores léxicos considerando
+uma descrição de expressão regular dos tokens de uma linguagem;
+ ferramentas de tradução direcionadas à sintaxe que geram coleções
+de rotinas para navegar uma árvore de análise e fazer a geração de
+código intermediário;
+ produtores de código que produzem um gerador com base em uma
+coleção de regras de tradução de cada operação da linguagem intermediária na linguagem de máquina específica;
+ ferramentas de análise de fluxo de dados que possibilitam a coleta de
+informações sobre como os valores são transportados de uma parte
+de um programa para outra parte. Esse tipo de análise é fundamental
+para a otimização do código;
+ kits de ferramentas de construção de compiladores que fornecem um
+conjunto integrado de rotinas para a construção de várias fases de
+um compilador.
+
+Alguns dos ambientes que suportam as ferramentas citadas são
+Eclipse Xtext e JetBrains MPS. Acesse seus respectivos sites para
+saber mais.
+
+Processo de compilação
+Como citamos antes, a Figura 3 mostra uma decomposição típica de um
+compilador em fases. Como podemos observar, o processo de compilação
+se dá por etapas sequenciais. Na prática, várias podem ser agrupadas,
+e as representações intermediárias entre elas não precisam ser construídas
+de forma explícita. Já a tabela de símbolos é usada por todas as fases do
+compilador, armazenando informações do programa de origem.
+
+Introdução a compiladores
+
+9
+
+Alguns compiladores possuem uma fase de otimização entre o front-end
+e o back-end, independente da máquina. Essa fase tem o intuito de realizar
+mudanças na representação intermediária, de modo que o back-end possa
+produzir um programa de destino melhor do que teria produzido de uma
+representação intermediária não otimizada. Vale ressaltar que a fase de
+otimização é opcional e por isso pode variar entre diferentes compiladores.
+Vamos entender agora um pouco mais sobre as principais fases de compilação (AHO et al., 2008).
+
+Análise léxica
+Esta é a primeira fase da compilação e também é conhecida como varredura.
+É nessa fase que o fluxo de caracteres que compõem o programa de origem
+é lido e também ocorre o agrupamento dos caracteres em sequências —
+lexemas. Para cada um desses lexemas, o analisador léxico vai produzir um
+token como saída, que será repassado para a fase seguinte. Esse token se
+dará na seguinte forma:
+{nome-token, valor-atributo}
+Nele, o primeiro componente trata-se de um símbolo abstrato que será
+utilizado na análise de sintaxe, e o segundo componente aponta para uma
+entrada na tabela de símbolos para esse token. As informações da entrada
+da tabela de símbolos são necessárias para o analisar semântico e gerador
+de código.
+A Figura 4 mostra um exemplo do que seria a representação da declaração
+de atribuição (position = initial + rate * 60) após a análise léxica
+como a sequência de tokens.
+
+10
+
+Introdução a compiladores
+
+Figura 4. Tradução de uma declaração de atribuição.
+Fonte: Aho et al. (2008, p. 7).
+
+Análise sintática
+Esta é a segunda fase do processo de compilação, na qual o analisador utiliza
+os primeiros componentes dos tokens produzidos pela análise léxica e cria
+uma representação intermediária semelhante a uma árvore que representa
+a estrutura gramatical do fluxo de tokens.
+
+Introdução a compiladores
+
+11
+
+Nessa árvore, é típico que em cada nó interno se tenha uma representação
+de uma operação, e os filhos do nó representam os argumentos da operação.
+Podemos observar uma árvore de sintaxe como saída do analisador estático
+para o fluxo de token a seguir, na Figura 5.
+{id, 1} {=} {id, 2} {+} {id, 3} {*} {60}
+
+⟨id, 1⟩
+
+=
+⟨id, 2⟩
+
++
+⟨id, 3⟩
+
+*
+
+60
+
+Figura 5. Árvore de sintaxe do fluxo anterior.
+
+Nessa árvore, podemos ver a ordem em que as operações devem ser
+realizadas. Lembrando que essa ordem é consistente com as convenções da
+aritmética, que nos dizem que a multiplicação tem precedência mais alta do
+que a adição e, portanto, a multiplicação deve ser realizada antes da adição.
+As fases posteriores da compilação usam essa estrutura gramatical para
+ajudar a analisar o programa de origem e gerar o programa de destino.
+
+Análise semântica
+A partir dessa árvore, o analisador semântico verifica, no programa de origem,
+se há consistência semântica considerando a linguagem definida, tomando
+como base as informações na tabela de símbolos. Depois, o analisador semântico junta todas as informações de tipo e guarda na árvore de sintaxe
+ou na tabela de símbolos, para que sejam utilizadas mais tarde durante a
+geração de código intermediário.
+A verificação de tipo (typechecking) é uma parte crucial dessa fase. Nela,
+o compilador verifica se cada operador tem operandos adequados. Nesse
+caso, podemos citar como exemplo os arrays, que, em algumas linguagens,
+necessitam que seu índice seja um número inteiro. Dessa forma, caso algum
+programador utilize um ponto flutuante como índice, esse erro deve ser relatado. Já em outras linguagens, a especificação permite algumas convenções
+de tipo coerções. Podemos exemplificar esse tipo de situação quando um
+operador aritmético binário for aplicado a um par de inteiros ou a um par de
+
+12
+
+Introdução a compiladores
+
+números de ponto flutuante. Nesse caso, o compilador vai poder converter
+ou forçar o inteiro em um número de ponto flutuante. A Figura 4 mostra um
+exemplo disso ao mostrar que a saída do analisador semântico tem um nó
+extra para o operador inttofloat, onde converte de forma explícita o argumento
+inteiro em um número de ponto flutuante.
+
+Geração de código intermediário
+Um compilador pode construir uma ou mais representações intermediárias, que podem possuir uma variedade de formas, ao longo do processo
+de tradução de um programa de origem em código de destino. Uma dessas
+representações pode ser as árvores de sintaxe, que são bem comuns de serem
+utilizadas ao longo da análise sintática e da análise semântica.
+Grande parte dos compiladores passa a gerar uma representação intermediária explícita de baixo nível ou semelhante a uma máquina após a
+análise de sintaxe e semântica do programa de origem. A partir disso, pode-se considerar um programa para uma máquina abstrata. Vale ressaltar que
+essa representação intermediária deve levar em conta duas propriedades
+essenciais: (1) ela deve ser fácil de produzir e (2) deve ser fácil de traduzir
+para a máquina de destino.
+
+Otimização de código
+Independentemente da máquina, essa fase de otimização tenta aprimorar
+o código intermediário para que o código de destino seja melhor em termos
+de velocidade, ou outras coisas relacionadas ao seu tamanho (mais curto)
+ou consumo de energia.
+Um algoritmo simples de geração de código intermediário seguido pela
+otimização do código é uma maneira razoável de gerar um bom código-alvo.
+A Figura 4 mostra um exemplo disso, ao transformar o código em um mais
+curto e mais eficiente.
+
+Geração de código
+Nesta fase, temos como entrada uma representação intermediária do programa de origem. Em seguida, faz-se o mapeamento para a linguagem de
+destino. Caso o idioma de destino seja o código de máquina, são selecionados
+os registros ou locais de memória para cada uma das variáveis que foram
+utilizadas no programa.
+
+Introdução a compiladores
+
+13
+
+Depois disso, temos a tradução das instruções intermediárias em sequências de instruções de máquina que executam a mesma tarefa. Lembrando
+que é essencial que a atribuição de registradores para conter variáveis seja
+criteriosa.
+Na Figura 4 temos os registradores R1 e R2 para auxiliar na tradução do
+código intermediário para o código de máquina.
+
+Gerenciamento da tabela de símbolos
+Essa tabela é uma estrutura de dados que possui um registro para cada nome
+de variável, com campos para os atributos do nome. Essa estrutura deve ser
+projetada para permitir que o compilador encontre o registro para cada nome
+de forma rápida, e depois, faça o armazenamento ou a recuperação de dados
+desse registro rapidamente.
+O registro dos nomes das variáveis utilizadas no programa de origem, bem
+como a coleta das informações sobre os diferentes atributos de cada nome,
+são funções extremamente importantes de um compilador. Esses atributos
+podem fornecer informações sobre o armazenamento alocado para um nome,
+seu tipo, seu escopo (localização de onde o valor vai poder ser utilizado) e,
+no caso de nomes de procedimento, temos informações como número e tipos
+de seus argumentos, forma de passar cada argumento (referência ou valor)
+e o tipo que ele retorna.
+O agrupamento dessas fases consiste na organização lógica de um compilador. Em uma implementação, as atividades de várias fases podem ser
+agrupadas em uma passagem que lê um arquivo de entrada e grava um arquivo
+de saída. Podemos citar como exemplo as fases front-end de análise lexical,
+análise de sintaxe, análise semântica e geração de código intermediário que
+podem ser incorporadas em uma única passagem. A otimização do código
+pode ser uma passagem opcional; logo, pode ter uma passagem de back-end
+que consiste na geração de código para uma máquina de destino específica.
+Algumas coleções de compiladores foram criadas considerando representações intermediárias cuidadosamente projetadas que permitem que o
+front-end de uma linguagem específica faça interface com o back-end de uma
+determinada máquina de destino. A partir dessas coleções, é possível produzir
+compiladores para diferentes linguagens de origem para uma máquina de
+destino, combinando diferentes front-ends com o back-end dessa máquina
+de destino. Nesse sentido, é possível produzir compiladores para diferentes
+máquinas, combinando um front-end com back-ends para diferentes máquinas.
+
+14
+
+Introdução a compiladores
+
+Como podemos observar, o compilador é usado para converter um código
+em qualquer linguagem de programação, compreensível por humanos para
+convertê-lo em uma linguagem compreensível por máquina, ou seja, o binário.
+Assim, o computador pode ler as informações e realizar as operações e gerar
+uma saída com base no que se deseja. Dessa forma, é preciso entender seu
+funcionamento e quais são as etapas de compilação necessárias para que
+isso aconteça.
+
+Referências
+AHO, A. V. et al. Compiladores: princípios, técnicas e ferramentas. 2. ed. São Paulo:
+Pearson, 2008. 634 p.
+GRUNE, D. et al. Modern compiler design. New York: Springer, 2012. 840 p.
+MOGENSEN, T. Æ. Basics of compiler design. Copenhagen: Department of Computer
+Science, University of Copenhagen, 2010. 307 p. Disponível em: http://hjemmesider.
+diku.dk/~torbenm/Basics/. Acesso em: 4 mar. 2021.
+SECO, J. C. Interpretation and compilation of programming languages: part 1: overview.
+Lisboa: Departamento de Informática, Faculdade de Ciências e Tecnologia, Universidade
+Nova de Lisboa, 2014. 11 p. Disponível em: https://docentes.fct.unl.pt/sites/default/
+files/jrcs/files/ln01-overview.pdf. Acesso em: 4 mar. 2021.
+THAIN, D. Introduction to Compilers and Language Design. Notre Dame: University of
+Notre Dame, 2020. 233 p. Disponível em: https://www3.nd.edu/~dthain/compilerbook/.
+Acesso em: 4 mar. 2021.
+
+Leituras recomendadas
+BROWN, P. J. Writing interactive compilers and interpreters. Chichester; New York: Wiley,
+1979. 265 p. (Wiley Series on Computing).
+GUNTER, C. A. Semantics of programming languages: structures and techniques. Cambridge: MIT Press, 1992. 419 p. (Foundations of Computing).
+JANSEN, J. M.; KOOPMAN, P.; PLASMEIJER, R. From interpretation to compilation. In:
+HORVÁTH, Z. et al. (ed.). Central European Functional Programming School: CEFP 2007.
+Berlin; Heidelberg: Springer, 2008. p. 286–301. (Lecture Notes in Computer Science, 5161).
+MAK, R. Writing compilers and interpreters: a modern software engineering approach
+using Java. 3 ed. Indianapolis: Wiley, 2009. 840 p.
+MPS: The Domain-Specific Language Creator by JetBrains. JetBrains, Praha, 2021. Disponível em: https://www.jetbrains.com/mps/. Acesso em: 4 mar. 2021.
+XTEXT: Language Engineering Made Easy! Eclipse Foundation, Brussels, Ottawa, Darmstadt, [2021]. Disponível em: https://www.eclipse.org/Xtext/. Acesso em: 4 mar. 2021.
+
+Introdução a compiladores
+
+15
+
+Os links para sites da web fornecidos neste capítulo foram todos
+testados, e seu funcionamento foi comprovado no momento da
+publicação do material. No entanto, a rede é extremamente dinâmica; suas
+páginas estão constantemente mudando de local e conteúdo. Assim, os editores
+declaram não ter qualquer responsabilidade sobre qualidade, precisão ou
+integralidade das informações referidas em tais links.
+
+

@@ -1,0 +1,644 @@
+LINGUAGENS
+FORMAIS E
+AUTÔMATOS
+
+Linguagens formais
+e autômatos:
+autômatos finitos
+não determinísticos
+Victor de Andrade Machado
+
+OBJETIVOS DE APRENDIZAGEM
+
+>> Definir a classe dos autômatos finitos não determinísticos.
+>> Exemplificar a construção de autômatos finitos não determinísticos.
+>> Desenvolver o algoritmo de conversão de autômato finito não determinístico para determinístico.
+
+Introdução
+Autômatos finitos correspondem a sistemas que, como o nome sugere, têm
+um número finito de estados. Ou seja, existe uma predefinição da limitação e
+do número de estados para o sistema. Desse modo, constitui-se um modelo
+computacional conhecido como “sequencial”, que é usado em diversos estudos
+relacionados à teoria da computação, como definição de linguagens, regras de
+aceitação de entradas, compiladores, etc.
+Com base nas características do sistema que está sendo representado,
+formaliza-se a abordagem de determinação ou de não determinação. Em uma
+abordagem não determinística, um mesmo símbolo de entrada, para um mesmo
+estado, permite que o sistema assuma vários estados alternativos. Por outro
+
+2
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+lado, no determinismo, para cada símbolo de entrada, em cada estado, há uma
+transição bem definida.
+Neste capítulo, será apresentada a classe dos autômatos finitos não determinísticos (AFNs), com a definição de conceitos e a descrição de características e
+notações peculiares a essa classe. Em seguida, você poderá compreender como
+construir um AFN com base no problema a ser solucionado. Por fim, descreveremos passo a passo o processo de conversão de um autômato finito determinístico (AFD) em um AFN, apresentando as tabelas de conversão e seus diagramas
+representativos.
+
+AFNs: conceitos, características e notações
+Ao falarmos de autômatos finitos, de modo geral, referimo-nos a sistemas cujo número de estados para resolver determinado problema é finito.
+Em seu conjunto de soluções, é possível pré-estabelecer o número de estados,
+pois há uma limitação definida para o problema. O modelo computacional
+que representa um autômato finito adota, basicamente, três tipos de estados
+diferentes, os quais são descritos a seguir.
+ Estado inicial: estado em que o processo para a leitura dos símbolos
+tem início.
+ Estado de aceitação: também chamado “estado final”, nesse estado,
+quando o processamento for finalizado, o sistema aceitará os dados
+como verdadeiros.
+ Estado de não aceitação: corresponde a todos os estados que não
+estão no conjunto dos estados de aceitação.
+Na Figura 1, é apresentado um exemplo de autômato finito que aceita
+palavras que comecem e terminem com a, não aceitando palavra vazia.
+O alfabeto de entrada é a, b.
+Observa-se que, para cada símbolo de entrada, há uma transição bem
+definida para um estado. A partir de q0, se a entrada for a, irá para q1. Se a
+leitura finalizar nesse momento, a palavra será aceita. Se for b, já infringirá
+uma condição, que é o início com a, indo para o estado q3 e não aceitando
+nenhuma palavra, independentemente do símbolo que chegar. Se, em q1,
+o símbolo de entrada for a, permanecerá em q1, pois se assume a possibilidade
+de terminar com esse símbolo. Se for b, irá para o estado q2. Se o autômato
+receber um símbolo a, voltará para q1. Caso contrário, permanecerá em q2,
+pois não é permitido terminar com o símbolo b, conforme o problema.
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+3
+
+Figura 1. Autômato finito que aceita palavras que iniciem e
+terminem com a.
+
+Fica visível que, para cada transição, todas as possibilidades são explicitadas, sendo apenas uma (1) transição realizada por símbolo, o que caracteriza
+um AFD. Porém, nem sempre a realidade é essa. Em alguns casos, não são
+explicitadas todas as transições nem há a dependência de uma entrada para
+que o autômato mude de estado. Essas são características do não determinismo, que será abordado a seguir.
+
+Não determinismo e os autômatos
+O não determinismo possibilita que vários caminhos sejam seguidos a partir
+de uma mesma entrada. Ou seja, várias escolhas podem existir para o estado
+seguinte em qualquer ponto (LEWIS; PAPADIMITRIOU, 2004). “Uma entrada é
+aceita se pelo menos um dos caminhos alternativos aceita a entrada (mesmo
+que os demais não aceitem)” (MENEZES, 2011, p. 80).
+Nos AFNs, são encontradas as chamadas “transições ε”, transições que
+não dependem do consumo de algum símbolo de entrada para que ocorram.
+Observando o AFN da Figura 2, podemos identificar as suas características
+diferenciais em relação a um AFD.
+
+Figura 2. Exemplo de AFN.
+Fonte: Adaptada de Sipser (2007).
+
+4
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+A partir do AFN apresentado na Figura 2 — que foi criado com o programa
+JFLAP (JFLAP, 2018) —, podemos reparar que a primeira diferença entre ele e um
+AFD é a multiplicidade de caminhos. Esse não determinismo é indicado pela
+coloração diferente da seta e do símbolo. É como se a fita de entrada pudesse
+ser replicada e lida independentemente em cada uma das possibilidades.
+No estado q0, observa-se que, ao ser lido o símbolo 1, a máquina tem mais
+de uma possibilidade a seguir, o que não ocorre com o AFD. Na computação
+tradicional, sabemos que dois elementos não podem estar em mais de um
+estado ao mesmo tempo; esse “aparente paralelismo” é realizado pela análise
+individual de cada uma das possibilidades no momento da leitura da fita de
+entrada (SIPSER, 2007).
+Um segundo ponto que deve ser considerado é a ausência de leitura e
+transição para determinados símbolos. Em q1, por exemplo, não existe transição para quando a entrada for 1; apenas para 0 e ε (no JFLAP, o símbolo
+ε representa a transição “vazia”), ou seja, a passagem do estado q1 para q2
+pode ser realizada sem a necessidade de leitura de um símbolo. Além disso,
+a própria existência do épsilon (ε) descarta o AFD, pois no determinismo a
+transição ε não ocorre.
+Tomando-se como exemplo o AFN apresentado na Figura 2, a computação
+de um AFN ocorre da forma descrita a seguir.
+ Considere que você está em um estado com múltiplas possibilidades
+de transição (q0), por exemplo.
+ Quando um símbolo 0 chega, o autômato verifica que existe apenas
+uma possiblidade, permanecendo no estado q0.
+ Se, no estado q0, o símbolo de entrada lido for 1, o autômato identificará
+a multiplicidade de transições e “se dividirá” em cópias de si mesmo,
+seguindo todas as possibilidades “em paralelo”.
+ Se existirem novas escolhas na sequência, novas divisões acontecerão.
+ Se ocorrer a leitura de um símbolo e ele não aparecer em uma das
+cópias da máquina, essa cópia será destruída.
+ Se, ao final do processamento, pelo menos uma (1) dessas cópias estiver em um estado final (ou de aceitação), o AFN aceitará a cadeia de
+entrada. Caso contrário, a entrada será rejeitada.
+De forma geral, um AFN é definido por um conjunto M de elementos, uma
+quíntupla (5-tupla) ordenada (MENEZES, 2011):
+M = (Ʃ, Q, δ, q0, F)
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+5
+
+onde:
+ Ʃ: alfabeto de entrada;
+ Q: conjunto de estados finitos para o autômato;
+ δ: função de transição do autômato;
+ q0: estado inicial;
+ F: subconjunto de Q, os estados finais.
+Definição para
+Seja δ: Q × Ʃ → 2Q uma função programa, caracterizada como uma função total.
+Dessa forma, para um estado s e um símbolo a, temos que:
+δ(s, a) = {q1, q2, q3, ..., qn} é a transição do autômato.
+
+Vamos adotar o AFN da Figura 3 como exemplo. Os símbolos de entrada
+utilizados são 0 e 1. Ou seja, nosso alfabeto é Ʃ = {0, 1}. Para o conjunto de
+estados finitos do autômato, temos Q = {q0, q1, q2, q3}. No caso, q3 é o único
+estado final; logo, F = {q3}. Temos que δ é a função de transição, que depende
+de cada autômato. As transições são dependentes da cadeia de entrada
+para cada autômato e de seu estado atual. Um conceito usado para realizar
+a construção da tabela de transições é a transição estendida.
+
+Figura 3. AFN a ser computado.
+
+Definição para transição estendida
+Seja M = (Ʃ, Q, δ, q0, F) um AFN. A função (ou transição) estendida denotada por:
+δ*: 2Q × Ʃ* → 2Q
+
+6
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+é a função programa δ: Q × Ʃ 2Q estendida para palavras e conjunto de estado,
+indutivamente definida por (MENEZES, 2011):
+δ*(P, ε) = P
+δ*(P, aw) = δ*(Uq∈P δ(q, a), w)
+
+A transição estendida é a união dos resultados da função aplicada a cada
+estado alternativo (MENEZES, 2011). Para nosso exemplo, imaginemos a entrada
+01010. O conjunto de transições é mostrado no Quadro 1.
+Quadro 1. Conjunto de transições para a cadeia 01010
+1
+
+δ*({q0}, 01010) =
+
+Função estendida sobre 01010
+
+2
+
+δ*(δ(q0, 0), 1010) =
+
+Processa 01010
+
+3
+
+δ*({q0}, 1010) =
+
+Função estendida sobre 1010
+
+4
+
+δ*(δ(q0, 1), 010) =
+
+Processa 1010
+
+5
+
+δ*({q0, q1}, 010) =
+
+Função estendida sobre 010
+
+6
+
+δ*(δ(q0, 0) ∪ δ(q1, 0), 10) =
+
+7
+8
+9
+10
+
+Processa 010
+
+δ*({q0} ∪ {q2}, 10) =
+
+Função estendida sobre 10
+
+δ*({q0, q1} ∪ {q3}, 0) =
+
+Função estendida sobre 0
+
+δ*(δ(q0, 1) ∪ δ(q2, 1), 0) =
+
+11
+
+δ*(δ(q0, 0) ∪ δ(q1,0) ∪ δ(q3, 0), ε) =
+
+12
+
+δ*({q0, q2, q3}, ε) = {q0, q2, q3}
+
+δ*({q0} ∪ {q2} ∪ {q3}, ε) =
+
+Processa 10
+
+Processa 0
+
+Função estendida sobre ε:
+fim da indução
+
+Para fins didáticos, as linhas estão enumeradas. Nas linhas 1 e 2, serão
+feitos a função estendida (isto é, a verificação da cadeia de entrada nos
+estados atuais disponíveis) e o processamento. Ou seja, em , para a entrada
+01010, processaremos o primeiro símbolo (0) com o estado atual. Quando se
+está em q0 e o símbolo de entrada lido é 0, o autômato permanece em q0,
+conforme mostra o AFN da Figura 2. Desse modo, continuamos em q0, mas
+com a entrada 1010. O próximo símbolo será 1, na linha 3. Quando se está
+em q0 e o símbolo 1 é lido (linha 4), as possibilidades são três: ou vai para q1,
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+7
+
+ou continua em q0, ou, devido à transição ε, vai para q2. Devemos, portanto,
+realizar a união (∪) das três possibilidades (linhas 5 e 6). O processo continua
+para cada termo e símbolo, até que os símbolos se esgotam (linha 10) no
+último processamento, caracterizado por ε. Assim, chega-se ao conjunto
+final demonstrado na linha 12. Como saber se foi aceito? A condição é: se ao
+final da execução houver pelo menos um (1) estado válido na interseção do
+conjunto final com os estados finais, a cadeia será aceita. Ou seja, tomando-se
+F como conjunto dos estados finais, se, ao fim da execução um dos estados
+também estiver em F, a cadeia será aceita.
+Vejamos nosso exemplo: o estado final de nosso autômato é representado
+por q3; logo, F = {q3}.Como q3 também está no conjunto final de sua execução,
+a cadeia foi processada com sucesso, aceita pela sua máquina, finalizando
+a avaliação. Mostraremos um exemplo de processamento que resulta na
+rejeição da cadeia de entrada. Se utilizarmos a entrada 001, para esse mesmo
+autômato, teremos o Quadro 2.
+Quadro 2. Conjunto de transições para a cadeia 001
+1
+
+δ*({q0}, 001) =
+
+Função estendida sobre 001
+
+2
+
+δ*(δ(q0, 0), 01) =
+
+Processa 001
+
+3
+
+δ*({q0}, 01) =
+
+Função estendida sobre 01
+
+4
+
+δ*(δ(q0, 0), 1) =
+
+Processa 01
+
+5
+
+δ*({q0}, 1) =
+
+6
+
+δ*(δ(q0, 1), ε) =
+
+7
+
+δ*({q0, q1}, ε) = {q0, q1}
+
+Função estendida sobre 1
+Processa 1
+Função estendida sobre ε: fim da indução
+
+Observe que, como o estado final não pertence ao conjunto de estados ao
+final do processamento, a cadeia de entrada será rejeitada pelo autômato.
+
+Construção de um AFN
+Depois de descrevermos características de um AFN e o modo como é feito seu
+processamento, mostraremos nesta seção como, a partir de um problema,
+é realizada a sua construção. Para tanto, vamos tomar como base um AFN
+alvo, apresentado na Figura 4, que aceita cadeias que comecem com a ou b
+e terminem, obrigatoriamente, com aa ou ab.
+
+8
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+Figura 4. AFN que aceita cadeias que terminem com aa ou ab,
+começando com a ou b.
+
+Desejamos chegar até esse AFN. Vamos analisar o problema: aceitar cadeias
+que iniciem com a ou b e terminem, necessariamente, com aa ou ab.
+O primeiro passo é identificar o seu estado inicial, ao qual chamamos
+“q0”. O autômato pode receber qualquer simbologia, dentro do alfabeto utilizado, que, nesse caso, é Ʃ = {a, b}. Além disso, não se limitou o tamanho de
+sua palavra, e, portanto, o estado inicial poderá ter um loop infinito com os
+símbolos recebidos. Na segunda parte, enfatizou-se que a finalização de uma
+cadeia aceita deve ser, obrigatoriamente, com aa ou ab. Isso significa que,
+necessariamente, o penúltimo símbolo será um a.
+Vamos construir nosso AFN. O estado inicial poderá receber a e b em
+qualquer quantidade. Portanto, nosso primeiro estado (q0) ficará como ilustra
+a Figura 5.
+
+Figura 5. Estado
+inicial do AFN.
+
+Acrescentando-se o elemento que nos obriga a ter pelo menos um símbolo
+a, uma transição deve ser realizada para se unir ao próximo elemento (no
+caso, a), conforme Figura 6.
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+9
+
+Figura 6. Transição para .
+
+O último passo indica que a máquina termina com a ou b. Portanto, realizaremos uma transição para esses dois símbolos e finalizaremos o autômato,
+chegando ao autômato da Figura 4. Podemos preencher a nossa tabela AFN,
+com estados e transições, conforme mostra o Quadro 3.
+Quadro 3. Tabela AFN
+AFN
+
+a
+
+b
+
+> q0
+
+{q0, q1}
+
+{q0}
+
+q1
+
+{q2}
+
+{q2}
+
+*q2
+
+∅
+
+∅
+
+onde:
+ “>” referencia o estado inicial;
+ “*” referencia estados finais;
+ “∅” indica que não há transição para o símbolo de entrada com o
+estado atual.
+
+É importante destacar que os AFNs e os AFDs são equivalentes em
+poder de expressão. Isso porque qualquer AFD pode ser considerado
+uma particularidade de um AFN, e, sendo assim, os AFNs conseguem expressar
+o que os AFDs expressam (HOPCROFT; MOTWANI; ULLMAN, 2003). Desse modo,
+sempre haverá uma equivalência nas transições, no processamento, na simbologia e na análise da cadeia de entrada.
+
+10
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+Conversão de AFN para AFD
+Como mencionamos, todo AFN pode ser convertido para um AFD equivalente,
+visto que muitas máquinas computacionais precisam de estados e transições
+bem definidas para que consigam chegar à solução de um problema. Menezes
+(2011) afirma que, por indução, a partir de um AFN qualquer, é possível construir
+um AFD equivalente que realiza as mesmas computações, ou seja, aceita o
+mesmo conjunto de cadeias. Veja, a seguir, o algoritmo utilizado pelo autor
+para provar a equivalência entre AFN e AFD.
+Seja M = (Ʃ, Q, δ, q0, F) um AFN genérico. Seja:
+MD = (Ʃ, QD, δD, {q0}, FD)
+
+um AFD construído a partir de M, como apresentado a seguir.
+a) QD é o conjunto construído a partir de todas as combinações, sem
+repetições, de estados de Q. Cada estado QD é denotado por:
+〈q1q2 … qn〉
+
+		onde qi pertence a Q, para i em {1, 2, …, n}. Portanto, um estado de MD
+representa uma imagem de todos os estados alternativos de M.
+b) δD: QD × Ʃ → QD é tal que:
+δD (〈q1q2 … qn〉, a) = 〈p1 … pm〉 se e somente se δ*({q1q2 … qn}, a) = {p1 … pm}
+
+em particular:
+
+δD (〈q1q2 … qn〉, a) é indefinida se e somente se δ*({q1q2 … qn}, a) = ∅.
+
+c) 〈q0〉 é o estado inicial.
+d) FD é o conjunto de todos os estados 〈q1q2 … qn〉 pertencentes a QD, tal
+que algum componente qi pertence a F, para i em {1, 2, …, n}.
+Considere que δD*(〈q0〉, w) = 〈q1 … qu〉 se e somente se δ*({q0}, w) = {q1, …, qu}.
+a) Base de indução: seja w tal que |w| = 0. Portanto, w = ε:
+δD*(〈q0〉, ε) = 〈q0〉 se e somente se δ*({q0}, ε) = {q0}
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+11
+
+		 o que é verdadeiro, pela definição de função estendida.
+b) Hipótese de indução: seja w tal que |w| = n e n ≥ 1. Suponha verdadeiro
+que:
+δD*(〈q0〉, w) = 〈q1 … qu〉 se e somente se δ*({q0}, w) = {q1, …, qu}
+
+c) Passo de Indução: seja w tal que |wa| = n + 1, e n ≥ 1. Então:
+
+δD*(〈q0〉, wa) = 〈p1 … pv〉 se e somente se δ*({q0}, wa) = {p1, …, pv}
+
+		 o que é verdadeiro, por definição de δD.
+
+Logo, MD simula M para qualquer entrada w pertencente a Ʃ*.
+Assim, utilizando o exemplo da Figura 4, apresentada na seção anterior,
+e tendo demonstrada a prova de equivalência, veremos um passo a passo
+de como realizar a conversão de um AFN para um AFD.
+
+1. Geração da tabela AFN
+A partir do grafo AFN fornecido, precisamos gerar a tabela AFN equivalente.
+A construção foi realizada na seção anterior, mas mostramos novamente o
+resultado no Quadro 4.
+Quadro 4. Tabela AFN utilizada para a conversão
+AFN
+
+a
+
+b
+
+> q0
+
+{q0, q1}
+
+{q0}
+
+q1
+
+{q2}
+
+{q2}
+
+*q2
+
+∅
+
+∅
+
+2. Criação da tabela AFD a partir da tabela AFN
+Define-se um estado inicial, chamado “e0”, do AFD.
+Como sabemos que e0 corresponde ao q0 do AFN, podemos ver no Quadro 4
+quem o q0 pode atingir no AFN.
+
+12
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+ Se chegar a, o próximo estado poderá ser q0 ou q1. Temos que
+δ(q0, a) = {q0, q1}.
+ Se chegar b, o próximo estado será apenas q0. Temos que δ(q0, b) = {q0}.
+A primeira linha da tabela AFD é preenchida conforme mostrado no Quadro 5.
+Quadro 5. Linha 1 da tabela AFD
+AFD
+
+a
+
+b
+
+> e0 = q0
+
+{q0, q1}
+
+{q0}
+
+q1
+
+—
+
+—
+
+*q2
+
+—
+
+—
+
+O estado q0 já foi “registrado” como e0. Porém, aparece um novo conjunto,
+({q0, q1}), que será registrado como e1.
+Devemos saber, agora, quem e1 consegue atingir. Retornando para a tabela
+AFN, analisamos as transições estando em q0 ou q1.
+ Estando em q0 ou q1, se chegar a, poderemos ir para q0, q1 ou q2.
+ Se chegar b, poderemos ir até q0 ou q2.
+Dessa forma, preenchemos a segunda linha de nossa tabela AFD (Quadro 6).
+Quadro 6. Linhas 1 e 2 da tabela AFD
+AFD
+
+a
+
+b
+
+> e0 = q0
+
+{q0, q1} = e 1
+
+{q0}
+
+e 1 = {q0, q1}
+
+{q0, q1, q2} = e 2
+
+{q0, q2} = e 3
+
+Observe que ainda temos dois novos conjuntos na tabela a serem registrados: {q0, q1, q2}, a que chamamos “e2”; e {q0, q2} a que chamamos “e3”.
+Considerando e2:
+ se entrar a, poderemos ir para {q0, q1, q2};
+ se entrar b, poderemos ir para {q0, q2}.
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+13
+
+Considerando e3:
+ se entrar a, poderemos ir para {q0, q1, q2};
+ se entrar b, poderemos ir para {q0}.
+A tabela finalizada do AFD é mostrada no Quadro 7.
+Quadro 7. Tabela AFD completa
+AFD
+
+a
+
+b
+
+> e0 = q0
+
+{q0, q2} = e 1
+
+e0
+
+e 1 = {q0, q1}
+
+{q0, q1, q2} = e 2
+
+{q0, q2} = e 3
+
+*{q0, q1, q2} = e 2
+
+e2
+
+e3
+
+*{q0, q2} = e 3
+
+{q0, q1, q2}
+
+{q0}
+
+3. Diagrama AFD a partir da tabela AFD
+Com a tabela AFD pronta, faremos a análise das transições.
+ Se o estado atual for e0:
+■■ para entrada a, o próximo estado será e1;
+■■ para entrada b, o próximo estado será e0.
+ Se o estado atual for e1:
+■■ para entrada a, o próximo estado será e2;
+■■ para entrada b, o próximo estado será e3.
+ Se o estado atual for e2:
+■■ para entrada a, o próximo estado será e2;
+■■ para entrada b, o próximo estado será e3.
+ Se o estado atual for e3:
+■■ para entrada a, o próximo estado será e2;
+■■ para entrada b, o próximo estado será e0.
+Construindo o AFD com base nos estados, nas transições e nos símbolos,
+chegamos ao diagrama apresentado na Figura 7.
+
+14
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+Figura 7. Diagrama AFD finalizado.
+
+Assim, finalizamos a construção do AFD a partir do AFN. O processo,
+dependendo do tamanho do autômato, pode ser custoso, mas os passos,
+sempre que forem bem seguidos, acarretarão um resultado correto.
+Neste capítulo, estudamos alguns conceitos relacionados a autômatos
+finitos, cujo processamento é limitado. Além disso, abordamos o não determinismo, destacando que um autômato desse tipo (isto é, um AFN) pode
+ter transições vazias e aceita que, para um mesmo símbolo, haja diferentes
+transições a partir de um mesmo estado. Por fim, não se deve esquecer que
+AFNs têm AFDs equivalentes e, portanto, apresentam o mesmo poder de
+expressão.
+
+Referências
+HOPCROFT, J. E.; MOTWANI, R.; ULLMAN, J. D. Introdução à teoria de autômatos, linguagens
+e computação. Rio de Janeiro: Elsevier, 2003.
+JFLAP. JFLAP. Version 7.1. [Durham: JFLAP], 2018. Disponível em: http://jflap.org/. Acesso
+em: 15 fev. 2021.
+LEWIS, H. R.; PAPADIMITRIOU, C. H. Elementos da teoria da computação. 2. ed. Porto
+Alegre: Bookman, 2004.
+MENEZES, P. B. Linguagens formais e autômatos. 6. ed. Porto Alegre: Bookman, 2011.
+SIPSER, M. Introdução à teoria da computação. 2. ed. São Paulo: Cengage Learning, 2007.
+
+Linguagens formais e autômatos: autômatos finitos não determinísticos
+
+15
+
+Leituras recomendadas
+DIVERIO, T. A.; MENEZES, P. B. Teoria da computação: máquinas universais e computabilidade. 3. ed. Porto Alegre: Bookman, 2011.
+NETO, J. J. A teoria da computação e o profissional de informática. Revista de Computação e Tecnologia da PUC-SP, São Paulo, v. 1, n. 1, p. 4–21, 2010. Disponível em: https://
+revistas.pucsp.br/ReCET/article/download/1572/1519. Acesso em: 15 fev. 2021.
+
+Os links para sites da web fornecidos neste capítulo foram todos
+testados, e seu funcionamento foi comprovado no momento da
+publicação do material. No entanto, a rede é extremamente dinâmica; suas
+páginas estão constantemente mudando de local e conteúdo. Assim, os editores
+declaram não ter qualquer responsabilidade sobre qualidade, precisão ou
+integralidade das informações referidas em tais links.
+
+

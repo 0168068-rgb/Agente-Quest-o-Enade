@@ -24,3 +24,16 @@ screenshots/
 *.png
 *.jpg
 *.jpeg
+node_modules/
+
+# Large binaries and archives
+*.zip
+*.tar.gz
+*.exe
+dist/
+
+
+# Credentials and tokens
+token*.json
+credentials*.json
+
