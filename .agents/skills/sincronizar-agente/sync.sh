@@ -58,29 +58,34 @@ if [ -d "$PROJETO_DIR/.git" ]; then
   echo "🐙 Sincronizando Projetos com o GitHub ($PROJETO_DIR)..."
   cd "$PROJETO_DIR"
 
-  # Puxar novidades remotas
-  echo "📥 Verificando atualizações no GitHub (git pull --rebase)..."
+  # Verificar e commitar alterações locais pendentes primeiro
+  STATUS=$(git status --porcelain)
+  if [ -n "$STATUS" ]; then
+    echo "📤 Encontradas alterações locais para sincronizar. Gravando..."
+    git add .
+    COMMIT_MSG="sync: atualização automática ($(date '+%d/%m/%Y %H:%M:%S'))"
+    git commit -m "$COMMIT_MSG" 2>/dev/null || true
+  fi
+
+  # Puxar novidades remotas com rebase
+  echo "📥 Verificando e puxando atualizações do GitHub (git pull --rebase)..."
   if git pull --rebase origin main 2>/dev/null; then
-    echo "✅ Repositório local atualizado com sucesso a partir da nuvem."
+    echo "✅ Repositório local atualizado com o GitHub."
   else
     echo "⚠️ Não foi possível puxar do GitHub (verifique a conexão ou conflitos)."
   fi
 
-  # Verificar alterações locais pendentes
-  STATUS=$(git status --porcelain)
-  if [ -n "$STATUS" ]; then
-    echo "📤 Encontradas alterações locais para sincronizar. Preparando envio..."
-    git add .
-    COMMIT_MSG="sync: atualização automática ($(date '+%d/%m/%Y %H:%M:%S'))"
-    if git commit -m "$COMMIT_MSG" 2>/dev/null; then
-      if git push origin main 2>/dev/null; then
-        echo "✅ Alterações enviadas com sucesso para o GitHub!"
-      else
-        echo "⚠️ Falha ao enviar para o GitHub (verifique as credenciais ou rede)."
-      fi
+  # Enviar para a nuvem se estiver à frente do remoto
+  AHEAD=$(git rev-list --count origin/main..HEAD 2>/dev/null || echo 0)
+  if [ "$AHEAD" -gt 0 ]; then
+    echo "🚀 Enviando $AHEAD commit(s) para o GitHub..."
+    if git push origin main 2>/dev/null; then
+      echo "✅ Alterações enviadas com sucesso para o GitHub!"
+    else
+      echo "⚠️ Falha ao enviar para o GitHub (verifique as credenciais ou rede)."
     fi
   else
-    echo "✅ Nenhum arquivo novo pendente no repositório. Tudo 100% atualizado!"
+    echo "✅ Repositório 100% atualizado e alinhado com o GitHub!"
   fi
 else
   echo "ℹ️ Repositório $PROJETO_DIR não encontrado ou sem Git inicializado."
