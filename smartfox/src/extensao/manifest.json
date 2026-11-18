@@ -1,0 +1,102 @@
+{
+  "manifest_version": 3,
+  "name": "SmartFox Autônomo",
+  "version": "11.2.0",
+  "description": "Ferramentas do professor no AvaliA, com acervo local, Word e correção discursiva. Sem cadastro no SmartFox, ativação ou administrador.",
+  "permissions": [
+    "storage",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://avalia.grupoa.com.br/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://avalia.grupoa.com.br/*"
+      ],
+      "js": [
+        "page-bridge.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://avalia.grupoa.com.br/*"
+      ],
+      "js": [
+        "vendor/jszip.min.js",
+        "batch-engine.js",
+        "duplicate-ledger.js",
+        "approval-sync.js",
+        "premium-curator.js",
+        "athus-rules.js",
+        "athus-case-patterns.js",
+        "pdf-reader.js",
+        "knowledge-base.js",
+        "local-question-generator.js",
+        "external-exam-analyzer.js",
+        "docx-parser.js",
+        "docx-exporter.js",
+        "student-guide-exporter.js",
+        "grading-engine.js",
+        "grading-automation.js",
+        "identity-engine.js",
+        "access-gate.js",
+        "bank-context.js",
+        "bank-client.js",
+        "bank-manager.js",
+        "bank-selection.js",
+        "content.js",
+        "grading-assistant.js",
+        "grading-auto-controller.js",
+        "tag-tools.js",
+        "tools-hub.js",
+        "window-controls.js"
+      ],
+      "css": [
+        "styles.css",
+        "access-gate.css",
+        "grading-assistant.css",
+        "bank-manager.css",
+        "tools-hub.css",
+        "window-controls.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "vendor/pdf.min.mjs",
+        "vendor/pdf.worker.min.mjs",
+        "REGRAS_PROJETO_ATHUS.md",
+        "icons/icon-32.png",
+        "icons/icon-48.png",
+        "icons/icon-128.png",
+        "images/professor-access-hero.png",
+        "templates/Modelo_Prova_SmartFox_11.0.docx",
+        "templates/Prompt_Prova_SmartFox_11.0.txt"
+      ],
+      "matches": [
+        "https://avalia.grupoa.com.br/*"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "SmartFox Autônomo",
+    "default_popup": "welcome.html"
+  },
+  "version_name": "11.2 · Autônomo — instalar e usar",
+  "minimum_chrome_version": "110"
+}

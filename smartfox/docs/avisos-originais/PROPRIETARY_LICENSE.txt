@@ -1,0 +1,27 @@
+SMARTFOX — LICENÇA PROPRIETÁRIA
+Copyright © 2026 SmartFox. Todos os direitos reservados.
+
+O código-fonte, a arquitetura, os fluxos, os textos de interface, as regras de
+curadoria e os demais elementos originais do SmartFox são propriedade
+intelectual de seu titular. Nenhuma licença de cópia, redistribuição,
+publicação, sublicenciamento, engenharia reversa, criação de obra derivada,
+extração de lógica ou disponibilização a terceiros é concedida, salvo mediante
+autorização prévia e expressa por escrito do titular.
+
+O acesso liberado pelo administrador concede somente uma licença pessoal,
+limitada, revogável, intransferível e não exclusiva para executar o produto nas
+contas e dispositivos aprovados, nas disciplinas disponíveis no perfil AvaliA. O acesso não transfere a
+titularidade do software e não autoriza o compartilhamento do pacote.
+
+É proibido remover ou alterar avisos de autoria, licença e integridade. Tentativas
+de contornar autenticação, controles de acesso, verificação de identidade ou
+verificação de integridade encerram a autorização de uso.
+
+Componentes de terceiros permanecem sujeitos às respectivas licenças. Em
+especial, JSZip permanece sob licença MIT e PDF.js sob licença Apache 2.0. Esta
+licença proprietária aplica-se somente aos elementos originais do SmartFox e
+não restringe os direitos concedidos pelos titulares desses componentes.
+
+O software é fornecido sem promessa de funcionamento infalível em serviços de
+terceiros. Envio acadêmico, correção e aprovação continuam sujeitos à revisão
+do usuário autorizado e às regras da instituição.

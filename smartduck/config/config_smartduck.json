@@ -1,0 +1,23 @@
+{
+  "nome": "SmartDuck",
+  "versao": "1.9.0",
+  "tipo": "Extensao Web Chrome Manifest V3 + Harness Antigravity",
+  "ambiente": "Linux / Ubuntu / Mint",
+  "urls": {
+    "sophia": "https://portal.sophia.com.br",
+    "ava": "https://avauni.grupoa.education"
+  },
+  "caminhos": {
+    "extensao_fonte": "src/extensao",
+    "extensao_instalada": "~/.local/share/smartduck/extensao",
+    "documentacao": "docs",
+    "relatorios_excel": "harness/relatorios",
+    "planilhas_entrada": "harness/planilhas_entrada"
+  },
+  "regras_lancamento": {
+    "sobrescrever_notas_existentes": false,
+    "campos_permitidos": ["AD", "AI", "PS"],
+    "confirmacao_obrigatoria_gravacao": true,
+    "gerar_relatorio_divergencias_xlsx": true
+  }
+}

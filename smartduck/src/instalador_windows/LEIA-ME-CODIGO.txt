@@ -1,0 +1,36 @@
+SMARTDUCK — FONTES DO INSTALADOR
+
+O arquivo SmartDuck_Instalar_1.9.0.exe, na pasta acima, já está compilado.
+Os arquivos desta pasta são opcionais e permitem revisar ou recompilar.
+
+COMPILAR NO WINDOWS
+1. Instale o NSIS 3 (https://nsis.sourceforge.io/).
+2. Execute compilar.cmd nesta pasta.
+3. O instalador será recriado na pasta acima.
+
+Arquivos:
+assistant.nsi: assistente com copiar pasta, abrir extensões no Chrome e guia.
+installer.nsi: cópia dos arquivos, atalhos e desinstalação por usuário.
+common.nsh: configurações, versão, idioma visual e ícone.
+remove_extension.nsh: lista exata dos arquivos da extensão a remover.
+remove_directories.nsh: remove somente pastas vazias.
+resources: imagens e ícone usados na interface nativa.
+
+O instalador utiliza os arquivos originais de ../smartduck, com etapa Semestre, ciclo completo por unidade, remoção de arquivos, mapeamento por conta, painel lateral, até 4 arquivos e preenchimento apenas de campos vazios e editáveis.
+Os vetores do pato foram mantidos. Não usa políticas corporativas,
+não altera o perfil do Chrome e não registra senhas. O Chrome é localizado
+pelo registro App Paths ou pelas pastas habituais do programa.
+
+Pasta fixa: %LOCALAPPDATA%\SmartDuck
+Extensão: %LOCALAPPDATA%\SmartDuck\extensao
+Ativação manual: chrome://extensions > Modo do desenvolvedor >
+Carregar sem compactação. Não há detecção automática dessa ativação.
+
+VALIDAÇÃO
+Compilação NSIS; extração do executável; comparação dos arquivos incluídos
+com SmartDuck 1.9.0; verificação do manifesto de privilégios do Windows;
+testes da lógica de notas. A instalação e os botões não foram executados
+em Windows real. Este executável não possui assinatura digital.
+
+Os fontes estão incluídos para permitir auditoria e manutenção.
+Ao acrescentar arquivos à extensão, atualize também a lista de remoção.

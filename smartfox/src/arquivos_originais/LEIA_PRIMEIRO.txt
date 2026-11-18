@@ -1,0 +1,22 @@
+SMARTFOX AUTÔNOMO 11.2.0
+
+1. Extraia todo o ZIP.
+2. No Windows, abra INSTALAR_SMARTFOX.cmd.
+3. No Chrome, abra chrome://extensions, ative Modo do desenvolvedor e clique
+   em Carregar sem compactação. Selecione:
+   %LOCALAPPDATA%\SmartFox-Autonomo\extensao
+4. Abra o AvaliA com seu login habitual e use Ferramentas.
+
+Não precisa de cadastro no SmartFox, chave, senha própria, renovação ou
+aprovação de computador. O instalador escreve somente na pasta do usuário.
+O Chrome ainda exige adicionar a extensão manualmente uma vez.
+
+O guia COMECE_AQUI.html tem as orientações completas e a instalação manual.
+
+SE VOCÊ JÁ USA O SMARTFOX
+Exporte seu acervo na versão antiga, desative-a e importe o backup nesta
+edição. Não remova a antiga antes de conferir os dados. A transferência
+automática de todos os históricos/configurações não está incluída.
+
+O AvaliA permanece on-line e usa seu login institucional. Restrições da
+instituição ao navegador ou às disciplinas continuam valendo.

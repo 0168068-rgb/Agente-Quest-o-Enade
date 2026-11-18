@@ -1,0 +1,30 @@
+EDIÇÃO AUTÔNOMA — 11.2.0 — 22/10/2026
+
+Base: SmartFox_11.0_Correcao_Autonoma_R6.zip, versão do arquivo 6.
+Edição separada preparada conforme a solicitação de uso sem administrador.
+
+MUDANÇAS
+- Entrada local sem cadastro, chave de ativação, senha própria ou aprovação.
+- Sem vínculo de licença a nome, prazo de ativação ou limite de dispositivos.
+- Removida a comunicação com o servidor de acesso do SmartFox.
+- Removidas permissões de acesso a servidores de autorização, alarmes e avisos.
+- Página de início e botão Sobre no lugar da conta e dos comunicados remotos.
+- Instalação na pasta de usuário e guia de carregamento no Chrome.
+- Catálogo de integridade recalculado para esta edição, conferido localmente.
+
+CONTINUIDADE
+Importação, geração local, acervo, exportação e motores de correção da base R6
+foram conservados. Chaves de armazenamento do acervo continuam compatíveis.
+Não foram feitas alterações em servidores, licenças ou usuários da edição
+administrada. Esta entrega é um pacote separado.
+
+O acesso e as permissões do AvaliA continuam sendo determinados pelo AvaliA.
+As verificações de instituição, perfil, contexto e envio nas ferramentas
+continuam presentes. A independência é do administrador do SmartFox.
+
+AUTORIA
+Os avisos de autoria e de componentes de terceiros foram preservados.
+Os avisos originais em avisos-originais registram a distribuição anterior;
+as referências operacionais à ativação administrativa não descrevem esta
+edição autônoma. Esta alteração funcional não transfere titularidade nem
+concede, por si só, uma licença geral de redistribuição.

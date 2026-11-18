@@ -1,0 +1,50 @@
+SMARTFOX AUTÔNOMO 11.2.0 — VERIFICAÇÃO DA ENTREGA
+Data: 22/10/2026
+
+RESULTADO
+9 grupos de testes automatizados aprovados. Interface conferida em Chromium
+com uma página fictícia do AvaliA e APIs de extensão simuladas, sem erros de
+JavaScript. Os testes não acessaram uma conta real nem enviaram avaliações.
+
+ACESSO AUTÔNOMO
+- Primeira abertura sem cadastro, credenciais, nome vinculado ou chave.
+- Mudança de nome e ausência de nome não bloqueiam o uso local do SmartFox.
+- Nenhuma requisição HTTP de ativação ou autorização no serviço local.
+- Credenciais antigas não são lidas; acervo e sessões não são apagados.
+- Comandos antigos de ativação e reset não estão disponíveis.
+- Pacote incompleto, arquivo alterado e ausência do verificador são detectados.
+- Mensagens externas e subquadros não recebem comandos privilegiados.
+- Abas de outros sites são excluídas; produtos respeitam professor/instituição.
+- Telas de início e Sobre não contêm formulário de ativação.
+
+RECURSOS CONSERVADOS
+- Contexto de instituições e troca de perfil no AvaliA.
+- Operações de banco, paginação e prevenção de troca indevida de conta.
+- Criação local, fontes, cancelamento e exportação/reimportação DOCX.
+- Correção discursiva em DOM simulado, continuidade e prevenção de duplicação.
+- Motor de correção e preservação do padrão de resposta.
+- Leitura de PDF com os módulos distribuídos, sem rede ou leitor remoto.
+- Word com imagens, caracteres especiais e fórmulas.
+- Coleções e importação de backup com preservação dos materiais.
+
+INTERFACE
+Verificadas as telas Sobre, Ferramentas, Ajuda, Início e o guia de instalação.
+A raposa abre o painel; Sobre abre as informações da edição; Preparar abre a
+área de trabalho; Ajuda mostra o perfil local sem vínculo de licença.
+
+PACOTE
+Sintaxe dos 32 arquivos JavaScript principais verificada.
+Catálogo SHA-256 recalculado e conferido para os 56 arquivos distribuídos.
+ZIP submetido a conferência de CRC; recursos do manifesto presentes.
+Instalador em formato Windows (ASCII/CRLF), sem elevação, PowerShell,
+registro do sistema ou alteração de políticas de segurança.
+
+LIMITES
+O instalador .cmd não foi executado em um Windows real nesta verificação.
+A extensão não foi homologada instalada no Chrome de um usuário real.
+Os testes de navegador utilizaram as APIs Chrome e o ambiente AvaliA simulados;
+não comprovam compatibilidade com eventuais mudanças posteriores no AvaliA.
+Não houve validação de envio, nota ou autenticação no serviço real.
+
+Para instalação, abra COMECE_AQUI.html. Os únicos acessos necessários durante
+o uso são os já exigidos pelo próprio AvaliA e pelo navegador.

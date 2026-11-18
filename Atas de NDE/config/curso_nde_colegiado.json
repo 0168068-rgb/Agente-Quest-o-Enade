@@ -1,0 +1,77 @@
+{
+  "cursos": {
+    "CST Análise e Desenvolvimento de Sistemas": {
+      "instituicao": "UNIVERSIDADE IGUAÇU - UNIG",
+      "nucleo": "NÚCLEO DE EDUCAÇÃO A DISTÂNCIA - NEAD",
+      "curso_nome_completo": "CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
+      "sigla": "ADS",
+      "comissao_nde": {
+        "coordenador": "Hamilcar Pereira da Silva",
+        "professores": [
+          "Alan Jefferson de Oliveira da Silva",
+          "Telmo Viana Rodrigues",
+          "Luciano Roberto Padilha de Andrade",
+          "Ronaldo Paulucci de Assis"
+        ]
+      },
+      "comissao_colegiado": {
+        "coordenador": "Hamilcar Pereira da Silva",
+        "professores": [
+          "Marcos Cruz De Azevedo",
+          "Selma Sant’Anna de Fonseca",
+          "Denise Moraes do Nascimento Vieira"
+        ],
+        "discente": "Ana Carolina Ramos da Cruz"
+      }
+    },
+    "CST Gestão em Tecnologia da Informação": {
+      "instituicao": "UNIVERSIDADE IGUAÇU - UNIG",
+      "nucleo": "NÚCLEO DE EDUCAÇÃO A DISTÂNCIA - NEAD",
+      "curso_nome_completo": "CURSO SUPERIOR DE TECNOLOGIA EM GESTÃO DA TECNOLOGIA DA INFORMAÇÃO",
+      "sigla": "GTI",
+      "comissao_nde": {
+        "coordenador": "Hamilcar Pereira da Silva",
+        "professores": [
+          "Alan Jefferson de Oliveira da Silva",
+          "Denise Moraes do Nascimento Vieira",
+          "Ronaldo Paulucci de Assis",
+          "Rosalva Maria Gomes de Araújo Oliveira"
+        ]
+      },
+      "comissao_colegiado": {
+        "coordenador": "Hamilcar Pereira da Silva",
+        "professores": [
+          "Selma Sant’Anna da Fonseca Sardinha",
+          "Ronaldo Paulucci de Assis",
+          "Mônica Saad Madeira"
+        ],
+        "discente": "Rodrigo Zanardi Vieira"
+      }
+    },
+    "CST Redes de Computadores": {
+      "instituicao": "UNIVERSIDADE IGUAÇU - UNIG",
+      "nucleo": "NÚCLEO DE EDUCAÇÃO A DISTÂNCIA - NEAD",
+      "curso_nome_completo": "CURSO SUPERIOR DE TECNOLOGIA EM REDES DE COMPUTADORES",
+      "sigla": "Redes",
+      "comissao_nde": {
+        "coordenador": "Hamilcar Pereira da Silva",
+        "professores": [
+          "Giana Laport Alves de Souza",
+          "Sidnei Castilhos Rodrigues",
+          "Simone Christina Rebello Barros",
+          "Telmo Viana Rodrigues"
+        ]
+      },
+      "comissao_colegiado": {
+        "coordenador": "Hamilcar Pereira da Silva",
+        "professores": [
+          "Rodrigo Bandeira Marra",
+          "Ronaldo Paulicci de Assis",
+          "Telmo Viana Rodrigues"
+        ],
+        "discente": "Sebastião Goulart da Silva"
+      }
+    }
+  },
+  "curso_padrao": "CST Análise e Desenvolvimento de Sistemas"
+}

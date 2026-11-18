@@ -1,0 +1,70 @@
+{
+  "manifest_version": 3,
+  "name": "SmartDuck",
+  "short_name": "SmartDuck",
+  "version": "1.9.0",
+  "description": "Lança notas e confere AVA, arquivos e SophiA por professor. Relata alunos, divergências e campos AD/AI/PS. Etapa Semestre.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "sidePanel",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://portal.sophia.com.br/*",
+    "https://avauni.grupoa.education/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "SmartDuck Simples 1.9.0 — selecionar arquivo",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://portal.sophia.com.br/*"
+      ],
+      "js": [
+        "widget.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/duck-head.svg"
+      ],
+      "matches": [
+        "https://portal.sophia.com.br/*"
+      ]
+    }
+  ],
+  "commands": {
+    "toggle-smartduck": {
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
+      "description": "Abrir ou recolher o SmartDuck"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'; frame-ancestors https://portal.sophia.com.br"
+  },
+  "side_panel": {
+    "default_path": "painel.html"
+  }
+}

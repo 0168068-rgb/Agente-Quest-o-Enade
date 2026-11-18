@@ -1,0 +1,14 @@
+#sf-account-button{position:fixed;right:22px;bottom:82px;z-index:2147483645;display:flex;align-items:center;gap:8px;border:1px solid #c8d4e4;border-radius:12px;padding:8px 13px;background:#fff;color:#153258;font:700 13px system-ui;box-shadow:0 4px 16px #15325820;cursor:pointer}
+#sf-account-button img{width:25px;height:25px;object-fit:contain}
+#sf-standalone-dialog{padding:0;width:min(620px,calc(100vw - 28px));max-height:90vh;border:0;border-radius:18px;color:#17304e;background:#fff;box-shadow:0 22px 80px #061e3e55;font:16px/1.55 system-ui;z-index:2147483647}
+#sf-standalone-dialog *{box-sizing:border-box}#sf-standalone-dialog::backdrop{background:#10263c99}
+#sf-standalone-dialog header{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#153258;padding:24px;color:white}
+#sf-standalone-dialog h2{margin:5px 0 0;font-size:25px;color:white}#sf-standalone-dialog small{color:#ffbb8e;font-size:11px;letter-spacing:1px}
+#sf-standalone-dialog button{font:inherit;border:1px solid #9caec5;border-radius:8px;background:transparent;color:white;padding:4px 12px;cursor:pointer;font-size:24px}
+#sf-standalone-dialog .sf-standalone-body{padding:6px 26px 24px}#sf-standalone-dialog p{margin:18px 0}
+#sf-standalone-dialog dl{padding:16px 20px;background:#f0f5fa;border-radius:12px;margin:0}#sf-standalone-dialog dt{font-weight:750;margin-top:12px}#sf-standalone-dialog dt:first-child{margin-top:0}#sf-standalone-dialog dd{margin:3px 0;color:#465e76}
+#sf-standalone-dialog .sf-standalone-ready{background:#e5f6ed;color:#15593c;padding:12px 16px;border-radius:10px;font-weight:650}
+#sf-standalone-dialog .sf-standalone-error{background:#fff0ec;color:#963d24;padding:12px 16px;border-radius:10px}
+#sf-standalone-dialog .sf-standalone-muted{font-size:13px;color:#62758b}
+#sf-account-button:focus-visible,#sf-standalone-dialog button:focus-visible{outline:3px solid #f58339;outline-offset:3px}
+@media(max-width:550px){#sf-account-button{right:12px;bottom:74px}#sf-standalone-dialog header{padding:18px}#sf-standalone-dialog .sf-standalone-body{padding:6px 18px 18px}}

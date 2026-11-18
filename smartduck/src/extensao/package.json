@@ -1,0 +1,12 @@
+{
+  "name": "smartduck",
+  "version": "1.9.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "30.1.3"
+  }
+}

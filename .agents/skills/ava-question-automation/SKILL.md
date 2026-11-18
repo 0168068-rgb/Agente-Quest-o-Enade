@@ -8,7 +8,11 @@ description: Guia e instrução para automação de cadastro em lote de questõe
 Esta habilidade orienta como executar a automação de inserção de questões acadêmicas em lote na plataforma AVA do Grupo A.
 
 ## Arquivos e Localização
-- Script Python: `/home/hamilcar/Antigravity/automate_questions.py`
+- Diretório do Harness: `/home/hamilcar/Antigravity/automacao_avalia_autobatch/`
+- Script de Automação (CLI): `/home/hamilcar/Antigravity/automacao_avalia_autobatch/src/automate_questions.py`
+- Aplicativo Gráfico (GUI): `/home/hamilcar/Antigravity/automacao_avalia_autobatch/src/app_avalia_gui.py`
+- Pasta de Planilhas: `/home/hamilcar/Antigravity/automacao_avalia_autobatch/planilhas/`
+- Scripts de Submissão por Disciplina: `/home/hamilcar/Antigravity/automacao_avalia_autobatch/disciplinas/`
 - Ambiente Virtual Python: `/home/hamilcar/Antigravity/venv`
 
 ## Estrutura Exigida da Planilha Excel (`.xlsx`)
@@ -22,11 +26,17 @@ As planilhas devem conter as seguintes colunas:
 *(Obs: Se a coluna `Resposta certa` for omitida, o script tenta extrair automaticamente a letra correta do campo `Feedback`)*
 
 ## Como Executar
-1. Pelo terminal interativo:
+1. Pelo terminal interativo (CLI):
    ```bash
    cd /home/hamilcar/Antigravity
    source venv/bin/activate
-   python3 automate_questions.py [caminho_da_planilha.xlsx]
+   python3 automacao_avalia_autobatch/src/automate_questions.py [caminho_da_planilha.xlsx]
+   ```
+2. Pela Interface Gráfica (GUI):
+   ```bash
+   cd /home/hamilcar/Antigravity
+   source venv/bin/activate
+   python3 automacao_avalia_autobatch/src/app_avalia_gui.py
    ```
 2. Fluxo de uso com o usuário:
    - O script lista as planilhas disponíveis no diretório.

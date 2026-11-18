@@ -1,0 +1,19 @@
+{
+  "nome": "SmartFox Autônomo",
+  "versao": "11.2.0",
+  "plataforma_alvo": "https://avalia.grupoa.com.br",
+  "tipo": "Extensao Chrome Manifest V3",
+  "recursos": [
+    "Ferramentas do professor no AvaliA",
+    "Acervo local de questões",
+    "Importação e exportação Word (.docx)",
+    "Leitura e análise de PDF",
+    "Correção discursiva e banco de materiais"
+  ],
+  "caminhos": {
+    "extensao_fonte": "src/extensao",
+    "extensao_instalada": "~/.local/share/smartfox/extensao",
+    "docs": "docs",
+    "harness": "harness"
+  }
+}

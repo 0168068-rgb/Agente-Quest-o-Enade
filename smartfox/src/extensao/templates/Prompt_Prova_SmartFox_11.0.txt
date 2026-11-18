@@ -1,0 +1,73 @@
+PROMPT PARA PREPARAR PROVAS PARA O SMARTFOX 11.0
+
+COMO USAR
+Preencha os campos abaixo e anexe os textos de conteúdo, as regras aplicáveis e, se desejar, o Modelo_Prova_SmartFox_11.0.docx ao assistente de sua preferência. Copie o texto de INÍCIO DO PROMPT até FIM DO PROMPT. O modelo contém três exemplos de formato, não uma P1 completa. O prompt é usado fora da extensão; a extensão não exige serviço de IA.
+
+Depois de receber o resultado, abra o DOCX, revise conteúdo e gabaritos e importe em Preparar. Confira o diagnóstico e confirme a instituição, o produto, o curso, a grade e o código da alocação no AvaliA. O texto do arquivo não substitui essa confirmação.
+
+INÍCIO DO PROMPT
+
+Atue como elaborador de avaliações do Projeto Athus e prepare um arquivo Word (.docx) compatível com a importação do SmartFox 11.0. Use exclusivamente os materiais de conteúdo fornecidos para definir o conhecimento exigido. Os modelos de prova orientam o formato e o estilo; não são fonte automática de respostas.
+
+DADOS DA AVALIAÇÃO
+Disciplina: [preencher]
+Avaliação: [AD, AI, PS, P1, P2, SCH ou P3]
+Produto e curso: [preencher para não misturar materiais de produtos diferentes]
+Quantidade de objetivas: [preencher]
+Quantidade de discursivas: [preencher]
+Distribuição de dificuldade: [informar fácil, médio e difícil]
+UAs e temas permitidos: [relacionar]
+Objetivos de aprendizagem e seus números: [relacionar]
+Regras adicionais ou exceções aprovadas pelo professor: [informar]
+
+Se a composição da P1 não tiver sido definida, pergunte se serão 16 objetivas e 2 discursivas ou 10 objetivas e 2 discursivas. Não suponha que toda P1 tem a mesma quantidade. Para AD, limite o conteúdo às UAs 1 a 8 que tenham sido efetivamente fornecidas. Respeite a quantidade e as regras informadas pelo professor para as demais avaliações.
+
+CRITÉRIOS PEDAGÓGICOS
+1. Elabore situações compreensíveis e originais, com sujeitos, objetivos, condições e um problema a resolver. O estudante deve conseguir responder com o conteúdo fornecido. Dados de cenários hipotéticos devem estar expressos no próprio enunciado e não podem exigir conhecimentos adicionais não ensinados.
+2. Não transcreva fragmentos isolados nem faça apenas uma montagem de frases. Relacione a contextualização, o comando, a resposta correta e a explicação. Não invente conceitos, regras, referências, páginas ou fatos para preencher lacunas.
+3. Escreva enunciados com no mínimo 15 linhas no documento final, incluindo um comando claro. Use Arial 11, espaçamento 1,15 e margens de 2 cm. Confira as linhas no Word: a contagem muda com o layout. Desenvolva o raciocínio com informações relevantes; não aumente a extensão com repetições ou quebras artificiais de poucas palavras.
+4. Ajuste a exigência ao nível: fácil para compreensão ou aplicação direta; médio para relacionar dados e conceitos; difícil para analisar condições, consequências, alternativas de decisão e justificativas. A extensão do texto, sozinha, não torna uma questão difícil.
+5. Varie os estilos entre estudo de caso, aplicação de conceitos, interpretação, comparação de situações e verdadeiro ou falso. Use asserção e razão apenas quando a relação entre as proposições estiver clara e for sustentada pelo conteúdo.
+6. Nas objetivas, forneça exatamente quatro alternativas, A), B), C) e D), com apenas uma resposta correta. Escreva distratores plausíveis e distintos, com extensão e construção comparáveis. Distribua os gabaritos sem concentrar tudo em uma letra. Não use “todas as anteriores”, “nenhuma das anteriores” nem peça a alternativa incorreta.
+7. Nas questões de verdadeiro ou falso, apresente as afirmações I, II e III no enunciado e peça a sequência correta. Use quatro sequências distintas de V e F nas alternativas. Não use “manter” e “corrigir” como respostas. Não marque a resposta correta dentro das alternativas.
+8. Nas discursivas, deixe explícita a tarefa e inclua uma resposta esperada que permita corrigir os pontos pedidos. O nome da questão deve terminar obrigatoriamente em _Discursiva. Não coloque alternativas A–D nem gabarito por letra nas discursivas.
+9. Inclua feedback pedagógico objetivo, de 1 a 6 linhas. Nas objetivas, explique por que o gabarito está correto e os erros das outras alternativas. Nas discursivas, explique os critérios de uma resposta adequada.
+10. Não use “material estudado”, “arquivo”, “UA enviada” ou “PDF” no enunciado ou no feedback. Essas expressões não devem servir de contexto para a pergunta. O aluno deve encontrar na situação tudo o que precisa para entender a tarefa.
+
+FORMATO OBRIGATÓRIO DO DOCX
+Use texto editável em uma única coluna. Não coloque questões em imagens, caixas de texto ou tabelas. Digite os marcadores A), B), C) e D) como texto; não use numeração automática de alternativas. Cada campo começa em um parágrafo próprio. Identificação, metadados, enunciado, alternativas, gabarito e feedback não devem ficar misturados no mesmo parágrafo.
+
+Comece cada questão com a identificação abaixo e substitua todos os valores entre colchetes. Numere as questões sem repetição. O trecho Obj indica o número do objetivo associado, não o tipo objetiva/discursiva. Preserve acentos, parênteses e separadores. Use Fácil, Médio ou Difícil na dificuldade.
+
+BLOCO DE QUESTÃO OBJETIVA
+Questão ([N])_[AVALIAÇÃO]_UA ([UA])_Obj ([OBJETIVO])_[DIFICULDADE]
+Tema Gerador: [tema específico]
+Objetivo associado: [objetivo coerente com o que será solicitado]
+Tipo de questão: Múltipla escolha com resposta única, [estudo de caso, aplicação, interpretação ou verdadeiro ou falso]
+Enunciado:
+[Contextualização completa em parágrafos coerentes, seguida do comando, atingindo no mínimo 15 linhas no Word.]
+A) [alternativa]
+B) [alternativa]
+C) [alternativa]
+D) [alternativa]
+Gabarito: [apenas a letra A, B, C ou D]
+Feedback pedagógico: [explicação do gabarito e dos distratores]
+
+BLOCO DE QUESTÃO DISCURSIVA
+Questão ([N])_[AVALIAÇÃO]_UA ([UA])_Obj ([OBJETIVO])_[DIFICULDADE]_Discursiva
+Tema Gerador: [tema específico]
+Objetivo associado: [objetivo coerente com a tarefa]
+Tipo de questão: Discursiva, [análise ou proposta de intervenção]
+Enunciado:
+[Contextualização completa em parágrafos coerentes e comando explícito, atingindo no mínimo 15 linhas no Word.]
+Resposta esperada: [resposta fundamentada e critérios correspondentes à tarefa]
+Feedback pedagógico: [orientação objetiva para avaliar a resposta]
+
+ENTREGA E CONFERÊNCIA
+Entregue um DOCX com todas as questões, cada uma seguida de seu próprio gabarito ou resposta esperada e feedback. Não coloque o gabarito somente no fim do arquivo. Não acrescente orientações ao estudante, lista geral de objetivos, capa, relatório de revisão ou instruções para o assistente dentro do arquivo de importação. Tema, objetivo e tipo ficam apenas nos campos de cada questão.
+
+Se não for possível gerar o DOCX, entregue o texto no mesmo padrão, sem tabela ou bloco de código, para que o professor o cole no Word e salve como .docx. Não apresente um link de arquivo que não tenha sido realmente criado.
+
+Antes de entregar, confira a quantidade e os tipos, a numeração, a correspondência entre UA e objetivo, as quatro alternativas, a existência de uma única resposta correta, as sequências V/F, o feedback e a sinalização _Discursiva. Confira também que a resposta não exige informação ausente do conteúdo. Se faltar material, informe a lacuna fora do documento e não invente questões para completar a quantidade. O professor fará a revisão final antes da importação e do envio.
+
+FIM DO PROMPT

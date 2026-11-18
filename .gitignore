@@ -36,4 +36,8 @@ dist/
 # Credentials and tokens
 token*.json
 credentials*.json
+config_usuario.json
+!*.example.json
+*.secret.json
+
 

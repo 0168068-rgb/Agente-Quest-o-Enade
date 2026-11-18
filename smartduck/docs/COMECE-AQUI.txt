@@ -1,0 +1,187 @@
+SMARTDUCK 1.9.0 — LANÇAMENTO EM LOTE COM UM CLIQUE
+
+INSTALAR / ATUALIZAR
+1. Execute SmartDuck_Instalar_1.9.0.exe.
+2. Na primeira instalação, use Copiar pasta e Abrir extensões no Chrome.
+3. Ative Modo do desenvolvedor > Carregar sem compactação e escolha a pasta.
+4. Se já usa o instalador, clique em Recarregar no cartão SmartDuck em
+   chrome://extensions e atualize o SophiA.
+5. Confira no topo do painel: SIMPLES · 1.9.0.
+Se aparecer a tela antiga com Conferir todas as turmas, a cópia antiga ainda
+está ativa. Em chrome://extensions, desative a cópia antiga e carregue a pasta
+%LOCALAPPDATA%\SmartDuck\extensao indicada pelo instalador. Deixe somente uma
+cópia ativa. Atualize o SophiA (F5). Essa atualização é feita uma única vez.
+Chrome 116 ou mais recente. A instalação é feita no próprio perfil de cada
+usuário. A pasta permanente da instalação é mantida nas atualizações.
+
+CONFERÊNCIA POR PROFESSOR E RELATÓRIO EXCEL
+Mantenha uma única aba do AVA aberta, conectada na conta do professor, além da
+aba do SophiA. Cada professor usa suas próprias contas e seus próprios arquivos.
+A extensão confere o vínculo docente e lê as páginas de participantes do AVA.
+Usa as abas existentes; não abre janelas nem solicita senhas.
+
+Realizar consulta o SophiA, lança as notas liberadas, salva e confirma a gravação.
+A leitura dos alunos do AVA acontece depois dos lançamentos, para não atrasar
+seu início. Consultas repetidas dos filtros foram reduzidas; a confirmação de
+cada gravação continua obrigatória. O tempo depende da resposta dos portais.
+
+Conferir sem lançar é uma opção separada e também funciona SEM ARQUIVOS.
+Ela consulta as turmas, alunos e avaliações e entrega o diagnóstico, sem lançar
+notas. Usa o período selecionado no SophiA ou o semestre atual disponível.
+Para a conferência de outro período, selecione-o no SophiA antes de iniciar.
+
+O Excel (.xlsx) é baixado automaticamente ao terminar. Para baixar novamente,
+use Baixar relatório Excel. As primeiras abas são:
+- Turmas com divergências: turma do AVA, disciplina, unidades, turmas SophiA,
+  alunos encontrados e pendências de matrícula, campos ou cobertura;
+- Alunos só no AVA: participantes reais do AVA sem correspondência confirmada
+  no SophiA, com RA quando disponível, nome, disciplina, turma e resultado;
+- Campos AD AI PS: presença, edição, campos vazios e preenchidos por destino.
+As demais abas mostram pendências, alunos dos arquivos, lançamentos, mapa do
+SophiA, vínculos docentes e todos os alunos AVA conferidos.
+
+O painel também separa Turmas divergentes, Alunos só no AVA e Outras ocorrências.
+Os detalhes do relatório abrem automaticamente quando o ciclo termina.
+A lista Alunos só no AVA vem dos participantes do AVA; a base dos arquivos tem
+uma aba própria. Um arquivo, sozinho, não prova que o aluno esteja no AVA.
+Quando o AVA não mostra RA, o relatório indica comparação por nome completo
+ou RA resolvido por nome único no arquivo. Casos ambíguos ficam identificados.
+Um aluno em outra entrada/turma é relatado como divergência de turma.
+
+PS não é substituída por AS ou AE. Tela sem quadro de notas não permite
+confirmar quais avaliações existem. Lista parcial, conta não identificada,
+AVA fechado, múltiplas abas AVA ou falha de consulta aparecem como não
+verificados; isso não impede os lançamentos que o SophiA permita.
+Nenhuma ausência é confirmada se a cobertura necessária ficou incompleta.
+Não há nomes, contas, unidades, turmas ou alunos pessoais fixos no programa.
+Cada professor é conferido conforme seu vínculo e as opções de sua conta.
+Não altera configurações de avaliação, não cria matrículas e não remove alunos.
+Layouts não reconhecidos são registrados sem inventar dados.
+
+USAR — ARQUIVOS + REALIZAR
+1. Entre na sua conta do SophiA e abra o painel pelo pato.
+2. Selecione ou arraste de 1 a 4 arquivos XLSX ou CSV.
+3. Para retirar arquivos, use Remover arquivo ao lado do nome ou Remover todos
+   os arquivos abaixo da lista. As planilhas originais não são apagadas.
+4. Clique em Realizar e mantenha o painel aberto até terminar.
+O programa entra em Notas pelo menu disponível, usando a mesma aba. Percorre
+os destinos, cruza os arquivos, preenche as notas, clica em Salvar e confirma
+a gravação por releitura antes de seguir. Não é necessário selecionar turma,
+disciplina, avaliação ou aluno, clicar em Buscar/Salvar ou confirmar cada turma.
+O acompanhamento aparece durante o lote. Ao terminar, o relatório é aberto.
+SALVAR AUTOMATICAMENTE
+Após preencher a página, o programa aciona o Salvar do canto superior do
+SophiA. Aguarda a resposta da gravação antes de recarregar e conferir as notas
+no servidor. Só então segue para os próximos lançamentos. O painel mostra
+Salvando no SophiA e depois Verificando gravação.
+O clique não é repetido se a resposta se perder. Uma nota só aparece como
+Gravado no relatório quando o valor é confirmado na releitura.
+
+EXECUÇÃO CONTÍNUA EM CASO DE ERRO
+Cada consulta com falha recebe uma segunda tentativa automática. Se continuar
+falhando, o motivo entra no relatório e o programa passa para a próxima
+página, disciplina, turma ou unidade. A fila não pede Continuar a cada erro.
+A tentativa de cada opção é limitada para não ficar presa em um erro permanente.
+Uma falha ao salvar também não impede as outras turmas. O programa relê o
+servidor, confirma cada aluno separadamente e segue para o restante do lote.
+No final, faz uma nova releitura das gravações pendentes, sem repetir Salvar.
+Se a resposta do preenchimento se perder, só descarta campos não salvos que
+possam ser identificados como alterações da própria extensão. Notas já salvas
+no servidor e alterações manuais são preservadas.
+Campos bloqueados entram no relatório e não interrompem as demais notas.
+Se um campo bloquear após o mapeamento ou durante o preenchimento, ele é
+pulado; os outros campos válidos continuam, são salvos e verificados.
+O relatório contém o motivo por aluno e a quantidade de campos editáveis e
+vazios por avaliação. Notas existentes e campos com limite incompatível são
+preservados. A avaliação do arquivo não é trocada por outra avaliação aberta.
+
+CICLO COMPLETO, UNIDADE POR UNIDADE
+Todas as unidades, turmas, disciplinas, avaliações e páginas de alunos
+disponíveis nos períodos letivos do lote são catalogadas, inclusive destinos
+sem notas correspondentes nos arquivos. O programa usa sempre Semestre.
+Em cada unidade, consulta todas as turmas, disciplinas e páginas; lança as
+notas correspondentes e liberadas, salva e verifica antes de passar à próxima.
+Unidades sem turmas, disciplinas sem alunos, avaliações fechadas e notas sem
+correspondência são registradas; o ciclo continua. A fila vazia de uma unidade
+não encerra o lote. Só finaliza depois de consultar todas as opções disponíveis.
+Se a unidade não puder ser identificada unicamente pelo arquivo, o programa
+aguarda a consulta das demais unidades para resolver a correspondência.
+O andamento mostra unidades consultadas, disciplinas tentadas e notas salvas.
+O relatório registra também as opções sem notas e o resultado de cada destino.
+Não depende de nomes de cursos iguais nos arquivos para visitar uma turma.
+Não há contas, senhas, identificadores de escola, turmas ou alunos fixos.
+O período letivo vem da planilha, da seleção atual do SophiA ou do semestre
+atual disponível no portal. Arquivos com períodos explícitos diferentes são
+processados por período no mesmo lote. Sem período informado, as notas não
+são replicadas indiscriminadamente para outros semestres.
+RA, nome e disciplina identificam o aluno. Campus, curso e período curricular
+ajudam a distinguir o destino. Se houver mais de um destino ou registros
+conflitantes para o mesmo campo, esses registros ficam pendentes no relatório.
+
+ARQUIVOS E NOTAS
+Colunas obrigatórias: RA, Nome, Disciplina e Nota (ou colunas de avaliações).
+Campus/Polo, Curso, Período e CodigoDisciplina são usados quando presentes.
+Identifique a avaliação na coluna Avaliação ou no nome do arquivo/aba
+(AD, AI, PS, AS ou AE). Também pode usar colunas separadas AD, AI, PS, AS e AE,
+sem a coluna Nota. Outros rótulos curtos de avaliação podem ser informados
+explicitamente na coluna Avaliação e devem existir com o mesmo rótulo no portal.
+Sem avaliação informada, o programa só lança quando existe uma única avaliação
+e um único destino compatíveis. Não adivinha entre colunas diferentes.
+Origem: 0 a 10. AD: 8 vira 80 e 10 vira 100. As demais mantêm 0 a 10.
+Faltoso aceita SIM, TRUE, 1 ou F. Faltosos ficam em branco.
+Somente alunos existentes e campos vazios e editáveis recebem notas.
+Nenhuma nota existente é apagada ou substituída; o programa não cria alunos,
+turmas, disciplinas, avaliações ou campos.
+Arquivos idênticos são ignorados. Até 4 arquivos e 150 mil registros por lote.
+XLS antigo não é aceito; salve como XLSX ou CSV. Todas as abas devem conter
+tabelas compatíveis; uma aba incompatível sinaliza erro no arquivo inteiro.
+
+SESSÃO E INTERRUPÇÕES
+A extensão não abre abas ou janelas. Todo o lote usa a mesma aba do SophiA.
+Mantenha o painel aberto enquanto processa; use Parar após esta turma.
+Fechar o painel interrompe a execução. Ao reabrir, a sessão é recuperada em
+pausa ou para verificação. O programa não repete uma gravação incerta.
+Avisos informativos do SophiA com OK/Fechar são fechados automaticamente;
+confirmações são canceladas quando existe um botão inequívoco de cancelamento.
+A extensão não confirma exclusões ou outras ações fora do lançamento.
+Somente situações que exigem acesso do usuário, como sessão expirada, aba
+fechada ou notas manuais ainda não salvas, precisam de intervenção. Se Salvar
+continuar em processamento por mais de um minuto, o programa mantém essa
+gravação pendente e não recarrega a página; aguarde a resposta e use Verificar
+gravação e continuar. Erros já respondidos pelo portal são registrados e as
+demais opções continuam automaticamente.
+Se o painel fechar durante um preenchimento, confira os campos na mesma aba.
+Depois de salvar ou descartar, use Conferi o SophiA; encerrar este lote.
+Alterações manuais pendentes no portal são preservadas antes de navegar.
+A sessão é guardada na memória local do Chrome, compactada, sem envio externo.
+É apagada ao limpar arquivos, fechar a aba, encerrar o navegador, recarregar
+ou atualizar a extensão. As planilhas originais não são alteradas.
+
+VALIDAÇÃO E COMPATIBILIDADE
+Testes simulados verificam um clique em Realizar, quatro arquivos juntos,
+varredura completa, contas com opções diferentes, nomes locais de cursos,
+vários períodos letivos, avaliações distintas, campos bloqueados, faltosos,
+notas existentes, turmas vazias, paginação, falhas e recuperação do painel.
+Verificados também: gravação da primeira unidade antes da consulta de alunos
+na seguinte, passagem por unidades e disciplinas sem correspondências até o
+fim, unidades sem turmas, falta de Semestre/disciplinas, remoção individual e
+remoção de todos os arquivos, vagas liberadas e recuperação da lista.
+Também foram simuladas falhas permanentes de consulta, erro na seleção de
+unidade, rejeição de todas as gravações, perda de resposta, aviso de erro do
+portal, gravação parcial e validação que recusa a nota de um aluno.
+A correção de Salvar foi verificada com link ASP.NET como o comando do canto
+superior, gravação demorada, recarga completa da página, painel reaberto
+durante a gravação, validação bloqueada e proteção contra clique duplicado.
+Conferência sem arquivos, paginação dos participantes do AVA, identificação
+sem RA, entradas 1-3E e 2-4E e abas Excel também foram verificadas em simulação.
+Leitura das planilhas originais verificada: 31.524 registros em 3 arquivos
+únicos (um quarto arquivo idêntico é ignorado).
+Nenhuma nota real foi alterada. A gravação no SophiA real e a execução do
+instalador em Windows não foram testadas aqui. Executável sem assinatura.
+Suporte ao Terminal Web em portal.sophia.com.br com os campos reconhecidos
+pelo programa. Uma tabela não reconhecida é relatada e as demais opções são
+tentadas. Um destino cuja correspondência não possa ser confirmada não recebe
+notas por aproximação.
+
+Guias: LEIA-ME-INSTALACAO.html e smartduck/LEIA-ME.html.
+Instalação manual: carregue a pasta smartduck. Fontes: fontes-instalador.
