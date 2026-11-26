@@ -101,6 +101,7 @@ class BrowserPortal:
         self.playwright = None
         self.saving = False
         self.save_clicked = False
+        self._search_dirty = False
         self.diagnostic_folder = Path(diagnostic_folder) if diagnostic_folder else None
         self.dialog_timeout = 300
         self.last_portal_message = ""
@@ -140,12 +141,20 @@ class BrowserPortal:
         await self.reset()
 
     async def close(self):
+        browser = self.browser
+        playwright = self.playwright
+        self.browser = None
+        self.playwright = None
+        self.page = None
         try:
-            if self.browser:
-                await self.browser.close()
+            if browser:
+                try:
+                    await browser.close()
+                except Exception:
+                    pass
         finally:
-            if self.manager and self.playwright:
-                await self.playwright.stop()
+            if self.manager and playwright:
+                await playwright.stop()
 
     async def settle(self, cancellable=True):
         deadline = time.monotonic() + 20
@@ -156,7 +165,20 @@ class BrowserPortal:
             state = await self.page.evaluate("""() => {
                 const manager = window.Sys?.WebForms?.PageRequestManager?.getInstance?.();
                 if (manager?.get_isInAsyncPostBack() || document.readyState === 'loading') return null;
-                return Array.from(document.querySelectorAll('select')).map(el => [el.id,el.value,el.disabled,Array.from(el.options).map(o=>o.value)]);
+                return Array.from(document.querySelectorAll('select')).map(el => {
+                    const opts = el.options;
+                    const len = opts.length;
+                    let hash = 2166136261;
+                    for (let i = 0; i < len; i++) {
+                        const v = opts[i].value;
+                        for (let j = 0; j < v.length; j++) {
+                            hash ^= v.charCodeAt(j);
+                            hash = Math.imul(hash, 16777619);
+                        }
+                        hash ^= 124;
+                    }
+                    return `${el.id}|${el.value}|${el.disabled ? 1 : 0}|${len}|${hash >>> 0}`;
+                }).join(';');
             }""")
             if state is not None and state == last:
                 stable += 1
@@ -165,7 +187,7 @@ class BrowserPortal:
             else:
                 stable = 0
             last = state
-            await asyncio.sleep(0.25)
+            await asyncio.sleep(0.15)
         raise RuntimeError("O portal não estabilizou os filtros após a operação.")
 
     async def reset(self, cancellable=True):
@@ -179,6 +201,7 @@ class BrowserPortal:
             base = self.page.url.rsplit("/", 1)[0]
             await self.page.goto(base + "/LancNotas.aspx", wait_until="domcontentloaded")
         await self.settle(cancellable)
+        self._search_dirty = False
 
     async def _try_auto_confirm_success_dialog(self, text: str) -> bool:
         normalized = (text or "").lower()
@@ -261,11 +284,17 @@ class BrowserPortal:
         return result
 
     async def options(self, kind):
-        selector = await self.selector(kind)
-        rows = await self.page.locator(selector).evaluate("""el => Array.from(el.options).filter(o =>
-            o.value && o.value !== '-1' && o.value !== '0' &&
-            !/^(selecione|fim das etapas)/i.test(o.text.trim())
-        ).map(o=>({value:o.value,text:o.text.trim()}))""")
+        rows = await self.page.evaluate("""kind => {
+            const matches = Array.from(document.querySelectorAll('select')).filter(el =>
+                (el.id + ' ' + el.name).toLowerCase().includes(kind));
+            if (matches.length !== 1) return null;
+            return Array.from(matches[0].options).filter(o =>
+                o.value && o.value !== '-1' && o.value !== '0' &&
+                !/^(selecione|fim das etapas)/i.test(o.text.trim())
+            ).map(o => ({value: o.value, text: o.text.trim()}));
+        }""", kind)
+        if rows is None:
+            raise RuntimeError(f"Não foi possível identificar o filtro '{kind}' no portal.")
         return [Option(**row) for row in rows]
 
     async def select(self, kind, option, cancellable=True):
@@ -274,15 +303,46 @@ class BrowserPortal:
         selector = await self.selector(kind)
         await self.page.locator(selector).select_option(option.value)
         await self.settle(cancellable)
-        if await self.page.locator(await self.selector(kind)).input_value() != option.value:
+        if await self.page.locator(selector).input_value() != option.value:
             raise RuntimeError(f"O portal não manteve a seleção de {kind}: {option.text}.")
+
+    async def _current_filter_values(self):
+        return await self.page.evaluate("""() => {
+            const selects = Array.from(document.querySelectorAll('select'));
+            const result = {};
+            for (const kind of ['periodo', 'unidade', 'turma', 'etapa', 'disciplina']) {
+                const matches = selects.filter(el => (el.id + ' ' + el.name).toLowerCase().includes(kind));
+                result[kind] = matches.length === 1 ? matches[0].value : null;
+            }
+            return result;
+        }""")
 
     async def restore(self, period, unit=None, classroom=None, stage=None, discipline=None, cancellable=True):
         # A ordem importa: cada postback pode limpar os filtros dependentes.
+        active = [(kind, option) for kind, option in (
+            ("periodo", period), ("unidade", unit), ("turma", classroom), ("etapa", stage), ("disciplina", discipline)
+        ) if option is not None]
+        if not self._search_dirty and active:
+            current = await self._current_filter_values()
+            first_diff = 0
+            while first_diff < len(active) and current.get(active[first_diff][0]) == active[first_diff][1].value:
+                first_diff += 1
+            if first_diff == len(active):
+                return
+            if first_diff > 0:
+                try:
+                    for kind, option in active[first_diff:]:
+                        await self.select(kind, option, cancellable)
+                    after = await self._current_filter_values()
+                    if all(after.get(kind) == option.value for kind, option in active):
+                        return
+                except Cancelled:
+                    raise
+                except Exception:
+                    pass
         await self.reset(cancellable)
-        for kind, option in (("periodo", period), ("unidade", unit), ("turma", classroom), ("etapa", stage), ("disciplina", discipline)):
-            if option:
-                await self.select(kind, option, cancellable)
+        for kind, option in active:
+            await self.select(kind, option, cancellable)
 
     async def button(self, names):
         for name in names:
@@ -297,6 +357,7 @@ class BrowserPortal:
     async def search(self, cancellable=True):
         if cancellable:
             self.check()
+        self._search_dirty = True
         await (await self.button(("Buscar", "Listar"))).click()
         await self.settle(cancellable)
 
@@ -325,6 +386,7 @@ class BrowserPortal:
         try:
             button = await self.button(("Gravar", "Salvar"))
             self.save_clicked = True
+            self._search_dirty = True
             await button.click()
             await self.settle(cancellable=False)
             await self.wait_for_portal_dialog()
