@@ -38,6 +38,55 @@ else:
 
 SOPHIA_URL = 'https://portal.sophia.com.br/SophiA_111/Acesso.aspx?escola=8262'
 
+async def dismiss_any_modal(page) -> bool:
+    """Fecha banners de cookies e caixas de diálogo modais do SophiA (ex: 'Informação' / 'Confirmar')."""
+    clicked_any = False
+    for frame in [page.main_frame, *page.frames]:
+        try:
+            clicked = await frame.evaluate('''() => {
+                let clicked = false;
+
+                // 1. Fechar banner de cookies se visível
+                const cookieBtns = Array.from(document.querySelectorAll("button, a")).filter(e =>
+                    (e.innerText || '').trim().toLowerCase() === 'aceitar'
+                );
+                for (const b of cookieBtns) {
+                    const rect = b.getBoundingClientRect();
+                    if (rect.width > 0 && rect.height > 0) {
+                        try { b.click(); clicked = true; } catch(e) {}
+                    }
+                }
+
+                // 2. Fechar modais / avisos do SophiA (ex: "Informação" -> "Confirmar")
+                const modalBtns = Array.from(document.querySelectorAll("input[type='button'], input[type='submit'], button, a")).filter(b => {
+                    const txt = (b.value || b.innerText || '').trim().toLowerCase();
+                    return ['confirmar', 'ok', 'fechar', 'sim', 'prosseguir', 'fechar aviso'].includes(txt);
+                });
+                for (const b of modalBtns) {
+                    const rect = b.getBoundingClientRect();
+                    if (rect.width > 0 && rect.height > 0) {
+                        try { b.click(); clicked = true; } catch(e) {}
+                    }
+                }
+                return clicked;
+            }''')
+            if clicked:
+                clicked_any = True
+        except Exception:
+            continue
+    return clicked_any
+
+async def wait_and_dismiss_post_save_modals(page, max_attempts: int = 8, delay_ms: int = 500):
+    """Aguarda brevemente por modais pós-salvamento (ex: aviso de avaliações não concluídas) e confirma automaticamente."""
+    for _ in range(max_attempts):
+        if await dismiss_any_modal(page):
+            print("💬 Modal de informação/confirmação do SophiA fechado automaticamente.")
+            await page.wait_for_timeout(delay_ms)
+            # Verifica uma vez extra caso outro modal apareça em sequência
+            await dismiss_any_modal(page)
+            return
+        await page.wait_for_timeout(delay_ms)
+
 def print_header():
     print("=" * 75)
     print("  🎓 AUTOMAÇÃO DE LANÇAMENTO DE NOTAS - PORTAL SOPHIA")
@@ -204,6 +253,7 @@ async def navigate_to_notas(page):
 
 async def reset_page_via_notas_tab(page):
     """Reseta a tela clicando na aba 'Notas' para restaurar o estado limpo do formulário e reaparecer o botão 'Buscar'."""
+    await dismiss_any_modal(page)
     print("🔄 Clicando na aba 'Notas' para restaurar a tela e o botão 'Buscar'...")
     await navigate_to_notas(page)
 
@@ -719,8 +769,12 @@ async def process_grade_launch(page, df_grades: pd.DataFrame, course_name: str, 
                             return false;
                         }''')
                         if saved:
-                            await page.wait_for_load_state('networkidle')
-                            await page.wait_for_timeout(2000)
+                            try:
+                                await page.wait_for_load_state('networkidle', timeout=10000)
+                            except Exception:
+                                pass
+                            await page.wait_for_timeout(1000)
+                            await wait_and_dismiss_post_save_modals(page)
                             print("✅ Alterações gravadas/salvas com sucesso!")
 
                 # 📌 2ª SITUAÇÃO: Resetar a tela pela aba 'Notas' após concluir o lançamento / gravação da disciplina
@@ -876,6 +930,16 @@ async def main():
         )
         context = await browser.new_context(viewport=None)
         page = await context.new_page()
+
+        # Aceitar alertas nativos do SophiA automaticamente (ex: confirmações JS)
+        async def handle_dialog(dialog):
+            print(f"💬 Alerta do Portal: '{dialog.message}' (confirmado automaticamente)")
+            try:
+                await dialog.accept()
+            except Exception:
+                pass
+
+        page.on('dialog', lambda d: asyncio.create_task(handle_dialog(d)))
 
         # Passo 5º: Solicitar login
         await wait_for_user_login(page)
