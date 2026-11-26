@@ -24,6 +24,7 @@ class RoundedSurface(tk.Frame):
         self.surface_border = border
         self.surface_radius = radius
         self.surface_title = text
+        self._drawn_size = None
         self.backdrop = tk.Canvas(self, background=BACKGROUND, highlightthickness=0, bd=0, takefocus=False)
         # "inside" desconta padx/pady do Frame e corta o desenho sob os
         # campos. Desenhar sobre toda a superfície externa mantém a borda.
@@ -35,8 +36,11 @@ class RoundedSurface(tk.Frame):
             self.title_label.place(x=16, y=8, bordermode="outside")
 
     def draw_surface(self, event=None):
-        self.backdrop.delete("all")
         width, height = self.backdrop.winfo_width(), self.backdrop.winfo_height()
+        if width < 4 or height < 4 or self._drawn_size == (width, height):
+            return
+        self._drawn_size = (width, height)
+        self.backdrop.delete("all")
         rounded_polygon(self.backdrop, (1, 1, width-2, height-2), self.surface_radius,
                         fill=self.surface_fill, outline=self.surface_border)
 
@@ -108,8 +112,10 @@ class RoundedButton(tk.Canvas):
 
     def configure(self, cnf=None, **kwargs):
         if "state" in kwargs:
-            self.button_state = kwargs.pop("state")
-            self.draw()
+            new_state = kwargs.pop("state")
+            if new_state != self.button_state:
+                self.button_state = new_state
+                self.draw()
         if kwargs or cnf:
             return super().configure(cnf, **kwargs)
     config = configure
@@ -141,8 +147,9 @@ class RoundedButton(tk.Canvas):
         super().configure(cursor="arrow" if disabled else "hand2")
 
     def highlight(self, value):
-        self.hover = value
-        self.draw()
+        if self.hover != value:
+            self.hover = value
+            self.draw()
 
     def activate(self, event=None):
         if self.button_state != "disabled" and self.command:
