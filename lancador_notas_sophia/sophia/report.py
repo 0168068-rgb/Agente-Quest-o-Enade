@@ -10,6 +10,11 @@ from openpyxl.utils import get_column_letter
 from .data import grade_value
 
 HEADERS = ["Linha de origem", "Aluno", "RA", "Curso", "Polo", "Turma", "Etapa", "Disciplina", "Avaliação", "Nota", "Status / Motivo"]
+_COLUMN_WIDTHS = (18, 38, 18, 36, 22, 40, 18, 48, 14, 14, 65)
+_HEADER_FONT = Font(color="FFFFFF", bold=True)
+_HEADER_FILL = PatternFill("solid", fgColor="24556B")
+_HEADER_ALIGNMENT = Alignment(wrap_text=True, vertical="center")
+_CELL_ALIGNMENT = Alignment(vertical="top", wrap_text=True)
 
 
 def safe_cell(value):
@@ -41,15 +46,14 @@ def write_report(folder: Path, results: list[dict], pending: list[dict], absent:
         sheet.auto_filter.ref = sheet.dimensions
         sheet.row_dimensions[1].height = 30
         for cell in sheet[1]:
-            cell.font = Font(color="FFFFFF", bold=True)
-            cell.fill = PatternFill("solid", fgColor="24556B")
-            cell.alignment = Alignment(wrap_text=True, vertical="center")
-        widths = [18, 38, 18, 36, 22, 40, 18, 48, 14, 14, 65]
-        for idx, width in enumerate(widths, 1):
+            cell.font = _HEADER_FONT
+            cell.fill = _HEADER_FILL
+            cell.alignment = _HEADER_ALIGNMENT
+        for idx, width in enumerate(_COLUMN_WIDTHS, 1):
             sheet.column_dimensions[get_column_letter(idx)].width = width
         for row in sheet.iter_rows(min_row=2):
             for cell in row:
-                cell.alignment = Alignment(vertical="top", wrap_text=True)
+                cell.alignment = _CELL_ALIGNMENT
             for idx in (2, 3):
                 row[idx - 1].number_format = "@"
             row[9].number_format = "0.##########"
