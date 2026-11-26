@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 from openpyxl import Workbook, load_workbook
 
-from sophia.data import Columns, SOPHIA_HEADERS, grade_value, identifier, read_file, records_from_frame, suggest_grade_max, unit_name
+from sophia.data import Columns, SOPHIA_HEADERS, course_in_class, grade_value, identifier, read_file, records_from_frame, suggest_grade_max, unit_name
 from sophia.report import write_report
 
 
@@ -165,6 +165,16 @@ class DataTests(unittest.TestCase):
             path.write_text(",".join(SOPHIA_HEADERS) + "\n" + ",".join(["campo"] * 20), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "ambígua na linha 2"):
                 read_file(path)
+
+    def test_course_in_class_supports_sophia_abbreviations(self):
+        self.assertTrue(course_in_class("G - 2026.2.3.2P - Análise e Des. de Sistemas", "Análise e Desenvolvimento de Sistemas"))
+        self.assertTrue(course_in_class("G - 2026.2.3.2P - Análise e Des. de Sist.", "Tecnologia em Análise e Desenvolvimento de Sistemas"))
+        self.assertTrue(course_in_class("G - 2026.2.3.2P - Análise e Des. de Si...", "Análise e Desenvolvimento de Sistemas"))
+        self.assertTrue(course_in_class("G - 2026.2 - Eng. Civil", "Engenharia Civil"))
+        self.assertTrue(course_in_class("G - 2026.2 - Ciênc. Contáb.", "Ciências Contábeis"))
+        self.assertFalse(course_in_class("G - 2026.2 - Análise e Des. de Sistemas", "Sistemas de Informação"))
+        self.assertFalse(course_in_class("G - 2026.2 - Sistemas de Informação", "Análise e Desenvolvimento de Sistemas"))
+        self.assertFalse(course_in_class("G - 2026.2 - Turma D", "Direito"))
 
     def test_sophia_out_of_range_grade_remains_a_grade_validation_issue(self):
         row = ["39", "20262_G", "21", "T", "Graduação", "Graduação EAD", "Redes", "Disciplina",
