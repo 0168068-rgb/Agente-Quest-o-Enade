@@ -259,6 +259,32 @@ class EngineTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(result.pending), 2)
         self.assertNotIn("001", self.portal.saved)
 
+    async def test_unused_units_are_skipped_during_inventory(self):
+        visited_units = []
+        original_restore = self.portal.restore
+        async def track_restore(period, unit=None, classroom=None, stage=None, discipline=None):
+            if unit:
+                visited_units.append(unit.value)
+            return await original_restore(period, unit, classroom, stage, discipline)
+        self.portal.restore = track_restore
+        self.records = [Record(0, 2, "Ana", "Fisioterapia", "Anatomia", "9", "001", ("ITAPERUNA",))]
+        result = await self.execute()
+        self.assertEqual(len(result.results), 1)
+        self.assertEqual(set(visited_units), {"i"})
+
+    async def test_specific_failure_is_not_overwritten_by_later_not_found_task(self):
+        self.portal.multiple_stages = True
+        original_roster = self.portal.roster
+        async def stage_roster(exam):
+            if self.portal.stage.value == "s":
+                return True, [Student("001", "Ana", "001", None, "")]
+            return True, [Student("999", "Outro", "999", "999", "")]
+        self.portal.roster = stage_roster
+        self.records = [Record(0, 2, "Ana", "Fisioterapia", "Anatomia", "9", "001", ("ITAPERUNA",))]
+        result = await self.execute()
+        self.assertEqual(len(result.pending), 1)
+        self.assertIn("Campo da avaliação ausente", result.pending[0]["Status / Motivo"])
+
 
 if __name__ == "__main__":
     unittest.main()
