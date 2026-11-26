@@ -179,6 +179,29 @@ class BrowserTests(unittest.IsolatedAsyncioTestCase):
         finally:
             await portal.close()
 
+    async def test_incremental_restore_skips_redundant_resets_during_inventory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            cancel = threading.Event()
+            portal = LocalPortal(cancel, lambda _: None)
+            resets = 0
+            original_reset = portal.reset
+            async def counted_reset(cancellable=True):
+                nonlocal resets
+                resets += 1
+                return await original_reset(cancellable)
+            portal.reset = counted_reset
+            records = [
+                Record(0, 2, "Ana", "Fisioterapia", "Anatomia", "7", "001", ("ITAPERUNA",)),
+                Record(1, 3, "Bia", "Fisioterapia", "Anatomia", "8", "002", ("NOVA IGUACU",)),
+            ]
+            config = RunConfig("2026.2", "AD", ("Fisioterapia",), True, Path(directory))
+            result = await run(config, records, cancel, lambda _: None, portal)
+            self.assertFalse(result.partial, result.error)
+            self.assertEqual(len(result.results), 2)
+            # Apenas 1 reset após a primeira busca para passar para a segunda tarefa;
+            # nenhum reset durante a varredura de inventário ou na primeira tarefa.
+            self.assertEqual(resets, 1)
+
 
 if __name__ == "__main__":
     unittest.main()
