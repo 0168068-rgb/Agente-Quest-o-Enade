@@ -1,0 +1,12 @@
+test_cancel_sets_event_without_closing_worker (test_gui.GuiTests.test_cancel_sets_event_without_closing_worker) ... ok
+test_default_simulation_mapping_and_worker_delivery (test_gui.GuiTests.test_default_simulation_mapping_and_worker_delivery) ... ok
+test_field_focus_updates_guidance_and_busy_keeps_processing_stage (test_gui.GuiTests.test_field_focus_updates_guidance_and_busy_keeps_processing_stage) ... ok
+test_loaded_courses_are_populated_while_controls_disabled (test_gui.GuiTests.test_loaded_courses_are_populated_while_controls_disabled) ... ok
+test_real_mode_requires_confirmation (test_gui.GuiTests.test_real_mode_requires_confirmation) ... ok
+test_small_window_has_scrollable_steps_and_fixed_actions (test_gui.GuiTests.test_small_window_has_scrollable_steps_and_fixed_actions) ... ok
+test_stage_guidance_initial_and_after_loading (test_gui.GuiTests.test_stage_guidance_initial_and_after_loading) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.489s
+
+OK

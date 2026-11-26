@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR"><meta charset="utf-8"><title>Portal fictício — testes</title>
+<body>
+<a href="#" id="notas" onclick="reset();return false">Notas</a>
+<select id="periodo" onchange="periodChanged()"></select>
+<select id="unidade" onchange="unitChanged()"></select>
+<select id="turma" onchange="classChanged()"></select>
+<select id="etapa" onchange="stageChanged()"></select>
+<select id="disciplina"></select>
+<button onclick="search()">Buscar</button>
+<button onclick="save()">Gravar</button>
+<div id="grid"></div>
+<script>
+let busy = false;
+window.Sys = {WebForms: {PageRequestManager: {getInstance: () => ({get_isInAsyncPostBack: () => busy})}}};
+window.saved = {};
+window.saves = 0;
+window.searches = [];
+window.failSave = false;
+window.missingAD = false;
+window.missingRA = false;
+const $ = id => document.getElementById(id);
+function opts(id, values) {
+    $(id).innerHTML = '<option value="-1">Selecione...</option>' + values.map(([v,t]) => `<option value="${v}">${t}</option>`).join('');
+}
+function reset() {
+    opts('periodo', [['43','2026.2']]);
+    for (const id of ['unidade','turma','etapa','disciplina']) opts(id, []);
+    $('grid').innerHTML = '';
+}
+function periodChanged() {
+    opts('unidade', [['i','Itaperuna'],['n','Nova Iguaçu']]);
+    for (const id of ['turma','etapa','disciplina']) opts(id, []);
+}
+function unitChanged() {
+    if ($('periodo').value === '-1') {opts('turma', []); return;}
+    opts('turma', [['t','G - Fisioterapia'],['c','G - Ciência da Computação']]);
+    opts('etapa', []); opts('disciplina', []);
+}
+function classChanged() { opts('etapa', [['s','Semestre'],['end','Fim das etapas']]); opts('disciplina', []); }
+function stageChanged() { opts('disciplina', [['a','Anatomia'],['b','Tema Integrador']]); }
+function code() {return $('unidade').value === 'i' ? '001' : '002';}
+function search() {
+    if (['periodo','unidade','turma','etapa','disciplina'].some(id => $(id).value === '-1')) throw Error('Filtros incompletos');
+    const ra = window.missingRA ? 'outro' : code();
+    const nome = $('unidade').value === 'i' ? 'Ana' : 'Bia';
+    const value = window.saved[code()] || '';
+    window.searches.push({unit:$('unidade').value, period:$('periodo').value});
+    // Quatro células sem input antes de AD. A coluna AI nunca deve ser alterada.
+    $('grid').innerHTML = `<table id="alunos"><tr><th>Código</th><th>Status</th><th>Nome</th><th>Faltas</th><th>${window.missingAD ? 'MD' : 'AD'}</th><th>AI</th></tr>
+        <tr><td>${ra}</td><td>Ativo</td><td title="${nome}">${nome}</td><td>0</td><td><input type="text" id="ad" value="${value}"></td><td><input type="text" id="ai" value="6"></td></tr></table>`;
+}
+function save() {
+    window.saves++;
+    if (confirm('Gravar notas no portal de teste?') && !window.failSave) {
+        window.saved[code()] = $('ad').value;
+        window.saved['ai-'+code()] = $('ai').value;
+    }
+}
+reset();
+</script></body></html>
