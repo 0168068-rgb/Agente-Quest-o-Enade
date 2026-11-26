@@ -4,6 +4,7 @@ import asyncio
 import tempfile
 from dataclasses import dataclass
 from difflib import SequenceMatcher
+from functools import lru_cache
 from pathlib import Path
 
 from .data import Record, course_in_class, grade_value, identifier, normalize, unit_name
@@ -32,9 +33,13 @@ class RunResult:
     error: str = ""
 
 
-def same_discipline(left: str, right: str) -> bool:
-    a, b = normalize(left), normalize(right)
+@lru_cache(maxsize=8192)
+def _same_discipline_norm(a: str, b: str) -> bool:
     return bool(a and b) and (a == b or SequenceMatcher(None, a, b).ratio() >= 0.90)
+
+
+def same_discipline(left: str, right: str) -> bool:
+    return _same_discipline_norm(normalize(left), normalize(right))
 
 
 def in_task(record: Record, task: Task, single_unit: bool) -> bool:
@@ -47,6 +52,28 @@ def match_student(record, students):
         candidates = [s for s in students if identifier(s.registration) == record.registration]
     else:
         candidates = [s for s in students if normalize(s.name) == normalize(record.name)] if record.name else []
+    return candidates[0] if len(candidates) == 1 else None, len(candidates)
+
+
+def _index_students(students):
+    by_ra: dict[str, list] = {}
+    by_name: dict[str, list] = {}
+    for student in students:
+        ra = identifier(student.registration)
+        if ra:
+            by_ra.setdefault(ra, []).append(student)
+        name = normalize(student.name)
+        if name:
+            by_name.setdefault(name, []).append(student)
+    return by_ra, by_name
+
+
+def _match_student_indexed(record, by_ra: dict[str, list], by_name: dict[str, list]):
+    if record.registration:
+        candidates = by_ra.get(record.registration, ())
+    else:
+        name = normalize(record.name)
+        candidates = by_name.get(name, ()) if name else ()
     return candidates[0] if len(candidates) == 1 else None, len(candidates)
 
 
@@ -71,9 +98,13 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
     complete_inventory = False
     partial, error = False, ""
     terminal = set()
+    specific_failure_keys = set()
+    available_keys = set()
+
     def check():
         if cancel_event.is_set():
             raise Cancelled("Cancelado pelo usuário.")
+
     try:
         await portal.open()
         check()
@@ -85,11 +116,21 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
         units = await portal.options("unidade")
         if not units:
             raise RuntimeError("Não há unidades disponíveis no portal.")
-        for unit in units:
+        single_unit = len(units) == 1
+        needed_units = {u for r in records for u in r.units}
+        target_units = units if single_unit else [u for u in units if unit_name(u.text) in needed_units]
+        for unit in target_units:
             check()
             emit({"message": f"Consultando turmas e disciplinas: {unit.text}."})
+            unit_norm = unit_name(unit.text)
+            unit_records = records if single_unit else [r for r in records if unit_norm in r.units]
+            unit_courses = {r.course for r in unit_records}
             await portal.restore(period, unit)
-            classrooms = [c for c in await portal.options("turma") if any(course_in_class(c.text, course) for course in config.courses)]
+            classrooms = [
+                c for c in await portal.options("turma")
+                if any(course_in_class(c.text, course) for course in config.courses)
+                and any(course_in_class(c.text, rc) for rc in unit_courses)
+            ]
             for classroom in classrooms:
                 check()
                 await portal.restore(period, unit, classroom)
@@ -104,8 +145,22 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
                     for discipline in disciplines:
                         tasks.append(Task(period, unit, classroom, stage, discipline))
         complete_inventory = True
-        single_unit = len(units) == 1
-        relevant_tasks = [task for task in tasks if any(in_task(r, task, single_unit) for r in records)]
+
+        records_by_unit: dict[str, list[Record]] = {}
+        if not single_unit:
+            for r in records:
+                for u in r.units:
+                    records_by_unit.setdefault(u, []).append(r)
+
+        relevant_pairs = []
+        for task in tasks:
+            pool = records if single_unit else records_by_unit.get(unit_name(task.unit.text), ())
+            cands = [r for r in pool if course_in_class(task.classroom.text, r.course) and same_discipline(r.discipline, task.discipline.text)]
+            if cands:
+                relevant_pairs.append((task, cands))
+                for r in cands:
+                    available_keys.add(r.key)
+
         # Duplicatas na fonte não devem gravar duas notas no mesmo cadastro.
         identities = {}
         for record in records:
@@ -117,21 +172,26 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
                 for record in group:
                     decisions[record.key] = report_row(record, config, "Registro duplicado na planilha; conferir antes do lançamento")
                     terminal.add(record.key)
-        for number, task in enumerate(relevant_tasks, 1):
+
+        total_tasks = len(relevant_pairs)
+        for number, (task, candidates) in enumerate(relevant_pairs, 1):
             check()
-            emit({"message": f"{task.unit.text} • {task.classroom.text} • {task.discipline.text} ({task.stage.text})", "current": number - 1, "total": len(relevant_tasks)})
-            candidates = [r for r in records if in_task(r, task, single_unit)]
+            emit({"message": f"{task.unit.text} • {task.classroom.text} • {task.discipline.text} ({task.stage.text})", "current": number - 1, "total": total_tasks})
             await portal.restore(task.period, task.unit, task.classroom, task.stage, task.discipline)
             await portal.search()
             header, students = await portal.roster(config.exam)
+            by_ra, by_name = _index_students(students)
+            candidate_ras = {r.registration for r in candidates if r.registration}
+            candidate_names = {normalize(r.name) for r in candidates if not r.registration and r.name}
             # Registrar alunos sem fonte apenas nas disciplinas dentro do escopo.
+            task_courses_label = ", ".join(c for c in config.courses if course_in_class(task.classroom.text, c))
             for student in students:
-                source_match = any((r.registration and r.registration == identifier(student.registration)) or
-                                   (not r.registration and normalize(r.name) == normalize(student.name)) for r in candidates)
+                ra = identifier(student.registration)
+                source_match = (ra in candidate_ras) or (normalize(student.name) in candidate_names)
                 if not source_match:
                     key = (task.unit.value, task.classroom.value, task.stage.value, task.discipline.value, student.registration, student.name)
                     absent[key] = {"Aluno": student.name, "RA": student.registration,
-                                   "Curso": ", ".join(c for c in config.courses if course_in_class(task.classroom.text, c)),
+                                   "Curso": task_courses_label,
                                    "Polo": task.unit.text, "Turma": task.classroom.text, "Etapa": task.stage.text,
                                    "Disciplina": task.discipline.text, "Avaliação": config.exam,
                                    "Nota": student.value, "Status / Motivo": "Aluno no portal sem correspondência na planilha"}
@@ -150,13 +210,17 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
                     decisions[record.key] = report_row(record, config, "Nota ausente na planilha", task)
                     terminal.add(record.key)
                     continue
-                student, count = match_student(record, students)
+                student, count = _match_student_indexed(record, by_ra, by_name)
                 if count != 1:
-                    reason = "Correspondência ambígua no portal" if count > 1 else "Aluno não localizado nas turmas consultadas"
-                    decisions[record.key] = report_row(record, config, reason, task)
+                    if count > 1:
+                        decisions[record.key] = report_row(record, config, "Correspondência ambígua no portal", task)
+                        specific_failure_keys.add(record.key)
+                    elif record.key not in specific_failure_keys:
+                        decisions[record.key] = report_row(record, config, "Aluno não localizado nas turmas consultadas", task)
                     continue
                 if not header or not student.input_selector:
                     decisions[record.key] = report_row(record, config, "Campo da avaliação ausente, bloqueado ou ambíguo", task)
+                    specific_failure_keys.add(record.key)
                     continue
                 matched.append((record, student, value))
             # Duas linhas (uma sem RA, outra com RA) podem apontar ao mesmo aluno.
@@ -178,6 +242,7 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
                 except Exception as exc:
                     batch_failed = True
                     decisions[record.key] = report_row(record, config, f"Falha no preenchimento: {exc}", task)
+                    specific_failure_keys.add(record.key)
                     continue
                 if config.simulation:
                     results[record.key] = report_row(record, config, "Preenchido em simulação — não gravado", task)
@@ -185,6 +250,7 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
                     decisions.pop(record.key, None)
                 else:
                     decisions[record.key] = report_row(record, config, "Preenchido, mas ainda não gravado", task)
+                    specific_failure_keys.add(record.key)
                     filled.append((record, student, value))
             if batch_failed and not config.simulation:
                 for record, _, _ in filled:
@@ -199,8 +265,9 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
                     decisions[record.key] = report_row(record, config, "Gravação não confirmada; conferir no portal antes de tentar novamente", task)
                 try:
                     refreshed = await portal.save_and_reload(task, config.exam)
+                    refreshed_by_ra, refreshed_by_name = _index_students(refreshed)
                     for record, _, value in filled:
-                        student, count = match_student(record, refreshed)
+                        student, count = _match_student_indexed(record, refreshed_by_ra, refreshed_by_name)
                         try:
                             verified = count == 1 and grade_value(student.value, max_grade=config.grade_max) == value
                         except ValueError:
@@ -218,7 +285,7 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
                     raise
                 except Exception as exc:
                     emit({"message": f"Não foi possível confirmar a gravação: {exc}. O lote ficará pendente e não será repetido."})
-            emit({"message": f"Etapa concluída: {len(results)} resultados acumulados.", "current": number, "total": len(relevant_tasks)})
+            emit({"message": f"Etapa concluída: {len(results)} resultados acumulados.", "current": number, "total": total_tasks})
     except Cancelled as exc:
         partial, error = True, str(exc)
     except Exception as exc:
@@ -234,7 +301,7 @@ async def run(config: RunConfig, records: list[Record], cancel_event, emit, port
     for record in records:
         if record.key in results:
             continue
-        available = any(in_task(record, task, single_unit) for task in tasks)
+        available = record.key in available_keys
         known_unit = any(unit_name(u.text) in record.units for u in units) if record.units else single_unit
         # Só omitir quando houve um inventário completo, no polo correto.
         if complete_inventory and known_unit and not available:
