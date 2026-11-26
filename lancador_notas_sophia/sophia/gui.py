@@ -329,7 +329,7 @@ class Application:
         try:
             self.course_list.delete(0, "end")
             if self.frame is not None and self.columns["course"].get() in self.frame.columns:
-                for course in sorted({v.strip() for v in self.frame[self.columns["course"].get()] if v.strip()}):
+                for course in sorted({str(v).strip() for v in self.frame[self.columns["course"].get()].unique() if str(v).strip()}):
                     self.course_list.insert("end", course)
         finally:
             self.course_list.configure(state=previous_state)
@@ -425,8 +425,8 @@ class Application:
                         periods = {self.period.get()}
                         period_column = detect_column(self.frame.columns, ["CodigoPeriodoLetivo", "Período letivo", "PeriodoLetivo"])
                         if period_column:
-                            for value in self.frame[period_column]:
-                                match = re.fullmatch(r"(\d{4})[.\-_]?([12])(?:_[A-Za-z]+)?", value.strip())
+                            for value in self.frame[period_column].unique():
+                                match = re.fullmatch(r"(\d{4})[.\-_]?([12])(?:_[A-Za-z]+)?", str(value).strip())
                                 if match:
                                     periods.add(f"{match[1]}.{match[2]}")
                         self.period_combo.configure(values=sorted(periods, reverse=True))
