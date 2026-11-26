@@ -2,21 +2,40 @@ from __future__ import annotations
 
 import csv
 import io
+import math
 import re
 import unicodedata
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
+from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
 from openpyxl import load_workbook
 
+_COURSE_STOP_WORDS = frozenset({
+    "SUPERIOR", "TECNOLOGIA", "TECNOLOGO", "GRADUACAO", "EAD",
+    "BACHARELADO", "LICENCIATURA", "CURSO", "DE", "DA", "DO", "DOS", "DAS", "EM", "E",
+})
+_COURSE_TOKEN_RE = re.compile(r"(\w+)(\.*)")
+
+
+@lru_cache(maxsize=16384)
+def _normalize_str(text: str) -> str:
+    decomposed = unicodedata.normalize("NFD", text)
+    return " ".join("".join(c for c in decomposed if unicodedata.category(c) != "Mn").upper().split())
+
 
 def normalize(value) -> str:
-    if value is None or pd.isna(value):
+    if isinstance(value, str):
+        return _normalize_str(value)
+    if value is None:
         return ""
-    value = unicodedata.normalize("NFD", str(value))
-    return " ".join("".join(c for c in value if unicodedata.category(c) != "Mn").upper().split())
+    if isinstance(value, float) and math.isnan(value):
+        return ""
+    if pd.isna(value):
+        return ""
+    return _normalize_str(str(value))
 
 
 def identifier(value) -> str:
@@ -25,11 +44,15 @@ def identifier(value) -> str:
     return re.sub(r"\.0$", "", text)
 
 
-def unit_name(value) -> str:
-    text = normalize(value)
+@lru_cache(maxsize=4096)
+def _unit_name_norm(text: str) -> str:
     text = "".join("-" if unicodedata.category(c) == "Pd" or c == "−" else c for c in text)
     text = re.sub(r"^(POLO|CAMPUS|UNIDADE)\s+", "", text)
     return re.sub(r"\s*[-/]\s*[A-Z]{2}$", "", text).strip()
+
+
+def unit_name(value) -> str:
+    return _unit_name_norm(normalize(value))
 
 
 def usable_unit(value) -> bool:
@@ -38,13 +61,30 @@ def usable_unit(value) -> bool:
                 and not text.startswith(("NOTA ", "EXPORTAD", "NAO EXPORTAD")))
 
 
-def course_in_class(label: str, course: str) -> bool:
-    a, b = normalize(label), normalize(course)
+@lru_cache(maxsize=8192)
+def _course_in_class_norm(a: str, b: str) -> bool:
     if b and b in a:
         return True
-    stop = {"SUPERIOR", "TECNOLOGIA", "GRADUACAO", "EAD", "BACHARELADO", "LICENCIATURA", "DE", "DA", "DO", "DOS", "DAS", "EM", "E"}
-    words = set(b.split()) - stop
-    return bool(words) and words <= set(re.findall(r"\w+", a))
+    label_tokens = [(m.group(1), bool(m.group(2))) for m in _COURSE_TOKEN_RE.finditer(a)]
+    course_tokens = [(m.group(1), bool(m.group(2))) for m in _COURSE_TOKEN_RE.finditer(b)]
+    words = [(w, dot) for w, dot in course_tokens if w not in _COURSE_STOP_WORDS] or course_tokens
+    if not words or not label_tokens:
+        return False
+
+    def matches(course_word: str, course_dot: bool, label_word: str, label_dot: bool) -> bool:
+        if course_word == label_word:
+            return True
+        if (len(label_word) >= 3 or (label_dot and len(label_word) >= 2)) and course_word.startswith(label_word):
+            return True
+        if (len(course_word) >= 3 or (course_dot and len(course_word) >= 2)) and label_word.startswith(course_word):
+            return True
+        return False
+
+    return all(any(matches(w, w_dot, t, t_dot) for t, t_dot in label_tokens) for w, w_dot in words)
+
+
+def course_in_class(label: str, course: str) -> bool:
+    return _course_in_class_norm(normalize(label), normalize(course))
 
 
 def grade_value(value, *, max_grade: int = 10) -> str | None:
@@ -138,18 +178,22 @@ def align_sophia_row(row: list[str], line: int, width: int) -> list[str]:
 def read_file(path: Path) -> pd.DataFrame:
     if not path.is_file():
         raise ValueError("O arquivo selecionado não existe.")
-    if path.suffix.lower() == ".csv":
+    suffix = path.suffix.lower()
+    if suffix == ".csv":
+        raw_bytes = path.read_bytes()
         rows = None
+        delimiter = ","
         for encoding in ("utf-8-sig", "cp1252", "latin1"):
             try:
-                content = path.read_text(encoding=encoding)
+                content = raw_bytes.decode(encoding)
             except UnicodeDecodeError:
                 continue
             sample = content[:65536]
             try:
                 delimiter = csv.Sniffer().sniff(sample, delimiters=",;\t").delimiter
             except csv.Error:
-                delimiter = max(",;\t", key=lambda sep: len(next(csv.reader([content.splitlines()[0]], delimiter=sep)))) if content.strip() else ","
+                first_line = content.partition("\n")[0].rstrip("\r")
+                delimiter = max(",;\t", key=lambda sep: len(next(csv.reader([first_line], delimiter=sep)))) if content.strip() else ","
             rows = list(csv.reader(io.StringIO(content), delimiter=delimiter))
             break
         if not rows or len(rows[0]) < 2:
@@ -160,20 +204,24 @@ def read_file(path: Path) -> pd.DataFrame:
         values = []
         sophia_export = delimiter == "," and [normalize(h) for h in headers[:20]] == [normalize(h) for h in SOPHIA_HEADERS]
         repaired = []
+        expected_width = len(headers)
         for line, row in enumerate(rows[1:], 2):
             if not row or not any(row):
                 continue
             if sophia_export:
-                aligned = align_sophia_row(row, line, len(headers))
+                aligned = align_sophia_row(row, line, expected_width)
                 if aligned != row:
                     repaired.append(line)
                 row = aligned
-            if len(row) != len(headers):
+            if len(row) != expected_width:
                 raise ValueError(f"CSV com quantidade incorreta de campos na linha {line}; nenhuma linha será descartada silenciosamente.")
             values.append(row)
+        if not values:
+            raise ValueError("A planilha não contém registros.")
         frame = pd.DataFrame(values, columns=headers)
         frame.attrs["csv_normalized_rows"] = repaired
-    elif path.suffix.lower() == ".xlsx":
+        return frame
+    if suffix == ".xlsx":
         # pandas converte erros de fórmula do Excel para NaN mesmo com
         # keep_default_na=False. Preservar o erro para não chamá-lo de vazio.
         with path.open("rb") as source:
@@ -187,29 +235,39 @@ def read_file(path: Path) -> pd.DataFrame:
                 columns = [str(c).strip() if c is not None else f"Unnamed: {i}" for i, c in enumerate(first)]
                 if len(set(columns)) != len(columns):
                     raise ValueError("Há cabeçalhos duplicados. Renomeie as colunas da planilha.")
-                frame = pd.DataFrame([[str(value) if value is not None else "" for value in row] for row in rows], columns=columns)
+                width = len(columns)
+                data_rows = []
+                for row in rows:
+                    converted = [str(value) if value is not None else "" for value in row[:width]]
+                    if len(converted) < width:
+                        converted.extend([""] * (width - len(converted)))
+                    data_rows.append(converted)
+                if not data_rows:
+                    raise ValueError("A planilha não contém registros.")
+                return pd.DataFrame(data_rows, columns=columns)
             finally:
                 book.close()
-    elif path.suffix.lower() == ".xls":
+    if suffix == ".xls":
         with pd.ExcelFile(path) as book:
             sheet = next((s for s in book.sheet_names if any(k in normalize(s) for k in ("NOTA", "LANCAMENTO", "ALUNO", "RESPOSTA"))), book.sheet_names[0])
             frame = pd.read_excel(book, sheet_name=sheet, dtype=str, keep_default_na=False)
             frame.columns = [str(c).strip() for c in frame.columns]
-    else:
-        raise ValueError("Escolha um arquivo .csv, .xlsx ou .xls.")
-    if frame.empty:
-        raise ValueError("A planilha não contém registros.")
-    return frame.fillna("").astype(str)
+        if frame.empty:
+            raise ValueError("A planilha não contém registros.")
+        return frame.fillna("").astype(str)
+    raise ValueError("Escolha um arquivo .csv, .xlsx ou .xls.")
 
 
 def detect_column(columns, keywords) -> str:
-    for key in keywords:
-        found = next((c for c in columns if normalize(c) == normalize(key)), None)
+    normalized_cols = [(col, normalize(col)) for col in columns]
+    normalized_keys = [(key, normalize(key)) for key in keywords]
+    for _, key_norm in normalized_keys:
+        found = next((col for col, col_norm in normalized_cols if col_norm == key_norm), None)
         if found:
             return found
-    for key in keywords:
+    for key, key_norm in normalized_keys:
         if len(key) > 2:
-            found = next((c for c in columns if normalize(key) in normalize(c).replace("_", " ").split()), None)
+            found = next((col for col, col_norm in normalized_cols if key_norm in col_norm.replace("_", " ").split()), None)
             if found:
                 return found
     return ""
@@ -255,26 +313,43 @@ def records_from_frame(frame: pd.DataFrame, columns: Columns, courses: tuple[str
     if not courses:
         raise ValueError("Selecione pelo menos um curso.")
     selected = {normalize(c) for c in courses}
+    names = frame[columns.name].tolist()
+    course_values = frame[columns.course].tolist()
+    disciplines = frame[columns.discipline].tolist()
+    grades = frame[columns.grade].tolist()
+    registrations = frame[columns.registration].tolist() if columns.registration else None
+    unit_values = frame[columns.unit].tolist() if columns.unit else None
+    adjacent_values = None
+    if columns.unit:
+        position = frame.columns.get_loc(columns.unit)
+        if isinstance(position, int) and position + 1 < len(frame.columns):
+            adjacent_values = frame.iloc[:, position + 1].tolist()
+
+    def clean_str(val) -> str:
+        if isinstance(val, str):
+            return val.strip()
+        if val is None or (isinstance(val, float) and math.isnan(val)):
+            return ""
+        return str(val).strip()
+
     result = []
-    for idx, (_, row) in enumerate(frame.iterrows()):
-        if normalize(row[columns.course]) not in selected:
+    for idx, (name_val, course_val, disc_val, grade_val) in enumerate(zip(names, course_values, disciplines, grades)):
+        if normalize(course_val) not in selected:
             continue
         candidates = []
-        if columns.unit:
-            value = row[columns.unit]
+        if unit_values is not None:
+            value = unit_values[idx]
             if usable_unit(value):
                 candidates.append(unit_name(value))
-            else:
+            elif adjacent_values is not None:
                 # Exportação SophiA observada: CampusPolo contém Chamada e o
                 # nome do polo foi deslocado uma coluna para a direita.
-                position = list(frame.columns).index(columns.unit)
-                if position + 1 < len(frame.columns):
-                    adjacent = row.iloc[position + 1]
-                    if usable_unit(adjacent):
-                        candidates.append(unit_name(adjacent))
-        result.append(Record(idx, idx + 2, row[columns.name].strip(), row[columns.course].strip(),
-                             row[columns.discipline].strip(), row[columns.grade].strip(),
-                             identifier(row[columns.registration]) if columns.registration else "", tuple(candidates)))
+                adjacent = adjacent_values[idx]
+                if usable_unit(adjacent):
+                    candidates.append(unit_name(adjacent))
+        reg = identifier(registrations[idx]) if registrations is not None else ""
+        result.append(Record(idx, idx + 2, clean_str(name_val), clean_str(course_val),
+                             clean_str(disc_val), clean_str(grade_val), reg, tuple(candidates)))
     if not result:
         raise ValueError("Não há registros para os cursos selecionados.")
     return result
